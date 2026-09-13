@@ -1,0 +1,104 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#12131c] text-slate-100 overflow-hidden select-none antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pixelify Sans", sans-serif;
+  }
+}
+
+.font-pixel {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+}
+
+.font-terminal {
+  font-family: 'VT323', monospace, monospace;
+}
+
+.font-silkscreen {
+  font-family: 'Silkscreen', cursive, sans-serif;
+}
+
+/* Classic System 7 Vintage Titlebar Stripes */
+.mac-stripes {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.25) 0px,
+    rgba(255, 255, 255, 0.25) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+.mac-stripes-dark {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4) 0px,
+    rgba(0, 0, 0, 0.4) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+/* 3D Beveled Buttons and Windows */
+.retro-bevel {
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+  border-left: 2px solid rgba(255, 255, 255, 0.5);
+  border-right: 2px solid rgba(0, 0, 0, 0.6);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.6);
+}
+
+.retro-inset {
+  border-top: 2px solid rgba(0, 0, 0, 0.7);
+  border-left: 2px solid rgba(0, 0, 0, 0.7);
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.retro-btn {
+  border-top: 2px solid rgba(255, 255, 255, 0.6);
+  border-left: 2px solid rgba(255, 255, 255, 0.6);
+  border-right: 2px solid rgba(0, 0, 0, 0.7);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.7);
+  transition: all 0.05s ease-in-out;
+}
+
+.retro-btn:active {
+  border-top: 2px solid rgba(0, 0, 0, 0.7);
+  border-left: 2px solid rgba(0, 0, 0, 0.7);
+  border-right: 2px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+  transform: translate(1px, 1px);
+}
+
+/* Optional Soft CRT Filter (only when toggled on, never harsh) */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.08) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* Retro Scrollbars */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #2a2d38;
+  border: 1px solid #111;
+}
+::-webkit-scrollbar-thumb {
+  background: #4f586d;
+  border-top: 2px solid #75829e;
+  border-left: 2px solid #75829e;
+  border-right: 2px solid #282c37;
+  border-bottom: 2px solid #282c37;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #616c84;
+}
