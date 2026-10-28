@@ -1,0 +1,50 @@
+[
+  {
+    "purpose": "search",
+    "look": 1,
+    "bundle": "0001-search",
+    "data_origin": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+    "recipe_signature": "48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c",
+    "raw_verdict": {
+      "outcome": "FAIL",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 3.0,
+      "recovery": 1.0
+    },
+    "decision": {
+      "outcome": "FAIL",
+      "policy": "strict fixed-size block"
+    },
+    "effective_verdict": {
+      "outcome": "FAIL",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 3.0,
+      "recovery": 1.0
+    },
+    "elapsed_s": 0.015999999945051968
+  },
+  {
+    "purpose": "validation",
+    "look": 1,
+    "bundle": "0002-validation",
+    "data_origin": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+    "recipe_signature": "48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c",
+    "raw_verdict": {
+      "outcome": "FAIL",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 3.0,
+      "recovery": 1.0
+    },
+    "decision": {
+      "outcome": "FAIL",
+      "policy": "strict fixed-size block"
+    },
+    "effective_verdict": {
+      "outcome": "FAIL",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 3.0,
+      "recovery": 1.0
+    },
+    "elapsed_s": 0.03100000007543713
+  }
+]

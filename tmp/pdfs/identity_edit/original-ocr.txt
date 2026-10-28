@@ -1,0 +1,221 @@
+PAGE 1
+NAME:M.SHAMYUKTHA C1 CAT 2 PAPER
+REGISTER NUMBER: 24BIT0476
+
+b) An 8051-based system uses an 11.0592 MHz crystal. An LED is connected to P1.0.
+Write a program using Timer 0 in Mode | and a timer interrupt to toggle the LED every
+10 ms. Your program should:
+
+Configure Timer 0.
+Calculate the initial values of THO and TLO.
+
+Enable Timer 0 interrupt.
+
+Enable global interrupts.
+
+Reload the timer inside the ISR.
+
+Toggle P1.0 after the required number of interrupts.
+
+Show the calculations clearly
+
+41, Calculations
+
+Step Working,
+Machine cyte time 2 f Fs ose Miz = 1.0851 is_(timer clock = 11.0592 MHz / 12 =
+Counts needed for 10 ms 10 ms / 1.0851 ps = 10 x 10 x 921 600 = 9216 counts
+Initial count (Mode 1, 16-bit) 65536 - 9216 = 56320 (decimal)
+Convert to hex 56320 = OxDCO0
+Initial values THO TO = 00H
+
+TMOD value
+
+Interrupts per toggle
+
+Timer 0, Mode 4, timer (C/T = 0), GATE =0_-> TMOD = 0000 00016 =
+o1H
+
+Timer overflow already occurs every 10 ms, so 1 interrupt = 1 toggle.
+LED period = 20 ms (50 H2).
+
+PAGE 2
+OUTPUT:
+
+Source code and successful build:
+1 ncn sa
+
+rrr career
+Cerro an nase
+
+EEC
+
+Bele leoo aS
+
+Ee and
+
+Sees done conse
+
+oer me,
+Â°
+
+10 kev To,
+{8 ov 20, p00"
+20 wow run, 4008
+2 cmd
+
+22 sere m0
+
+23 ier
+
+Build target â€˜Target 1Â°
+
+embling final.asm...
+
+linking...
+
+Program Size: data=8.0 xdata=0 code=78
+".\Objects\final" - 0 Error(s), 0 Warning(s).
+Build Time Elapsed: 00:00:01
+
+
+PAGE 3
+DEBUG:
+
+Timer 0 loaded with ini
+
+values (before first overflow)
+
+â€˜ eo|P Ran eee ule vari@-e
+S| GO) Meo 0) +|FAasiaa-o-9-m-o
+
+ee Bove
+Swe Sas
+: â€”â€”â€”
+& os $ torr, stoct Pore! Port x
+we - _ TT SenBomd
+5 00 Bo reo BF RRRRRRP
+> Ome,
+res concoxe a6 soe mee
+SS ;
+re OS 3
+= = fs
+ee
+Js!
+el
+
+: After the 4st interrupt â€” P1.0 toggled
+Reu@|)seioclepaaniax
+#)0e)000 vi>/Saamiaa Sea
+
+vae|@\0ooe@ a4
+
+= 9
+
+ae â€”
+
+tw Bram fermem all! | hae doePbont
+> 00 Bo se [row = pe BF ywEEEE
+OS Bo exe neofer |
+zw S. Piece wee ne
+fo fears fae
+Shee MB BS ee por
+
+leh J+)
+
+at
+
+
+PAGE 4
+Caei@ coe las
+
+[neti 3) SS bomBboed
+Pm z eae
+tom ne Ba â€”â€”â€”
+mop BT
+
+<i
+
+A smart irrigation controller communicates with four field monitoring units over a
+common serial communication bus. Each field unit transmits an 8-bit soil-moisture
+reading along with a 9th bit used to distinguish between address/control information
+and ordinary sensor data. The central controller is based on an 8051 microcontroller
+with a 14.7456 MHz crystal. The communication system must operate at a baud rate of
+9600 bps. Develop an 8051 assembly language program for the central controller with
+the following requirements:
+Â© Configure the UART for 9-bit communication and enable multiprocessor
+communication.
+Continuously monitor the common serial bus for incoming frames.
+Â© Transfer the received 9th bit (RB8) to the Carry flag.
+Â© If the 9th 0, treat the received byte as a soil-moisture data frame and
+display the 8-bit value on Port PI.
+Â© Ifthe 9th bit is 1, treat the received byte as an address/control frame and do not
+display it on P1.
+Â© Ifa valid soil-moisture value is below 40H, turn ON an irrigation indicator
+* LED connected to P2.0; otherwise, turn it OFF,
+Continue receiving and processing subsequent frames indefinitely.
+
+
+PAGE 5
+Fle Eat ew Proje fash Debup Fetphens Tots SYS Window Hep
+
+eae s locles|taan eee wl@ varl@
+SHG Sa] RK woes Vs BROT we
+9 4S Project nat E// SERMORTER SABITOOTE
+oe foe =
+2a caceoapt
+Team
+
+
+PAGE 6
+INPUT IS 30 SO LED IS ON
+
+Awe e|*s Seloclenle nani ae ta) Dkr Oe
+e|BOHFe u ook amSa- Bea.
+(SCOR :
+=â€”â€”_=â€” =
+= EF Cavan 98 ies Folie
+â€” (FB rarae $B crmerr |
+a ae Be rom
+S SS seen BT oe
+a Se, Neon Bae
+
+LED OFF WHEN INPUT GREATER THAAN 40
+
+DSUs seBlociesiPAnn eee lw <ari@ie
+BO Hho u)* SB amo:
+
+ag gesee SSESSEEE if
+
+ee
+i
+
+
+PAGE 7
+When input greater than 40
+
+Serial Channel x
+
+Mode: [EERE ~]
+SCON: [0xD0 SADDR: [0x00
+rsm2 7 Tes 9 Res
+TF swopo FEM REN
+( Baudrate
+
+ smop1 F RCLK I~ TcLK
+I RecK I Teck
+
+BRL: [000 -- BRR
+Tx Baudrate: [9600 [- spp
+Rx Baudrate: [9600 - sAc
+
+Parallel Port 2 x
+Port 2:
+
+72: [oF RRP w
+Ps: [OFF VV
+
+IRQ.
+rq ra
+
+
+PAGE 8

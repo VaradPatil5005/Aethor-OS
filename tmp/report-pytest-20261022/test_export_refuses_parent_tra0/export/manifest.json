@@ -1,0 +1,10 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "../outside": "bad",
+    "results.json": "bad",
+    "recipe-template.json": "bad",
+    "environment.json": "bad",
+    "REPLICATION.md": "bad"
+  }
+}

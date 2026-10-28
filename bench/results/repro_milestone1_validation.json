@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-16",
+  "milestone": "experiment protocol and plain reduction baseline",
+  "checks": {
+    "python_tests_passed": 66,
+    "original_python_tests_retained": 20,
+    "frontend_tests_passed": 37,
+    "production_build": "passed"
+  },
+  "fixture": {
+    "data_origin": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+    "actions_before": 4,
+    "actions_after": 2,
+    "action_deletion_one_minimal": true,
+    "fresh_validation": "reproduced fixture condition",
+    "candidate_blocks_including_validation": 10,
+    "local_bundle": "traces/repro/20261016-demo-final"
+  },
+  "live_smoke": {
+    "data_origin": "live measurement",
+    "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "driver": "581.83",
+    "target": "synthetic CUDA write probe",
+    "target_allocated_bytes": 67108864,
+    "target_work_units": 2048,
+    "holder_requested_bytes": 134217728,
+    "matched_blocks": 1,
+    "baseline_latency_ms": 843.0,
+    "pressure_latency_ms": 844.0,
+    "recovery_latency_ms": 844.0,
+    "pressure_overlap_samples": 8,
+    "outcome": "PASS",
+    "interpretation": "valid non-reproduction at the declared 2x threshold",
+    "owned_helper_identities_confirmed_exited": 6,
+    "allocation_release_events": "verified",
+    "integrity_manifest": "verified",
+    "legacy_replay_reader": "three stage traces read successfully",
+    "local_bundle": "traces/repro/20261016-smoke-final",
+    "limitation": "single small synthetic integration check; not a real application, spill reproduction or causal residency result"
+  },
+  "open_gates": [
+    "real application workload and timing adapter",
+    "repeatable slowdown and recovery under controlled pressure",
+    "clock, temperature, power and resource confounder instrumentation",
+    "phase/residency-aware reduction and comparison against this plain baseline",
+    "independent witness validation and acceptable remedy experiments",
+    "experiment-report dashboard integration"
+  ]
+}

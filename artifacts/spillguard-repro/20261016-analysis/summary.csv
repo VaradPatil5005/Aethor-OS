@@ -1,0 +1,5 @@
+recipe_signature,purpose,data_origin,planned_blocks,reproduced,valid_non_reproductions,invalid_or_missing,reproduction_fraction_all_planned,median_slowdown
+1d537131999af69e84855df0cae4d6ef7074370b4ffb572a2312799afc781c8c,standalone,live measurement,1,0,1,0,0.0,1.0180203139510264
+c88b4cc8b4392c24633263868af65420892a91a0940c01fb536e1f67771d0cb8,calibration,live measurement,1,0,1,0,0.0,1.0190289308578282
+6b492d9590bbf847cbd4d552ab68f26102aafff2c17ae1f1096cd08ae72e547a,calibration,live measurement,1,0,0,1,0.0,
+f40bbb6ad0248799b2cda81caa8cce539443e5d37af6ff72e73a2011907555c5,standalone,live measurement,1,0,1,0,0.0,1.0

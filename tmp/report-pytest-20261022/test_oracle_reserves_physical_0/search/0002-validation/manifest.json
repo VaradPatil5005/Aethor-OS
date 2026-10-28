@@ -1,0 +1,8 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "recipe.json": "c24f95c17b382a3d332340a8759a5ab91801c0806c289b4f7ac5f28668eaf5be",
+    "report.json": "56d05973b5b47ff5958a4373ce6cf06d5f05425fa806b633234938e211856d9f",
+    "report.md": "4d8c9f1ac8102303d9811c15f17bf617a9dac48ac49af4021f138fe6d60cd80f"
+  }
+}

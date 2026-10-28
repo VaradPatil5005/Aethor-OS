@@ -1,0 +1,41 @@
+{
+  "data_origin": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+  "methods": [
+    {
+      "method": "greedy",
+      "actions": 2,
+      "calls": 8,
+      "one_minimal": true
+    },
+    {
+      "method": "ddmin",
+      "actions": 2,
+      "calls": 12,
+      "one_minimal": true
+    },
+    {
+      "method": "probdd-style",
+      "actions": 2,
+      "calls": 10,
+      "one_minimal": true
+    },
+    {
+      "method": "no-reduction",
+      "actions": 4,
+      "calls": 2,
+      "one_minimal": false
+    },
+    {
+      "method": "exhaustive",
+      "actions": 2,
+      "calls": 11,
+      "one_minimal": true
+    },
+    {
+      "method": "phase-aware",
+      "actions": 2,
+      "calls": 8,
+      "one_minimal": true
+    }
+  ]
+}

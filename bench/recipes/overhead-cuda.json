@@ -1,0 +1,6 @@
+{
+  "name": "overhead-cuda",
+  "actions": [],
+  "workload": {"kind": "cuda_probe", "allocated_bytes": 67108864, "iterations": 8192, "warmup_ms": 1000},
+  "protocol": {"timeout_s": 20, "repeats": 1, "min_available_host_bytes": 1610612736}
+}

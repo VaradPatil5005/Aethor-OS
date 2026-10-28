@@ -1,0 +1,94 @@
+{
+  "data_origin": "historical W1 replay; not new live measurements",
+  "runs": [
+    {
+      "trace": "traces/w1/fallback_on_r1.trace.jsonl",
+      "historical_bandwidth_label": true,
+      "frame_count": 108,
+      "observed_duration_s": 106.99399995803833,
+      "existing_heuristic": {
+        "detected": true,
+        "false_positives": 0,
+        "latency_s": 0.98
+      },
+      "fixed_threshold": {
+        "detected": true,
+        "false_positives": 0,
+        "latency_s": -0.015999794006347656
+      }
+    },
+    {
+      "trace": "traces/w1/fallback_on_r2.trace.jsonl",
+      "historical_bandwidth_label": true,
+      "frame_count": 108,
+      "observed_duration_s": 106.99300003051758,
+      "existing_heuristic": {
+        "detected": true,
+        "false_positives": 0,
+        "latency_s": 0.96
+      },
+      "fixed_threshold": {
+        "detected": true,
+        "false_positives": 0,
+        "latency_s": -0.046000003814697266
+      }
+    },
+    {
+      "trace": "traces/w1/fallback_on_r3.trace.jsonl",
+      "historical_bandwidth_label": true,
+      "frame_count": 108,
+      "observed_duration_s": 107.00400018692017,
+      "existing_heuristic": {
+        "detected": true,
+        "false_positives": 0,
+        "latency_s": 0.92
+      },
+      "fixed_threshold": {
+        "detected": true,
+        "false_positives": 0,
+        "latency_s": -0.08100008964538574
+      }
+    },
+    {
+      "trace": "traces/w1/nearfull_nospill_r1.trace.jsonl",
+      "historical_bandwidth_label": false,
+      "frame_count": 93,
+      "observed_duration_s": 91.99300003051758,
+      "existing_heuristic": {
+        "detected": false,
+        "false_positives": 0,
+        "latency_s": null
+      },
+      "fixed_threshold": {
+        "detected": false,
+        "false_positives": 0,
+        "latency_s": null
+      }
+    },
+    {
+      "trace": "traces/w1/nearfull_nospill_r2.trace.jsonl",
+      "historical_bandwidth_label": false,
+      "frame_count": 93,
+      "observed_duration_s": 92.00399994850159,
+      "existing_heuristic": {
+        "detected": false,
+        "false_positives": 0,
+        "latency_s": null
+      },
+      "fixed_threshold": {
+        "detected": false,
+        "false_positives": 0,
+        "latency_s": null
+      }
+    }
+  ],
+  "fixed_threshold": {
+    "shared_mb": 256,
+    "dedicated_load": 0.92
+  },
+  "hypomnesis": {
+    "status": "not evaluated",
+    "reason": "no pinned matched executable/integration available"
+  },
+  "limits": "same five exploratory traces, no holdout; bandwidth-derived labels are proxies, not direct residency truth; no ordinary-session false-alarm-per-hour estimate"
+}

@@ -1,0 +1,59 @@
+{
+ "os": "Windows 11 build 10.0.26200",
+ "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+ "ram_mb": 15654,
+ "logical_cpus": 16,
+ "nvidia_driver": "581.83",
+ "adapters": [
+  {
+   "luid": "luid_0x00000000_0x00017fb0",
+   "name": "Microsoft Basic Render Driver",
+   "vendor": "Microsoft",
+   "vendor_id": 5140,
+   "dedicated_vram_mb": 0,
+   "shared_system_mb": 7827,
+   "software": false,
+   "budget_local_mb": 7180,
+   "usage_local_mb": 0,
+   "budget_nonlocal_mb": 0
+  },
+  {
+   "luid": "luid_0x00000000_0x00018056",
+   "name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+   "vendor": "NVIDIA",
+   "vendor_id": 4318,
+   "dedicated_vram_mb": 6002,
+   "shared_system_mb": 7827,
+   "software": false,
+   "budget_local_mb": 5234,
+   "usage_local_mb": 0,
+   "budget_nonlocal_mb": 7180
+  },
+  {
+   "luid": "luid_0x00000000_0x00017fea",
+   "name": "Microsoft Basic Render Driver",
+   "vendor": "Microsoft",
+   "vendor_id": 5140,
+   "dedicated_vram_mb": 0,
+   "shared_system_mb": 7827,
+   "software": true,
+   "budget_local_mb": 7180,
+   "usage_local_mb": 0,
+   "budget_nonlocal_mb": 0
+  }
+ ],
+ "primary_luid": "luid_0x00000000_0x00018056",
+ "pdh_counters": [
+  "\\GPU Process Memory(*)\\Dedicated Usage",
+  "\\GPU Process Memory(*)\\Shared Usage",
+  "\\GPU Process Memory(*)\\Total Committed",
+  "\\GPU Adapter Memory(*)\\Dedicated Usage",
+  "\\GPU Adapter Memory(*)\\Shared Usage",
+  "\\Memory\\Committed Bytes",
+  "\\Memory\\Commit Limit",
+  "\\Memory\\Available MBytes",
+  "\\Memory\\Pages/sec",
+  "\\Paging File(_Total)\\% Usage"
+ ],
+ "python": "3.12.6"
+}

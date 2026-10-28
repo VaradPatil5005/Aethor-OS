@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-16",
+  "milestone": "frozen Ollama workload, streamed timing, phase triggers and owned inference lifecycle",
+  "automated_python_tests_passed": 112,
+  "frozen_workload": {
+    "model": "qwen2.5:3b-instruct",
+    "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+    "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+    "context_tokens": 2048,
+    "requested_output_tokens": 128,
+    "temperature": 0,
+    "seed": 0
+  },
+  "native_server_only_check": {
+    "version": "0.34.4",
+    "private_port_ownership": "verified",
+    "loaded_models": 0,
+    "remaining_owned_processes": 0,
+    "local_artifact": "traces/repro/20261016-private-server-check/result.json"
+  },
+  "development_attempts": [
+    {"bundle": "traces/repro/20261016-ollama-smoke", "outcome": "INCONCLUSIVE", "reason": "job-object constructor error before inference; corrected"},
+    {"bundle": "traces/repro/20261016-ollama-smoke-r2", "outcome": "INCONCLUSIVE", "reason": "short HTTP-readiness timeout during GPU discovery; corrected"},
+    {"bundle": "traces/repro/20261016-ollama-smoke-r3", "outcome": "INCONCLUSIVE", "reason": "2 GiB host floor prevented model launch"},
+    {"bundle": "traces/repro/20261016-ollama-smoke-r4", "outcome": "INCONCLUSIVE", "reason": "warmup completed; 2 GiB host floor prevented measured requests", "owned_process_identities_confirmed_exited": 15}
+  ],
+  "valid_small_smoke": {
+    "bundle": "traces/repro/20261016-ollama-smoke-1536mib",
+    "data_origin": "live local model measurement",
+    "recipe": "bench/recipes/ollama-qwen25-smoke-1536mib.json",
+    "explicit_host_floor_bytes": 1610612736,
+    "default_host_floor_bytes_unchanged": 2147483648,
+    "minimum_observed_available_host_bytes": 1950351360,
+    "holder_allocated_bytes": 134217728,
+    "primary_metric": "decode_ms_per_token",
+    "baseline": 13.948234375,
+    "pressure": 14.1995859375,
+    "recovery": 13.9866953125,
+    "completion_ms": {"baseline": 1843.0, "pressure": 1860.0, "recovery": 1828.0},
+    "tokens_each_stage": 128,
+    "output_hashes_match": true,
+    "pressure_overlap_samples": 14,
+    "outcome": "PASS",
+    "pressure_to_baseline_ratio": 1.0180203139510264,
+    "recovery_to_baseline_ratio": 1.0027574054511827,
+    "owned_process_identities_confirmed_exited": 18,
+    "integrity_manifest": "verified",
+    "stage_traces_read_by_existing_replay_reader": 3
+  },
+  "interpretation": "One valid non-reproduction block under the explicitly lower host-floor profile. Earlier inconclusive attempts remain separate. No severe slowdown, residency cause, repeatability rate, remedy benefit or mechanism-preserving reduction has been established."
+}

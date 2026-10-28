@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "method": "no-reduction",
+  "data_origin": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+  "original_recipe": {
+    "name": "fixture-demo",
+    "actions": [
+      {
+        "id": "irrelevant-a",
+        "allocated_bytes": 16777216,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 0,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      },
+      {
+        "id": "capacity",
+        "allocated_bytes": 134217728,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 0,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      },
+      {
+        "id": "touch",
+        "allocated_bytes": 67108864,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 100,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      },
+      {
+        "id": "irrelevant-b",
+        "allocated_bytes": 16777216,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 0,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      }
+    ],
+    "workload": {
+      "kind": "cuda_probe",
+      "allocated_bytes": 67108864,
+      "iterations": 2048,
+      "warmup_ms": 500
+    },
+    "protocol": {
+      "repeats": 3,
+      "slowdown_ratio": 2.0,
+      "recovery_ratio": 1.25,
+      "min_pressure_fraction": 0.5,
+      "min_overlap_samples": 2,
+      "sample_interval_ms": 100,
+      "lead_in_ms": 500,
+      "cooldown_ms": 1000,
+      "timeout_s": 30,
+      "max_requested_bytes": 1073741824,
+      "min_available_host_bytes": 2147483648,
+      "preparation": "warm",
+      "idle_ms": 3000,
+      "treatment_order": "fixed"
+    },
+    "schema_version": 1,
+    "seed": 0
+  },
+  "reduced_recipe": {
+    "name": "fixture-demo",
+    "actions": [
+      {
+        "id": "irrelevant-a",
+        "allocated_bytes": 16777216,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 0,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      },
+      {
+        "id": "capacity",
+        "allocated_bytes": 134217728,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 0,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      },
+      {
+        "id": "touch",
+        "allocated_bytes": 67108864,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 100,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      },
+      {
+        "id": "irrelevant-b",
+        "allocated_bytes": 16777216,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 0,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      }
+    ],
+    "workload": {
+      "kind": "cuda_probe",
+      "allocated_bytes": 67108864,
+      "iterations": 2048,
+      "warmup_ms": 500
+    },
+    "protocol": {
+      "repeats": 3,
+      "slowdown_ratio": 2.0,
+      "recovery_ratio": 1.25,
+      "min_pressure_fraction": 0.5,
+      "min_overlap_samples": 2,
+      "sample_interval_ms": 100,
+      "lead_in_ms": 500,
+      "cooldown_ms": 1000,
+      "timeout_s": 30,
+      "max_requested_bytes": 1073741824,
+      "min_available_host_bytes": 2147483648,
+      "preparation": "warm",
+      "idle_ms": 3000,
+      "treatment_order": "fixed"
+    },
+    "schema_version": 1,
+    "seed": 0
+  },
+  "history": [
+    {
+      "purpose": "search",
+      "transform": "original",
+      "recipe_signature": "48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c",
+      "size": [
+        4,
+        1174405120000,
+        234881024,
+        20000
+      ],
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "fixture",
+        "slowdown": null,
+        "recovery": null
+      },
+      "raw_verdict": {
+        "outcome": "FAIL",
+        "reason": "fixture",
+        "slowdown": null,
+        "recovery": null
+      },
+      "signature": {
+        "kind": "fixture-proxy",
+        "workload_signature": "fixture-work",
+        "environment_signature": "fixture-environment",
+        "phases": [
+          "pressure"
+        ],
+        "shared_growth_bytes": 0,
+        "dedicated_loss_fraction": 0,
+        "overlap_fraction": 0.9,
+        "counter_disagreement": false,
+        "coverage_samples": 10,
+        "evidence_type": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS"
+      },
+      "signature_retained": null,
+      "bundle": null
+    },
+    {
+      "purpose": "validation",
+      "transform": "fresh-final",
+      "recipe_signature": "48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c",
+      "size": [
+        4,
+        1174405120000,
+        234881024,
+        20000
+      ],
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "fixture",
+        "slowdown": null,
+        "recovery": null
+      },
+      "raw_verdict": {
+        "outcome": "FAIL",
+        "reason": "fixture",
+        "slowdown": null,
+        "recovery": null
+      },
+      "signature": {
+        "kind": "fixture-proxy",
+        "workload_signature": "fixture-work",
+        "environment_signature": "fixture-environment",
+        "phases": [
+          "pressure"
+        ],
+        "shared_growth_bytes": 0,
+        "dedicated_loss_fraction": 0,
+        "overlap_fraction": 0.9,
+        "counter_disagreement": false,
+        "coverage_samples": 10,
+        "evidence_type": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS"
+      },
+      "signature_retained": null,
+      "bundle": null
+    }
+  ],
+  "original_size": [
+    4,
+    1174405120000,
+    234881024,
+    20000
+  ],
+  "reduced_size": [
+    4,
+    1174405120000,
+    234881024,
+    20000
+  ],
+  "transforms": [
+    "delete"
+  ],
+  "fresh_validation": {
+    "outcome": "FAIL",
+    "reason": "fixture",
+    "slowdown": null,
+    "recovery": null
+  },
+  "one_minimal": false,
+  "global_minimum_claimed": false,
+  "budget_exhausted": false,
+  "max_tests": 40,
+  "executed_tests": 2,
+  "elapsed_s": 0.014999999984866008,
+  "stop_reason": "search complete under declared transforms",
+  "mechanism": "observed proxy only; direct residency validation still required"
+}

@@ -1,0 +1,10 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "private.log": "8f94e1e7a74fc50d16cf41c9b9b7250c024d7c5daff12255145a257ea7440a72",
+    "recipe.json": "c24f95c17b382a3d332340a8759a5ab91801c0806c289b4f7ac5f28668eaf5be",
+    "report.json": "39e2a570b9094156e10b588509ee6f4dacd959ed082cbc1d19e8b1fdf4892951",
+    "report.md": "4d8c9f1ac8102303d9811c15f17bf617a9dac48ac49af4021f138fe6d60cd80f",
+    "trial-001-pressure/trace.jsonl": "3416526339dd537f869fab7a6e7c4e459f2ce8f9ed9124e0f414ac7eeab95044"
+  }
+}

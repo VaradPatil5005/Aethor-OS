@@ -1,0 +1,212 @@
+[
+  {
+    "page": 1,
+    "characters": 332,
+    "color_pixels": false,
+    "start": "Vellore Institute of Technology  IT Department  Aethor OS  An Observable Operating Systems Simulator  with Spi",
+    "end": "l Registration Number 24BIT0175  Individual Project  Course Code  BITE303P  Faculty Dr. Harshita Patel  22 October 2026 "
+  },
+  {
+    "page": 2,
+    "characters": 2638,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 2 Project report   \u2022   22 October 2026 Abstract Aethor OS, named",
+    "end": "manual, conclusions and future enhancements. References identify the theoretical sources and retained project evidence. "
+  },
+  {
+    "page": 3,
+    "characters": 2841,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 3 Project report   \u2022   22 October 2026 Novelty and Original Cont",
+    "end": "his is a concrete project contribution. Superiority over existing profilers and global uniqueness remain unestablished. "
+  },
+  {
+    "page": 4,
+    "characters": 2773,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 4 Project report   \u2022   22 October 2026 Novelty Comparison with E",
+    "end": " documentation is compared as accessed on 24 October 2026; feature-level priority dates were not independently audited. "
+  },
+  {
+    "page": 5,
+    "characters": 2554,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 5 Project report   \u2022   22 October 2026 Evidence Supporting the N",
+    "end": "es not establish a globally first detector, a novel general-purpose algorithm, patentability or unmeasured superiority. "
+  },
+  {
+    "page": 6,
+    "characters": 715,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 6 Project report   \u2022   22 October 2026 Contents 2 Abstract 3 Nov",
+    "end": "nce and Discussion 26 11 User Manual and Demonstration Procedure 28 12 Conclusion and Future Enhancements 29 References "
+  },
+  {
+    "page": 7,
+    "characters": 2942,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 7 Project report   \u2022   22 October 2026 1 Introduction and Proble",
+    "end": " established algorithms; the empirical claim concerns the measured local workload and the interventions evaluated here. "
+  },
+  {
+    "page": 8,
+    "characters": 2725,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 8 Project report   \u2022   22 October 2026 2 Background and Related ",
+    "end": "tiveness remain separate evaluation questions; the present results establish the local behavior reported in Chapter 10. "
+  },
+  {
+    "page": 9,
+    "characters": 2880,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 9 Project report   \u2022   22 October 2026 3 Requirements and Develo",
+    "end": " records source history. Varad Patil is responsible for the individual project implementation and demonstration. [6, 7] "
+  },
+  {
+    "page": 10,
+    "characters": 2713,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 10 Project report   \u2022   22 October 2026 4 System Architecture De",
+    "end": " reconnection. These storage mechanisms have distinct lifetimes and should not be described as one persistent database. "
+  },
+  {
+    "page": 11,
+    "characters": 1507,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 11 Project report   \u2022   22 October 2026 5 Operating Systems Algo",
+    "end": "rst tick, updates first response and completion fields, touches allocated frames and publishes a bounded Gantt history. "
+  },
+  {
+    "page": 12,
+    "characters": 3521,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 12 Project report   \u2022   22 October 2026 5.2 Scheduling policies ",
+    "end": "ace and allows user-space addresses through 0xFFFF. A simulated Ring 3 violation creates a register dump and places the "
+  },
+  {
+    "page": 13,
+    "characters": 2214,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 13 Project report   \u2022   22 October 2026 process in WAITING. The ",
+    "end": "ker module addresses declared maximum claims rather than converting every graph cycle into a universal deadlock result. "
+  },
+  {
+    "page": 14,
+    "characters": 2389,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 14 Project report   \u2022   22 October 2026 6 Storage Shell and Obse",
+    "end": "eplay. The shell does not parse general Unix pipelines, execute arbitrary host binaries or implement POSIX job control. "
+  },
+  {
+    "page": 15,
+    "characters": 1512,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 15 Project report   \u2022   22 October 2026 6.3 Event probes The ker",
+    "end": "nd simulated browser Music, Calculator, Messages, Community Supporting desktop interactions; application-level behavior "
+  },
+  {
+    "page": 16,
+    "characters": 2571,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 16 Project report   \u2022   22 October 2026 7 SpillGuard Native Impl",
+    "end": " as a tie-breaker. This is an explanation heuristic, not proof that the selected process caused a paging mechanism. [8] "
+  },
+  {
+    "page": 17,
+    "characters": 2556,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 17 Project report   \u2022   22 October 2026 7.3 Fit estimation The e",
+    "end": "intended loopback workflow; they do not imply protection against arbitrary local code or a compromised browser context. "
+  },
+  {
+    "page": 18,
+    "characters": 2305,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 18 Project report   \u2022   22 October 2026 8 Experimental Framework",
+    "end": "ery checks. PASS means a valid trial remained below that threshold. An error, missing observation, changed environment, "
+  },
+  {
+    "page": 19,
+    "characters": 1829,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 19 Project report   \u2022   22 October 2026 guard stop or mixed repe",
+    "end": "der specified transforms is not a global minimum, and fixture success is not empirical superiority on the real witness. "
+  },
+  {
+    "page": 20,
+    "characters": 2394,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 20 Project report   \u2022   22 October 2026 9 Software Testing and E",
+    "end": "umented scheduler, memory-ownership, VFS-persistence and validation limitations. The interface screenshot in Chapter 10 "
+  },
+  {
+    "page": 21,
+    "characters": 1675,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 21 Project report   \u2022   22 October 2026 records an earlier evide",
+    "end": "rowser workflows need separate validation. These are identified improvement areas, not fabricated failing test results. "
+  },
+  {
+    "page": 22,
+    "characters": 1510,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 22 Project report   \u2022   22 October 2026 10 Results Performance a",
+    "end": "6 3709 14.04 / 14.06 33.31 / 33.07 2.37 / 2.35 FAIL / FAIL 512 3965 14.15 / 14.10 33.61 / 32.18 2.38 / 2.28 FAIL / FAIL "
+  },
+  {
+    "page": 23,
+    "characters": 1981,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 23 Project report   \u2022   22 October 2026 1.0 1.5 2.0 2.5 -512 0 2",
+    "end": "idth and compute interference. Repeated page migration remains a hypothesis pending validated residency-event evidence. "
+  },
+  {
+    "page": 24,
+    "characters": 2425,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 24 Project report   \u2022   22 October 2026 10.4 Remedy evaluation  ",
+    "end": "dent set size. The original 1 Hz agent overhead does not include every later experiment-orchestration cost. [8, 10, 11] "
+  },
+  {
+    "page": 25,
+    "characters": 1571,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 25 Project report   \u2022   22 October 2026 10.6 Interface evidence ",
+    "end": "on the real witness. These limits constrain the interpretation of the measured slowdown and the scope of future claims. "
+  },
+  {
+    "page": 26,
+    "characters": 2688,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 26 Project report   \u2022   22 October 2026 11 User Manual and Demon",
+    "end": "s 8765. A restarted agent uses a new token, so reopen the new printed link if the interface reports an expired session. "
+  },
+  {
+    "page": 27,
+    "characters": 2171,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 27 Project report   \u2022   22 October 2026 11.6 Replay and research",
+    "end": "ios and detector limitations 7 Remedy comparison and limitations Unchanged target work, recovery and scoped conclusions "
+  },
+  {
+    "page": 28,
+    "characters": 2704,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 28 Project report   \u2022   22 October 2026 12 Conclusion and Future",
+    "end": "he immediate priorities are stronger simulator invariants and broader validation of the existing experimental workflow. "
+  },
+  {
+    "page": 29,
+    "characters": 3991,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 29 Project report   \u2022   22 October 2026 References [1] R. H. Arp",
+    "end": "rency Control. arXiv:2601.22705, 30 January 2026. https://arxiv.org/abs/2601.22705 . Preprint accessed 24 October 2026. "
+  },
+  {
+    "page": 30,
+    "characters": 2181,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 30 Project report   \u2022   22 October 2026 [19] M. Lin, K. Zhou and",
+    "end": "m/xptea/VGPU-Mon . Current documentation accessed 24 October 2026; exact feature chronology not independently verified. "
+  }
+]

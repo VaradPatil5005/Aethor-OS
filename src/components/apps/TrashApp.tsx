@@ -18,7 +18,7 @@ export const TrashApp: React.FC = () => {
         onClick={handleFolderClick}
         onDoubleClick={handleFolderClick}
         className={`w-28 flex flex-col items-center p-2 rounded cursor-pointer transition-colors ${
-          selected ? 'bg-blue-100/70 border border-blue-400' : 'hover:bg-slate-100'
+          selected ? 'bg-[var(--rt-soft)]/70 border border-black' : 'hover:bg-slate-100'
         }`}
       >
         <img 
@@ -29,7 +29,7 @@ export const TrashApp: React.FC = () => {
         <span className="text-xs text-black text-center mt-2 font-bold leading-tight">
           I&apos;m just joking... or am I?
         </span>
-        <span className="text-[10px] text-slate-500 text-center mt-0.5">
+        <span className="text-slate-500 text-center mt-0.5 text-[12px]">
           (DO NOT OPEN)
         </span>
       </div>

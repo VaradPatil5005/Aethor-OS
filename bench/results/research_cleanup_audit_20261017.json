@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-17",
+  "bundles": [
+    {
+      "bundle": "traces/repro/20261016-ollama-smoke-1536mib",
+      "report_sha256": "6a1900ed17be762ac48bd4ff89c2339c3b23a4d9a3c0b3025abecd7e324fe683",
+      "integrity": "verified",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "1/1 concordant matched trials",
+        "slowdown": 1.0180203139510264,
+        "recovery": 1.0027574054511827
+      },
+      "complete": true,
+      "exact_owned_identities_confirmed_exited": 18,
+      "event_pid_checks_absent_or_reused": 6,
+      "source_files": 15,
+      "errors": []
+    },
+    {
+      "bundle": "traces/repro/20261016-calibration-pilot/level-128mib",
+      "report_sha256": "ac7b91e0a796bca10b1a9fb966079859afa740f4526df8c5c595e2394df0011b",
+      "integrity": "verified",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "1/1 concordant matched trials",
+        "slowdown": 1.0190289308578282,
+        "recovery": 1.0177086235199202
+      },
+      "complete": true,
+      "exact_owned_identities_confirmed_exited": 18,
+      "event_pid_checks_absent_or_reused": 6,
+      "source_files": 15,
+      "errors": []
+    },
+    {
+      "bundle": "traces/repro/20261016-calibration-pilot/level-1024mib",
+      "report_sha256": "68a9f7d819c5d8aa15d9e636b458b15539832d7bdd3adce8d66b907704af093d",
+      "integrity": "verified",
+      "verdict": {
+        "outcome": "INCONCLUSIVE",
+        "reason": "incomplete or inconclusive fixed-size trial block",
+        "slowdown": null,
+        "recovery": null
+      },
+      "complete": true,
+      "exact_owned_identities_confirmed_exited": 16,
+      "event_pid_checks_absent_or_reused": 6,
+      "source_files": 15,
+      "errors": [
+        "RuntimeError: host commit pressure reached or unavailable",
+        "owned helper required forced termination",
+        "helper exit code 1"
+      ]
+    },
+    {
+      "bundle": "traces/repro/20261016-frozen-source-cuda",
+      "report_sha256": "5bb40c2de2282385c5b1382e4e2806553fcc2c51a3900069d3797c27837620f7",
+      "integrity": "verified",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "1/1 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      },
+      "complete": true,
+      "exact_owned_identities_confirmed_exited": 6,
+      "event_pid_checks_absent_or_reused": 6,
+      "source_files": 35,
+      "errors": []
+    },
+    {
+      "bundle": "traces/repro/20261016-qwen3vl-text-smoke",
+      "report_sha256": "98049045cab867046dec05ef995cd7ee2dfac072945a4ee8ab17fda6363c1316",
+      "integrity": "verified",
+      "verdict": {
+        "outcome": "INCONCLUSIVE",
+        "reason": "run interrupted",
+        "slowdown": null,
+        "recovery": null
+      },
+      "complete": false,
+      "exact_owned_identities_confirmed_exited": 12,
+      "event_pid_checks_absent_or_reused": 3,
+      "source_files": 35,
+      "errors": [
+        "RuntimeError: host commit pressure reached or unavailable",
+        "owned helper required forced termination",
+        "helper exit code 1",
+        "RuntimeError: host commit pressure reached or unavailable",
+        "owned helper required forced termination",
+        "helper exit code 1",
+        "RuntimeError: host commit pressure reached or unavailable",
+        "owned helper required forced termination",
+        "helper exit code 1"
+      ]
+    },
+    {
+      "bundle": "traces/repro/20261017-release-cuda",
+      "report_sha256": "3887961932cd54fb6081f619dfcf06fb8cc54359381a4de3d7fa8fbf964ee167",
+      "integrity": "verified",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "1/1 concordant matched trials",
+        "slowdown": 0.9928373382624769,
+        "recovery": 0.9963031423290203
+      },
+      "complete": true,
+      "exact_owned_identities_confirmed_exited": 12,
+      "event_pid_checks_absent_or_reused": 6,
+      "source_files": 35,
+      "errors": []
+    }
+  ],
+  "limits": "read-only PID/birth and event-time checks; historical missing exact birth identities remain explicitly weaker"
+}

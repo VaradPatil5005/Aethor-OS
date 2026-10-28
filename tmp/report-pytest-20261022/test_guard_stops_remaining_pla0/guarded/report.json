@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "artifact": "experiment record",
+  "synthetic_workload": true,
+  "primary_metric": "completion_ms",
+  "data_origin": "live measurement",
+  "mechanism": "unverified",
+  "recipe_signature": "48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c",
+  "complete": false,
+  "planned_blocks": 3,
+  "metadata": {
+    "backend": "live-cuda",
+    "purpose": "standalone",
+    "data_origin": "live measurement",
+    "started_wall_time_ns": 1792675388047228500,
+    "started_monotonic_ns": 698615093000000,
+    "seed": 0,
+    "seed_usage": "reserved; the fixed-work probe and action schedule are deterministic",
+    "control_order": [
+      "baseline",
+      "pressure",
+      "recovery"
+    ],
+    "unmeasured": [
+      "power_mode",
+      "direct residency events",
+      "exact engine phase timestamps"
+    ],
+    "optional_observations": [
+      "gpu_temperature",
+      "gpu_clocks",
+      "AC/battery",
+      "gpu_utilization",
+      "gpu_power"
+    ],
+    "source_sha256": {
+      "agent/spillguard/advisor.py": "d16032f65d0f01d18ecb3b325273b467b2db3379b70859fe0019282aa5edb84f",
+      "agent/spillguard/analyzer.py": "0a9976264c5d692c9a3f616f93a176c69b98e111b5e0281bab5b137cfb4660be",
+      "agent/spillguard/bankers.py": "b07620d53daa3a3c795ab7ec5f0b8b4393aa3b1ff4f8b17e97d05be90f58995d",
+      "agent/spillguard/collector.py": "1c0531a29bbcd2dd666bae27b564486fcd92bb79e9f920f00e08be89f0f531a0",
+      "agent/spillguard/dxgi.py": "99ab89cac9c57c8f2ee42e3a32159f8a36836364f21fdb108f81a3ffd44d6fb2",
+      "agent/spillguard/gguf_fit.py": "f9ddff09745891e5e9cf7bbe0e113a09fe9b340c5e5f3c3917647ea6667657b5",
+      "agent/spillguard/runtime.py": "3bf2988871e1c4944183685e24f709f4b1ad7f8dbb05f6ddd705f9cf48817b50",
+      "agent/spillguard/server.py": "a4f23c34c6ae141410ff656b98bf745986353efc07f92a881c53068f654698b2",
+      "agent/spillguard/trace.py": "837abd18690b866d49bd6c99d08059e4802244abce16f1bb2a189551a0d82cf7",
+      "agent/spillguard/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "agent/spillguard/__main__.py": "e16bb489309d32fd7b8f489363de0d0479fac6f6b0fd7c53cc9a3b454877d689",
+      "agent/spillguard/repro/analysis.py": "bab6851bcd2909568f31fc198bdff9aca33d3c4699efb0f1a45cea3da1c08609",
+      "agent/spillguard/repro/arithmetic.py": "9d6307ab17a88ab5c95b72fd216d2af43a78495ac61e05839c161b170f4989b0",
+      "agent/spillguard/repro/artifact.py": "0dc5e01469ebec708aef29e34533b01c1a0e2cc014585fa9c145038769a0a905",
+      "agent/spillguard/repro/background.py": "522c374699b7b9d71f2a13686ff5005aec74eeccf7550132ecd09f34a1ec3f90",
+      "agent/spillguard/repro/campaign.py": "4a4c9806e730147dcf22e7ca9ad72adba717d6d5dfa95db5a3188bafc00f07f3",
+      "agent/spillguard/repro/cli.py": "7bad8006628738370d4ac6652d6c082317bab1512f4498c1b42089ac9c7bfd43",
+      "agent/spillguard/repro/demo.py": "e4d8b3d3655a000133e9f7a13d73860002b19afc2a8f461f028a362dc279afd2",
+      "agent/spillguard/repro/diagnosis.py": "72ecb59e6264d9fb1b6c1e55ce69707776c134d7149005bfc06d36f8a1ffb757",
+      "agent/spillguard/repro/evidence.py": "c88baf302f5907a1f9c4c24d915649eec84c185bb8adaed548505e15fa6ede64",
+      "agent/spillguard/repro/observer.py": "d1fb16f2757c56de8179f4fd0ae5500164be84d69b857e1691921410b4e26f81",
+      "agent/spillguard/repro/ollama.py": "59fb753b00709315481c09b43bf80725210b52d12d3fe57da7526aa9e6578d51",
+      "agent/spillguard/repro/overhead.py": "d459604f59266a0af32a441fc63c776c4d46b9c543cf5941097abbe8f4827c6e",
+      "agent/spillguard/repro/reducer.py": "afaf92a7268f7c48b82450f135f6d497a43674674480f6395a06dd447353a1ea",
+      "agent/spillguard/repro/research_cli.py": "c4a3c25ff3ba1fa6fe0508b9967c71b0ca7c10399a140d230c66b77428c3febb",
+      "agent/spillguard/repro/runner.py": "1c3555f9a07a4212cdf5207d43037bf72eb4e06347bb330c0c408121cd956842",
+      "agent/spillguard/repro/search.py": "2cfea45ee7155e56adf278345d7dbd385392d8ec6df41c74d3cee4fab361ac3e",
+      "agent/spillguard/repro/signature.py": "f8c2b761a9c2d97101e40ee85d1d82a609a333324e28cacf115038638718214e",
+      "agent/spillguard/repro/spec.py": "6fdac6429850f07aa1f24575dc37293c4f4b770c9d3088c54672cfffa9443485",
+      "agent/spillguard/repro/statistics.py": "19b4bc8bf0d2db4cabd026bc7d8f64f1d7a7e30f73fb0427cbbb4970252b2437",
+      "agent/spillguard/repro/worker.py": "81ac64df24a359b7e414551bd05e4c36f0e67aedb0b660f7a630ea9b50cf103d",
+      "agent/spillguard/repro/workflows.py": "d08b57ed4c62799634a1650adfcf0dcad219dea29ac4f6ec5bc286090171237d",
+      "agent/spillguard/repro/__init__.py": "d439263b6cc346ac6d8bbb488866d381cc55203bc186e638a7eda0d82f60bb6e",
+      "agent/requirements.txt": "8d67d456c1f13e535872159e0e2e5fea6b4979a00610da8a104f627188ed7a47",
+      "bench/spillstress.py": "e0e260c62f2813b4b48ce286b17ff97faf9c0b771fd524687ebeca924c10f254"
+    },
+    "environment_signature": "64b2a3e50e7ae8f391dd095729b34087df23f6fc67d8bbb2b1f2063c59bd891a",
+    "machine": {},
+    "stopped_reason": "host resource guard; remaining planned blocks unexecuted",
+    "finished_wall_time_ns": 1792675388483852000
+  },
+  "trials": [
+    {
+      "trial": 1,
+      "execution_order": [
+        "baseline",
+        "pressure",
+        "recovery"
+      ],
+      "stages": [
+        {
+          "stage": "baseline",
+          "completed": false,
+          "latency_ms": null,
+          "environment_signature": "fixture-env",
+          "errors": []
+        },
+        {
+          "stage": "pressure",
+          "completed": false,
+          "latency_ms": null,
+          "environment_signature": "fixture-env",
+          "errors": [
+            "RuntimeError: host commit pressure reached"
+          ]
+        },
+        {
+          "stage": "recovery",
+          "completed": false,
+          "latency_ms": null,
+          "environment_signature": "fixture-env",
+          "errors": []
+        }
+      ],
+      "verdict": {
+        "outcome": "INCONCLUSIVE",
+        "reason": "baseline: collection, workload or helper failure",
+        "slowdown": null,
+        "recovery": null
+      }
+    }
+  ],
+  "verdict": {
+    "outcome": "INCONCLUSIVE",
+    "reason": "host resource guard; remaining planned blocks unexecuted",
+    "slowdown": null,
+    "recovery": null
+  },
+  "fresh_validation": false
+}

@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-17",
+  "software_checks": {
+    "python_tests": {"passed": 148, "failed": 0, "scope": "agent full pytest suite; isolated workspace temporary directory"},
+    "frontend_tests": {"passed": 44, "failed": 0, "files": 11},
+    "production_build": "TypeScript and Vite passed",
+    "campaign_unmet_gate": "refused before creating an output directory",
+    "export_integrity": "verified",
+    "export_source_cli": "recipe validation passed from package source/agent using python -B"
+  },
+  "native_release_block": {
+    "bundle": "traces/repro/20261017-release-cuda",
+    "target": "64 MiB synthetic CUDA write probe, 8192 iterations",
+    "pressure_allocations": 0,
+    "stage_completion_ms": {"baseline": 4328.0, "pressure": 4297.0, "recovery": 4312.0},
+    "outcome": "PASS",
+    "interpretation": "valid negative control; no reproduced severe failure or residency claim"
+  },
+  "cleanup_audit": {
+    "record": "bench/results/research_cleanup_audit_20261017.json",
+    "bundles_verified": 6,
+    "exact_owned_identities_confirmed_exited": 82,
+    "historical_event_pid_checks_absent_or_reused": 33,
+    "historical_missing_exact_birth_identity": "event-time checks are weaker and remain distinguished"
+  },
+  "browser_checks": {
+    "origin": "loopback-only AetherOS development preview",
+    "measured_report": "renders valid non-reproduction, complete state, metric and all matched stages",
+    "fixture_report": "renders SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+    "analysis": "renders purpose/origin groups and invalid/missing denominators",
+    "invalid_report": "unsupported report version rejected visibly",
+    "sanitized_trace": "loads replay with pseudonymous process names",
+    "relative_time": "renders +0.000 s (relative), not a wall-clock time",
+    "window_restore_maximize": "imported report retained after remount",
+    "console_errors_or_warnings_in_final_inspected_flow": [],
+    "screenshot": "artifacts/spillguard-repro/evidence-desk-final.jpg"
+  },
+  "research_status": {
+    "final_campaign_planned_cells": 72,
+    "final_campaign_planned_whole_blocks": 432,
+    "executed_final_cells": 0,
+    "severe_application_failure_gate": "unmet",
+    "second_model": "Qwen3-VL text smoke attempted; host commit guards invalidated measured stages",
+    "direct_residency_cause": "unverified",
+    "empirical_reducer_and_remedy_benefit": "not established",
+    "faculty_abstract_review_interviews_ip": "prepared documents only; external evidence pending"
+  },
+  "review_package": "artifacts/spillguard-repro/20261017-release-replication",
+  "limits": "Local engineering verification and pilot evidence do not complete the dossier's empirical study, independent replication or external decisions. The package preserves source at its recorded native run, rather than following later repository edits. Nothing was uploaded or published."
+}

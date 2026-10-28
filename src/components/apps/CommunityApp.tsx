@@ -114,7 +114,7 @@ export const CommunityApp: React.FC = () => {
           {/* Guestbook Header */}
           <div className="p-3 border-b-2 border-black flex flex-wrap items-center justify-between gap-2 bg-[#d8d8d8]">
             <div className="flex items-center gap-2">
-              <span className="text-base">??</span>
+              <img src="/assets/icons/guestbook.webp" alt="" className="w-6 h-6 object-contain" style={{ imageRendering: 'pixelated' }} />
               <span className="font-bold text-sm tracking-wide">Visitor Guestbook</span>
             </div>
 
@@ -125,12 +125,12 @@ export const CommunityApp: React.FC = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search comments..."
-                className="px-2 py-0.5 text-xs bg-white border border-black outline-none font-mono w-28 md:w-32"
+                className="px-2 py-0.5 bg-white border border-black outline-none w-28 md:w-32 font-terminal text-[17px]"
               />
 
               <button
                 onClick={() => { retroAudio.playClickSound(); setShowPostModal(true); }}
-                className="px-2.5 py-1 text-[11px] font-bold bg-[#3b82f6] text-white border-2 border-t-[#93c5fd] border-l-[#93c5fd] border-r-black border-b-black shadow active:translate-y-0.5 cursor-pointer hover:bg-blue-600 transition-colors"
+                className="px-2.5 py-1 font-bold bg-[#3b82f6] text-white border-2 border-t-[#93c5fd] border-l-[#93c5fd] border-r-black border-b-black shadow active:translate-y-0.5 cursor-pointer hover:bg-[#333] transition-colors text-[12.5px]"
               >
                 Post your own message
               </button>
@@ -152,10 +152,10 @@ export const CommunityApp: React.FC = () => {
                   <div className="font-bold text-xs text-black">
                     {item.name}
                   </div>
-                  <p className="text-xs text-slate-800 leading-relaxed font-sans font-medium">
+                  <p className="text-xs text-slate-800 leading-relaxed font-medium">
                     {item.message}
                   </p>
-                  <div className="text-[10px] text-slate-500 font-mono">
+                  <div className="text-slate-500 font-terminal text-[14px]">
                     {item.date}
                   </div>
                 </div>
@@ -165,7 +165,7 @@ export const CommunityApp: React.FC = () => {
         </div>
 
         {/* Right Column: Messages from the Creator (Matching Frame 30s) */}
-        <div className="w-full md:w-[46%] p-4 overflow-y-auto bg-[#dedede] flex flex-col justify-start">
+        <div className="w-full md:w-[46%] p-4 overflow-y-auto flex flex-col justify-start bg-[var(--rt-panel)]">
           <h3 className="font-bold text-xs tracking-wider mb-3 text-slate-800 uppercase">
             Messages from the Creator
           </h3>
@@ -178,12 +178,12 @@ export const CommunityApp: React.FC = () => {
               <p className="font-bold text-xs text-slate-900 mt-1">
                 Thankyou for such Lovely Messages!
               </p>
-              <p className="text-[10px] text-slate-500 font-mono mt-0.5">
+              <p className="text-slate-500 mt-0.5 font-terminal text-[14px]">
                 Aug 2, 2026, 10:35 PM
               </p>
             </div>
 
-            <div className="text-xs text-slate-800 leading-relaxed space-y-2.5 font-sans">
+            <div className="text-xs text-slate-800 leading-relaxed space-y-2.5">
               <p>
                 To everyone who has taken the time to leave a positive comment on this project, thank you so much. Reading your feedback has genuinely meant a lot to me. Every kind word, suggestion, and message of encouragement has made all the time and effort I put into this project feel worthwhile.
               </p>
@@ -198,7 +198,7 @@ export const CommunityApp: React.FC = () => {
       {/* Post Modal Dialog */}
       {showPostModal && (
         <div className="absolute inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-          <div className="w-full max-w-sm bg-[#dfdfdf] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[6px_6px_0px_rgba(0,0,0,0.8)] p-4 text-black font-pixel">
+          <div className="w-full max-w-sm p-4 text-black font-pixel bg-[var(--rt-soft)] rt-raised">
             <div className="flex justify-between items-center border-b border-slate-400 pb-1.5 mb-3">
               <span className="font-bold text-xs">Leave a Guestbook Message</span>
               <button 
@@ -211,7 +211,7 @@ export const CommunityApp: React.FC = () => {
 
             <form onSubmit={handlePostSubmit} className="space-y-3">
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 mb-1">Your Name / Handle:</label>
+                <label className="block font-bold text-slate-700 mb-1 text-[12.5px]">Your Name / Handle:</label>
                 <input
                   type="text"
                   value={postName}
@@ -219,19 +219,19 @@ export const CommunityApp: React.FC = () => {
                   placeholder="Stranger / Visitor Name"
                   required
                   autoFocus
-                  className="w-full px-2 py-1 text-xs bg-white border border-black outline-none font-mono"
+                  className="w-full px-2 py-1 bg-white border border-black outline-none font-terminal text-[17px]"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 mb-1">Your Message:</label>
+                <label className="block font-bold text-slate-700 mb-1 text-[12.5px]">Your Message:</label>
                 <textarea
                   value={postMessage}
                   onChange={(e) => setPostMessage(e.target.value)}
                   placeholder="Share your thoughts or leave a greeting..."
                   rows={3}
                   required
-                  className="w-full px-2 py-1 text-xs bg-white border border-black outline-none font-sans"
+                  className="w-full px-2 py-1 text-xs bg-white border border-black outline-none"
                 />
               </div>
 
@@ -245,7 +245,7 @@ export const CommunityApp: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-3 py-1 text-xs font-bold bg-[#3b82f6] text-white border border-black hover:bg-blue-600 cursor-pointer"
+                  className="px-3 py-1 text-xs font-bold bg-[#3b82f6] text-white border border-black hover:bg-[#333] cursor-pointer"
                 >
                   Post Message
                 </button>

@@ -1,0 +1,32 @@
+{"t": 1791509609.509, "ev": "START", "pid": 17012, "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU", "cuda_free_mb": 5154, "cuda_total_mb": 6143, "block_mb": 256, "interval": 2.0, "max_mb": 7168}
+{"t": 1791509609.521, "ev": "ALLOC", "pid": 17012, "idx": 0, "allocated_mb": 256, "cuda_free_mb": 4898, "gbps": 162.1}
+{"t": 1791509611.534, "ev": "ALLOC", "pid": 17012, "idx": 1, "allocated_mb": 512, "cuda_free_mb": 4642, "gbps": 155.9}
+{"t": 1791509613.548, "ev": "ALLOC", "pid": 17012, "idx": 2, "allocated_mb": 768, "cuda_free_mb": 4386, "gbps": 158.4}
+{"t": 1791509615.562, "ev": "ALLOC", "pid": 17012, "idx": 3, "allocated_mb": 1024, "cuda_free_mb": 4130, "gbps": 159.0}
+{"t": 1791509617.676, "ev": "ALLOC", "pid": 17012, "idx": 4, "allocated_mb": 1280, "cuda_free_mb": 3874, "gbps": 7.3}
+{"t": 1791509619.791, "ev": "ALLOC", "pid": 17012, "idx": 5, "allocated_mb": 1536, "cuda_free_mb": 3618, "gbps": 7.2}
+{"t": 1791509621.907, "ev": "ALLOC", "pid": 17012, "idx": 6, "allocated_mb": 1792, "cuda_free_mb": 3362, "gbps": 7.3}
+{"t": 1791509624.022, "ev": "ALLOC", "pid": 17012, "idx": 7, "allocated_mb": 2048, "cuda_free_mb": 3106, "gbps": 7.3}
+{"t": 1791509626.136, "ev": "ALLOC", "pid": 17012, "idx": 8, "allocated_mb": 2304, "cuda_free_mb": 2850, "gbps": 7.3}
+{"t": 1791509628.25, "ev": "ALLOC", "pid": 17012, "idx": 9, "allocated_mb": 2560, "cuda_free_mb": 2594, "gbps": 7.3}
+{"t": 1791509630.365, "ev": "ALLOC", "pid": 17012, "idx": 10, "allocated_mb": 2816, "cuda_free_mb": 2338, "gbps": 7.3}
+{"t": 1791509632.48, "ev": "ALLOC", "pid": 17012, "idx": 11, "allocated_mb": 3072, "cuda_free_mb": 2082, "gbps": 7.3}
+{"t": 1791509634.594, "ev": "ALLOC", "pid": 17012, "idx": 12, "allocated_mb": 3328, "cuda_free_mb": 1826, "gbps": 7.2}
+{"t": 1791509636.708, "ev": "ALLOC", "pid": 17012, "idx": 13, "allocated_mb": 3584, "cuda_free_mb": 1570, "gbps": 7.3}
+{"t": 1791509638.823, "ev": "ALLOC", "pid": 17012, "idx": 14, "allocated_mb": 3840, "cuda_free_mb": 1314, "gbps": 7.3}
+{"t": 1791509640.937, "ev": "ALLOC", "pid": 17012, "idx": 15, "allocated_mb": 4096, "cuda_free_mb": 1058, "gbps": 7.3}
+{"t": 1791509643.051, "ev": "ALLOC", "pid": 17012, "idx": 16, "allocated_mb": 4352, "cuda_free_mb": 802, "gbps": 7.3}
+{"t": 1791509645.165, "ev": "ALLOC", "pid": 17012, "idx": 17, "allocated_mb": 4608, "cuda_free_mb": 546, "gbps": 7.3}
+{"t": 1791509647.279, "ev": "ALLOC", "pid": 17012, "idx": 18, "allocated_mb": 4864, "cuda_free_mb": 290, "gbps": 7.3}
+{"t": 1791509649.395, "ev": "ALLOC", "pid": 17012, "idx": 19, "allocated_mb": 5120, "cuda_free_mb": 34, "gbps": 7.2}
+{"t": 1791509651.509, "ev": "ALLOC", "pid": 17012, "idx": 20, "allocated_mb": 5376, "cuda_free_mb": 0, "gbps": 7.3}
+{"t": 1791509653.624, "ev": "ALLOC", "pid": 17012, "idx": 21, "allocated_mb": 5632, "cuda_free_mb": 0, "gbps": 7.3}
+{"t": 1791509655.889, "ev": "ALLOC", "pid": 17012, "idx": 22, "allocated_mb": 5888, "cuda_free_mb": 0, "gbps": 2.2}
+{"t": 1791509658.192, "ev": "ALLOC", "pid": 17012, "idx": 23, "allocated_mb": 6144, "cuda_free_mb": 0, "gbps": 2.2}
+{"t": 1791509660.405, "ev": "ALLOC", "pid": 17012, "idx": 24, "allocated_mb": 6400, "cuda_free_mb": 0, "gbps": 7.7}
+{"t": 1791509662.665, "ev": "ALLOC", "pid": 17012, "idx": 25, "allocated_mb": 6656, "cuda_free_mb": 0, "gbps": 3.3}
+{"t": 1791509664.987, "ev": "ALLOC", "pid": 17012, "idx": 26, "allocated_mb": 6912, "cuda_free_mb": 0, "gbps": 1.9}
+{"t": 1791509667.2, "ev": "ALLOC", "pid": 17012, "idx": 27, "allocated_mb": 7168, "cuda_free_mb": 0, "gbps": 8.8}
+{"t": 1791509671.443, "ev": "BANDWIDTH", "pid": 17012, "per_block_gbps": [163.2, 162.9, 163.1, 163.5, 163.2, 163.1, 162.9, 163.0, 162.9, 163.3, 163.4, 163.1, 162.9, 163.3, 163.1, 163.1, 163.4, 163.0, 163.4, 163.2, 163.5, 163.0, 17.5, 13.1, 13.2, 13.2, 13.1, 13.2]}
+{"t": 1791509671.443, "ev": "HOLD", "pid": 17012, "allocated_mb": 7168, "seconds": 10.0}
+{"t": 1791509681.571, "ev": "FREED", "pid": 17012, "oom": false}

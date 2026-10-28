@@ -53,9 +53,9 @@ export const BootScreen: React.FC<BootScreenProps> = ({ onBootComplete }) => {
 
   if (bootPhase === 'kernel') {
     return (
-      <div className="fixed inset-0 z-[100] bg-[#cecece] text-black flex flex-col items-center justify-center select-none font-pixel">
-        <div className="w-full max-w-sm p-6 bg-[#dfdfdf] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[6px_6px_0px_rgba(0,0,0,0.6)] flex flex-col items-center text-center">
-          <div className="text-4xl mb-3 animate-pulse">??</div>
+      <div className="fixed inset-0 z-[100] text-black flex flex-col items-center justify-center select-none font-pixel bg-white">
+        <div className="w-full max-w-sm p-6 flex flex-col items-center text-center bg-[var(--rt-soft)] rt-raised">
+          <img src="/assets/icons/logo.webp" alt="" className="w-14 h-14 mb-3 animate-pulse object-contain" style={{ imageRendering: 'pixelated' }} />
           <h1 className="text-xl font-bold tracking-wider mb-1 text-black font-silkscreen">
             AetherOS System 7
           </h1>
@@ -64,7 +64,7 @@ export const BootScreen: React.FC<BootScreenProps> = ({ onBootComplete }) => {
           </p>
 
           <div className="w-full mb-2">
-            <div className="w-full h-4 bg-white border border-t-black border-l-black border-r-white border-b-white p-0.5 relative overflow-hidden">
+            <div className="w-full h-4 bg-white p-0.5 relative overflow-hidden rt-sunken-sm">
               <div 
                 className="h-full bg-black transition-all duration-200"
                 style={{ width: `${progress}%` }}
@@ -72,7 +72,7 @@ export const BootScreen: React.FC<BootScreenProps> = ({ onBootComplete }) => {
             </div>
           </div>
 
-          <div className="w-full flex justify-between text-[11px] font-mono font-bold mb-2 text-slate-800">
+          <div className="w-full flex justify-between font-bold mb-2 text-slate-800 font-terminal text-[15px]">
             <span className="truncate max-w-[80%] text-left">{caption}</span>
             <span>{progress}%</span>
           </div>
@@ -115,8 +115,8 @@ export const BootScreen: React.FC<BootScreenProps> = ({ onBootComplete }) => {
               <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[8px] border-r-black" />
               <div className="absolute -left-[5px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-r-[7px] border-r-white z-10" />
               <p className="font-bold leading-tight">It's open.</p>
-              <p className="text-[11px] text-slate-700">Just press Enter.</p>
-              <p className="text-[9px] text-indigo-700 font-sans mt-0.5 font-semibold">(Hint: Varad)</p>
+              <p className="text-slate-700 text-[12.5px]">Just press Enter.</p>
+              <p className="text-indigo-700 mt-0.5 font-semibold text-[11px]">(Hint: Varad)</p>
             </div>
           </div>
         </form>

@@ -1,0 +1,3 @@
+recipe_signature,purpose,data_origin,planned_blocks,reproduced,valid_non_reproductions,invalid_or_missing,reproduction_fraction_all_planned,median_slowdown
+48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c,search,SOFTWARE FIXTURE - NOT GPU MEASUREMENTS,3,3,0,0,1.0,3.0
+48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c,validation,SOFTWARE FIXTURE - NOT GPU MEASUREMENTS,3,3,0,0,1.0,3.0

@@ -1,120 +1,97 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { retroAudio } from '../../utils/audio';
-import { Play, Pause, SkipForward, Volume2, Disc } from 'lucide-react';
+import { Play, Pause, SkipForward, Volume2 } from 'lucide-react';
+
+const TRACKS = [
+  { title: 'Neon Kyoto 1994', artist: 'Aether Sound Labs', genre: 'Lo-fi pentatonic', label: '#e11d48' },
+  { title: 'Aether Dream Core', artist: 'Kernel FM', genre: 'Lydian chiptune', label: '#2563eb' },
+];
+
+/** Retrium-style chunky player button: 3px outline, 5px hard shadow, VT323. */
+const playerBtn =
+  'inline-flex items-center justify-center gap-1.5 min-w-[88px] px-5 py-1.5 bg-[var(--rt-side)] border-[3px] border-black shadow-[5px_5px_0_rgba(0,0,0,0.9)] font-terminal text-[19px] leading-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-[3px_3px_0_rgba(0,0,0,0.9)] hover:bg-white';
 
 export const MusicApp: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(retroAudio.isTrackPlaying());
   const [trackIndex, setTrackIndex] = useState<number>(retroAudio.getCurrentTrack());
-  const [volume, setVolume] = useState<number>(0.5);
-
-  const tracks = [
-    { title: 'Neon Kyoto 1994', artist: 'Aether Sound Labs', genre: 'Lo-Fi Pentatonic' },
-    { title: 'Aether Dream Core', artist: 'Kernel FM', genre: 'Lydian Chiptune' }
-  ];
-
-  useEffect(() => {
-    setIsPlaying(retroAudio.isTrackPlaying());
-  }, []);
+  const [volume, setVolume] = useState(0.5);
+  const track = TRACKS[trackIndex];
 
   const togglePlay = () => {
     retroAudio.playClickSound();
-    if (isPlaying) {
-      retroAudio.pauseMusic();
-      setIsPlaying(false);
-    } else {
-      retroAudio.playMusic(trackIndex);
-      setIsPlaying(true);
-    }
+    if (isPlaying) { retroAudio.pauseMusic(); setIsPlaying(false); }
+    else { retroAudio.playMusic(trackIndex); setIsPlaying(true); }
   };
 
-  const nextTrack = () => {
+  const pick = (i: number) => {
     retroAudio.playClickSound();
-    const next = (trackIndex + 1) % tracks.length;
-    setTrackIndex(next);
-    retroAudio.setTrack(next);
-    if (isPlaying) {
-      retroAudio.playMusic(next);
-    }
+    setTrackIndex(i);
+    retroAudio.setTrack(i);
+    if (isPlaying) retroAudio.playMusic(i);
   };
-
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = parseFloat(e.target.value);
-    setVolume(val);
-    retroAudio.setVolume(val);
-  };
-
-  const activeTrack = tracks[trackIndex];
 
   return (
-    <div className="h-full w-full bg-[#1e2029] text-slate-100 flex flex-col p-4 select-none font-pixel min-h-0 min-w-0 overflow-hidden">
-      {/* Turntable Platter Deck */}
-      <div className="flex-1 bg-[#252836] border-2 border-t-[#3b4054] border-l-[#3b4054] border-r-black border-b-black rounded-sm p-4 flex flex-col items-center justify-center relative shadow-inner">
-        {/* Turntable Circular Platter */}
-        <div className="relative w-44 h-44 rounded-full bg-[#121318] border-4 border-[#33384a] flex items-center justify-center shadow-2xl overflow-hidden">
-          {/* Vinyl Grooves with Rotation Animation when playing */}
-          <div className={`w-40 h-40 rounded-full bg-[radial-gradient(#2a2d3b_1px,transparent_1px)] [background-size:6px_6px] border-2 border-[#1e202a] flex items-center justify-center ${isPlaying ? 'animate-spin' : ''}`} style={{ animationDuration: '3s' }}>
-            {/* Center Vinyl Label */}
-            <div className="w-16 h-16 rounded-full bg-rose-600 border-2 border-white flex flex-col items-center justify-center shadow">
-              <span className="text-[8px] font-bold tracking-tighter text-white uppercase">Aether</span>
-              <span className="text-[7px] font-mono text-white/90">33 RPM</span>
-              <div className="w-2.5 h-2.5 rounded-full bg-white mt-0.5" />
+    // Content is centred with m-auto, not justify-center: a centred column that overflows
+    // would push its top out of reach of the scrollbar.
+    <div className="h-full w-full flex flex-col overflow-y-auto min-h-0 bg-[var(--rt-panel)] text-black">
+      <div className="m-auto w-full max-w-sm flex flex-col items-center text-center px-5 py-5">
+        {/* Turntable: the record turns on a black platter; pause freezes it mid-turn */}
+        <div className="mb-3.5 p-2 rounded-full border-[3px] border-black bg-[#1a1a1a] leading-none">
+          <div
+            className="animate-spin w-32 h-32 rounded-full flex items-center justify-center bg-[#0d0d0d] bg-[repeating-radial-gradient(circle,#151515_0_2px,#222_2px_3px)]"
+            style={{ animationDuration: '8s', animationPlayState: isPlaying ? 'running' : 'paused' }}
+          >
+            <div className="w-12 h-12 rounded-full border-2 border-white flex flex-col items-center justify-center" style={{ background: track.label }}>
+              <span className="font-pixel text-[9px] font-bold uppercase text-white leading-none">Aether</span>
+              <span className="w-2 h-2 rounded-full bg-white mt-1" />
             </div>
           </div>
-
-          {/* Tonearm */}
-          <div 
-            className={`absolute top-2 right-4 w-12 h-20 border-r-4 border-slate-400 origin-top-right transition-transform duration-700 pointer-events-none ${
-              isPlaying ? 'rotate-12' : '-rotate-12'
-            }`}
-          >
-            <div className="w-3 h-4 bg-amber-500 rounded-sm absolute bottom-0 -right-1 shadow" />
-          </div>
         </div>
 
-        {/* Current Track Label Banner */}
-        <div className="mt-4 w-full text-center bg-[#181a24] border border-[#3a3f55] py-1.5 px-3 rounded shadow">
-          <div className="text-sm font-bold text-emerald-400 tracking-wide truncate">
-            {activeTrack.title}
-          </div>
-          <div className="text-[11px] text-slate-400">
-            {activeTrack.artist} • <span className="text-amber-400">{activeTrack.genre}</span>
-          </div>
-        </div>
-      </div>
+        <h2 className="font-pixel text-[22px] leading-tight uppercase tracking-wide m-0">{track.title}</h2>
+        <p className="font-terminal text-[17px] leading-tight text-[#333] mb-3">{track.artist} · {track.genre}</p>
 
-      {/* Control Deck */}
-      <div className="mt-3 bg-[#cecece] text-black border-2 border-t-white border-l-white border-r-black border-b-black p-2.5 flex items-center justify-between shadow">
-        {/* Playback Buttons */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={togglePlay}
-            className="px-3 py-1 bg-[#dedede] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white font-bold flex items-center gap-1 text-xs hover:bg-white"
-          >
-            {isPlaying ? <Pause className="w-3.5 h-3.5 fill-current" /> : <Play className="w-3.5 h-3.5 fill-current" />}
-            <span>{isPlaying ? 'Pause' : 'Play'}</span>
+        <div className="flex gap-2.5 mb-3.5">
+          <button onClick={togglePlay} className={playerBtn} aria-pressed={isPlaying}>
+            {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current" />}
+            {isPlaying ? 'Pause' : 'Play'}
           </button>
-
-          <button
-            onClick={nextTrack}
-            className="px-2.5 py-1 bg-[#dedede] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white font-bold flex items-center gap-1 text-xs hover:bg-white"
-            title="Next Track"
-          >
-            <SkipForward className="w-3.5 h-3.5" />
+          <button onClick={() => pick((trackIndex + 1) % TRACKS.length)} className={playerBtn} title="Next track">
+            <SkipForward className="w-4 h-4" /> Next
           </button>
         </div>
 
-        {/* Volume Control */}
-        <div className="flex items-center gap-2 text-xs font-bold">
-          <Volume2 className="w-3.5 h-3.5 text-black" />
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.05"
-            value={volume}
-            onChange={handleVolumeChange}
-            className="w-20 accent-indigo-600 cursor-pointer"
-          />
+        <div className="flex flex-col items-center gap-1.5 w-full">
+          <p className="font-terminal text-[14px] uppercase tracking-[0.14em] text-[#555] m-0">Discs</p>
+          <div className="flex gap-2" role="radiogroup" aria-label="Choose a record">
+            {TRACKS.map((t, i) => (
+              <button
+                key={t.title}
+                role="radio"
+                aria-checked={i === trackIndex}
+                aria-label={t.title}
+                title={t.title}
+                onClick={() => pick(i)}
+                className={`w-8 h-8 rounded-full bg-[#111] flex items-center justify-center ${i === trackIndex ? 'outline outline-2 outline-black outline-offset-2' : ''}`}
+              >
+                <span className="w-3 h-3 rounded-full border border-white" style={{ background: t.label }} />
+              </button>
+            ))}
+          </div>
+          <label className="flex items-center gap-2 mt-2 font-terminal text-[17px]">
+            <Volume2 className="w-4 h-4" />
+            <span className="sr-only">Volume</span>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.05}
+              value={volume}
+              onChange={(e) => { const v = parseFloat(e.target.value); setVolume(v); retroAudio.setVolume(v); }}
+              className="w-32 cursor-pointer"
+            />
+            {Math.round(volume * 100)}%
+          </label>
         </div>
       </div>
     </div>

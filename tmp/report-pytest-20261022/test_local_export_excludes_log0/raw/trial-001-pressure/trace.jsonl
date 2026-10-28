@@ -1,0 +1,2 @@
+{"type": "header", "machine": {"hostname": "PRIVATE-HOST"}}
+{"t": 123456789, "adapter": {"name": "GPU", "vram_total_mb": 6144, "luid": "private-luid"}, "procs": [{"pid": 555, "name": "secret-user-app.exe", "process_start_time": 999, "dedicated_mb": 12}], "events": [{"detail": "C:/Users/private"}], "system": {}, "summary": {}}

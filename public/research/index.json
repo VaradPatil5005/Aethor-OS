@@ -1,0 +1,157 @@
+{
+ "schema_version": 1,
+ "items": [
+  {
+   "id": "01-demo-dose-response.json",
+   "group": "Headline result (18 Oct 2026)",
+   "title": "Dose-response + intervention + remedies (all in one)",
+   "kind": "report",
+   "file": "/research/01-demo-dose-response.json",
+   "note": "Chart of slowdown vs VRAM overflow, idle co-tenant, fixes, detector check"
+  },
+  {
+   "id": "02-dose-minus512mib.json",
+   "group": "Dose-response runs (active co-tenant)",
+   "title": "\u2212512 MiB: model still fits (control)",
+   "kind": "report",
+   "file": "/research/02-dose-minus512mib.json",
+   "note": "valid non-reproduction, 1.16\u00d7"
+  },
+  {
+   "id": "03-dose-plus0mib.json",
+   "group": "Dose-response runs (active co-tenant)",
+   "title": "0 MiB: exactly at capacity",
+   "kind": "report",
+   "file": "/research/03-dose-plus0mib.json",
+   "note": "valid non-reproduction, 1.21\u00d7"
+  },
+  {
+   "id": "04-dose-plus256mib.json",
+   "group": "Dose-response runs (active co-tenant)",
+   "title": "+256 MiB over capacity \u2014 reproduced witness",
+   "kind": "report",
+   "file": "/research/04-dose-plus256mib.json",
+   "note": "slowdown reproduced, 2.36\u00d7"
+  },
+  {
+   "id": "05-dose-plus512mib.json",
+   "group": "Dose-response runs (active co-tenant)",
+   "title": "+512 MiB over capacity",
+   "kind": "report",
+   "file": "/research/05-dose-plus512mib.json",
+   "note": "slowdown reproduced, 2.33\u00d7"
+  },
+  {
+   "id": "06-dose-plus256mib.json",
+   "group": "Intervention: idle co-tenant (same bytes)",
+   "title": "+256 MiB, co-tenant idle",
+   "kind": "report",
+   "file": "/research/06-dose-plus256mib.json",
+   "note": "1 valid trial 1.03\u00d7; 1 stopped by commit guard"
+  },
+  {
+   "id": "07-dose-plus512mib.json",
+   "group": "Intervention: idle co-tenant (same bytes)",
+   "title": "+512 MiB, co-tenant idle",
+   "kind": "report",
+   "file": "/research/07-dose-plus512mib.json",
+   "note": "stopped by commit guard (inconclusive)"
+  },
+  {
+   "id": "08-original-validation.json",
+   "group": "Remedies on the +256 MiB witness",
+   "title": "Fresh re-validation of the witness",
+   "kind": "report",
+   "file": "/research/08-original-validation.json",
+   "note": "reproduced again, 2.34\u00d7"
+  },
+  {
+   "id": "09-release-owned-holder.json",
+   "group": "Remedies on the +256 MiB witness",
+   "title": "Release the whole co-tenant",
+   "kind": "report",
+   "file": "/research/09-release-owned-holder.json",
+   "note": "fixed, 1.01\u00d7"
+  },
+  {
+   "id": "10-serialize-owned-background.json",
+   "group": "Remedies on the +256 MiB witness",
+   "title": "Run the co-tenant after the target",
+   "kind": "report",
+   "file": "/research/10-serialize-owned-background.json",
+   "note": "fixed, 1.00\u00d7"
+  },
+  {
+   "id": "11-release-half-owned-bytes.json",
+   "group": "Remedies on the +256 MiB witness",
+   "title": "Release half of the co-tenant's bytes",
+   "kind": "report",
+   "file": "/research/11-release-half-owned-bytes.json",
+   "note": "fixed, 1.10\u00d7"
+  },
+  {
+   "id": "12-release-eighth-owned-bytes.json",
+   "group": "Remedies on the +256 MiB witness",
+   "title": "Release one eighth of its bytes",
+   "kind": "report",
+   "file": "/research/12-release-eighth-owned-bytes.json",
+   "note": "fixed, 1.19\u00d7"
+  },
+  {
+   "id": "13-pause-owned-activity.json",
+   "group": "Remedies on the +256 MiB witness",
+   "title": "Keep every byte, stop touching it",
+   "kind": "report",
+   "file": "/research/13-pause-owned-activity.json",
+   "note": "fixed, 1.01\u00d7 \u2014 least disruptive"
+  },
+  {
+   "id": "14-trial-001-baseline.jsonl",
+   "group": "Live GPU traces of the witness (replay)",
+   "title": "+256 MiB trial 1 \u00b7 baseline",
+   "kind": "trace",
+   "file": "/research/14-trial-001-baseline.jsonl",
+   "note": "model alone"
+  },
+  {
+   "id": "15-trial-001-pressure.jsonl",
+   "group": "Live GPU traces of the witness (replay)",
+   "title": "+256 MiB trial 1 \u00b7 pressure",
+   "kind": "trace",
+   "file": "/research/15-trial-001-pressure.jsonl",
+   "note": "co-tenant resident, VRAM at its ceiling"
+  },
+  {
+   "id": "16-trial-001-recovery.jsonl",
+   "group": "Live GPU traces of the witness (replay)",
+   "title": "+256 MiB trial 1 \u00b7 recovery",
+   "kind": "trace",
+   "file": "/research/16-trial-001-recovery.jsonl",
+   "note": "co-tenant released"
+  },
+  {
+   "id": "17-20261017-analysis.json",
+   "group": "Earlier work (17 Oct 2026)",
+   "title": "Whole-block analysis of the earlier runs",
+   "kind": "report",
+   "file": "/research/17-20261017-analysis.json",
+   "note": "pre-witness campaign summary"
+  },
+  {
+   "id": "18-phase-aware.json",
+   "group": "Earlier work (17 Oct 2026)",
+   "title": "Reducer comparison: phase-aware (fixture)",
+   "kind": "report",
+   "file": "/research/18-phase-aware.json",
+   "note": "synthetic fixture, not a GPU measurement"
+  },
+  {
+   "id": "19-ddmin.json",
+   "group": "Earlier work (17 Oct 2026)",
+   "title": "Reducer comparison: plain ddmin (fixture)",
+   "kind": "report",
+   "file": "/research/19-ddmin.json",
+   "note": "synthetic fixture, not a GPU measurement"
+  }
+ ]
+}

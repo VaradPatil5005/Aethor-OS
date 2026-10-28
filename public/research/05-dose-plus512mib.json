@@ -1,0 +1,643 @@
+{
+ "schema_version": 1,
+ "artifact": "experimental witness",
+ "synthetic_workload": false,
+ "primary_metric": "decode_ms_per_token",
+ "data_origin": "live measurement",
+ "mechanism": "unverified",
+ "recipe_signature": "445c5c51723aa5cda03b12d8e9ce84e7834f0816ab0c253840226682178dbe5e",
+ "complete": true,
+ "planned_blocks": 2,
+ "metadata": {
+  "backend": "live-ollama",
+  "purpose": "dose-response pilot",
+  "data_origin": "live measurement",
+  "started_wall_time_ns": 1792301440252348100,
+  "started_monotonic_ns": 324677828000000,
+  "seed": 0,
+  "seed_usage": "reserved; the fixed-work probe and action schedule are deterministic",
+  "control_order": [
+   "baseline",
+   "pressure",
+   "recovery"
+  ],
+  "unmeasured": [
+   "power_mode",
+   "direct residency events",
+   "exact engine phase timestamps"
+  ],
+  "optional_observations": [
+   "gpu_temperature",
+   "gpu_clocks",
+   "AC/battery",
+   "gpu_utilization",
+   "gpu_power"
+  ],
+  "environment_signature": "50b0025d109e00386adbd389fc233d6d22241973f69a5ba1f0e7cb56a6bc80a5",
+  "machine": {
+   "os": "Windows 11 build 10.0.26200",
+   "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+   "ram_mb": 15654,
+   "logical_cpus": 16,
+   "nvidia_driver": "581.83",
+   "adapters": [
+    {
+     "luid": "luid_0x00000000_0x00016009",
+     "name": "Microsoft Basic Render Driver",
+     "vendor": "Microsoft",
+     "vendor_id": 5140,
+     "dedicated_vram_mb": 0,
+     "shared_system_mb": 7827,
+     "software": false,
+     "budget_local_mb": 7180,
+     "usage_local_mb": 0,
+     "budget_nonlocal_mb": 0
+    },
+    {
+     "luid": "luid_0x00000000_0x000160af",
+     "name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+     "vendor": "NVIDIA",
+     "vendor_id": 4318,
+     "dedicated_vram_mb": 6002,
+     "shared_system_mb": 7827,
+     "software": false,
+     "budget_local_mb": 5234,
+     "usage_local_mb": 0,
+     "budget_nonlocal_mb": 7180
+    },
+    {
+     "luid": "luid_0x00000000_0x00016043",
+     "name": "Microsoft Basic Render Driver",
+     "vendor": "Microsoft",
+     "vendor_id": 5140,
+     "dedicated_vram_mb": 0,
+     "shared_system_mb": 7827,
+     "software": true,
+     "budget_local_mb": 7180,
+     "usage_local_mb": 0,
+     "budget_nonlocal_mb": 0
+    }
+   ],
+   "primary_luid": "luid_0x00000000_0x000160af",
+   "pdh_counters": [
+    "\\GPU Process Memory(*)\\Dedicated Usage",
+    "\\GPU Process Memory(*)\\Shared Usage",
+    "\\GPU Process Memory(*)\\Total Committed",
+    "\\GPU Adapter Memory(*)\\Dedicated Usage",
+    "\\GPU Adapter Memory(*)\\Shared Usage",
+    "\\Memory\\Committed Bytes",
+    "\\Memory\\Commit Limit",
+    "\\Memory\\Available MBytes",
+    "\\Memory\\Pages/sec",
+    "\\Paging File(_Total)\\% Usage"
+   ],
+   "python": "3.12.6"
+  },
+  "finished_wall_time_ns": 1792301534641157600
+ },
+ "trials": [
+  {
+   "trial": 1,
+   "execution_order": [
+    "baseline",
+    "pressure",
+    "recovery"
+   ],
+   "stages": [
+    {
+     "stage": "baseline",
+     "completed": true,
+     "errors": [],
+     "work_units": 128,
+     "latency_ms": 3750.0,
+     "pressure_observed": false,
+     "workload_signature": "383475b536eacf1b7e73ab679d398651651eaeb077700e8625d14367e5266ef8",
+     "environment_signature": "e5ac28c6d015e135f4abcedf3fa8bc610d93c1caeec49f8ce7c824e78e62e72e",
+     "host_pressure": false,
+     "metric": "decode_ms_per_token",
+     "ollama_runtime": {
+      "version": "0.34.4",
+      "executable_sha256": "d571e4cf0ad4456fccd33d5b985b6d63ba5669c6e5a812391704083952aae3d5",
+      "settings": {
+       "OLLAMA_NUM_PARALLEL": "1",
+       "OLLAMA_MAX_LOADED_MODELS": "1",
+       "OLLAMA_CONTEXT_LENGTH": "2048",
+       "OLLAMA_FLASH_ATTENTION": "1",
+       "OLLAMA_KV_CACHE_TYPE": "f16",
+       "OLLAMA_NO_CLOUD": "1",
+       "OLLAMA_NOPRUNE": "1"
+      }
+     },
+     "measure_start_ns": 324688968000000,
+     "measure_end_ns": 324690781000000,
+     "metric_value": 14.14875,
+     "request_start_ns": 324687031000000,
+     "time_to_first_output_ms": 1937.0,
+     "output_sha256": "d4767dd16512f42eb651f1f83a884c6f5b7c59c882e2feae10340d2318265961",
+     "thinking_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+     "done_reason": "length",
+     "server_statistics": {
+      "load_duration": 1846712400,
+      "prompt_eval_duration": 85515000,
+      "prompt_eval_count": 75,
+      "eval_duration": 1811040000,
+      "eval_count": 128,
+      "total_duration": 3746683400
+     },
+     "model_before": null,
+     "model_after": {
+      "name": "qwen2.5:3b-instruct",
+      "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+      "size": 2081779875,
+      "size_vram": 2081779875,
+      "context_length": 2048
+     },
+     "overlap_samples": 0,
+     "process_identities": {
+      "28852": 1792301444.651369,
+      "24944": 1792301445.2128232,
+      "612": 1792301441.7867827,
+      "28320": 1792301441.7909677,
+      "32464": 1792301449.4572587,
+      "24692": 1792301449.5800357,
+      "6488": 1792301449.7820737,
+      "31360": 1792301450.0338452,
+      "9992": 1792301450.0425556
+     },
+     "owned_helper_cleanup": [
+      {
+       "pid": 33736,
+       "process_start_time": 1792301445.191458,
+       "returncode": 0
+      },
+      {
+       "pid": 1428,
+       "process_start_time": 1792301444.6270368,
+       "returncode": 0
+      }
+     ],
+     "server_cleanup": {
+      "job_owned_identities": {
+       "612": 1792301441.7867827,
+       "28320": 1792301441.7909677,
+       "31360": 1792301450.0338452,
+       "9992": 1792301450.0425556
+      },
+      "remaining_owned_pids": [],
+      "kill_on_job_close": true
+     }
+    },
+    {
+     "stage": "pressure",
+     "completed": true,
+     "errors": [],
+     "work_units": 128,
+     "latency_ms": 8016.0,
+     "pressure_observed": true,
+     "workload_signature": "383475b536eacf1b7e73ab679d398651651eaeb077700e8625d14367e5266ef8",
+     "environment_signature": "e5ac28c6d015e135f4abcedf3fa8bc610d93c1caeec49f8ce7c824e78e62e72e",
+     "host_pressure": false,
+     "metric": "decode_ms_per_token",
+     "ollama_runtime": {
+      "version": "0.34.4",
+      "executable_sha256": "d571e4cf0ad4456fccd33d5b985b6d63ba5669c6e5a812391704083952aae3d5",
+      "settings": {
+       "OLLAMA_NUM_PARALLEL": "1",
+       "OLLAMA_MAX_LOADED_MODELS": "1",
+       "OLLAMA_CONTEXT_LENGTH": "2048",
+       "OLLAMA_FLASH_ATTENTION": "1",
+       "OLLAMA_KV_CACHE_TYPE": "f16",
+       "OLLAMA_NO_CLOUD": "1",
+       "OLLAMA_NOPRUNE": "1"
+      }
+     },
+     "measure_start_ns": 324704828000000,
+     "measure_end_ns": 324709125000000,
+     "metric_value": 33.6057265625,
+     "request_start_ns": 324701109000000,
+     "time_to_first_output_ms": 3719.0,
+     "output_sha256": "d4767dd16512f42eb651f1f83a884c6f5b7c59c882e2feae10340d2318265961",
+     "thinking_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+     "done_reason": "length",
+     "server_statistics": {
+      "load_duration": 3615097400,
+      "prompt_eval_duration": 92447000,
+      "prompt_eval_count": 75,
+      "eval_duration": 4301533000,
+      "eval_count": 128,
+      "total_duration": 8011617800
+     },
+     "model_before": null,
+     "model_after": {
+      "name": "qwen2.5:3b-instruct",
+      "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+      "size": 2081779875,
+      "size_vram": 2081779875,
+      "context_length": 2048
+     },
+     "overlap_samples": 34,
+     "process_identities": {
+      "32120": 1792301458.5564663,
+      "11988": 1792301459.242237,
+      "4820": 1792301455.7227964,
+      "21384": 1792301455.7287173,
+      "29636": 1792301463.5406673,
+      "18832": 1792301463.6726303,
+      "22296": 1792301463.8697221,
+      "15476": 1792301464.1277957,
+      "10856": 1792301464.1383667
+     },
+     "owned_helper_cleanup": [
+      {
+       "pid": 32868,
+       "process_start_time": 1792301459.219529,
+       "returncode": 0
+      },
+      {
+       "pid": 29188,
+       "process_start_time": 1792301458.5305784,
+       "returncode": 0
+      }
+     ],
+     "server_cleanup": {
+      "job_owned_identities": {
+       "4820": 1792301455.7227964,
+       "21384": 1792301455.7287173,
+       "15476": 1792301464.1277957,
+       "10856": 1792301464.1383667
+      },
+      "remaining_owned_pids": [],
+      "kill_on_job_close": true
+     }
+    },
+    {
+     "stage": "recovery",
+     "completed": true,
+     "errors": [],
+     "work_units": 128,
+     "latency_ms": 3750.0,
+     "pressure_observed": false,
+     "workload_signature": "383475b536eacf1b7e73ab679d398651651eaeb077700e8625d14367e5266ef8",
+     "environment_signature": "e5ac28c6d015e135f4abcedf3fa8bc610d93c1caeec49f8ce7c824e78e62e72e",
+     "host_pressure": false,
+     "metric": "decode_ms_per_token",
+     "ollama_runtime": {
+      "version": "0.34.4",
+      "executable_sha256": "d571e4cf0ad4456fccd33d5b985b6d63ba5669c6e5a812391704083952aae3d5",
+      "settings": {
+       "OLLAMA_NUM_PARALLEL": "1",
+       "OLLAMA_MAX_LOADED_MODELS": "1",
+       "OLLAMA_CONTEXT_LENGTH": "2048",
+       "OLLAMA_FLASH_ATTENTION": "1",
+       "OLLAMA_KV_CACHE_TYPE": "f16",
+       "OLLAMA_NO_CLOUD": "1",
+       "OLLAMA_NOPRUNE": "1"
+      }
+     },
+     "measure_start_ns": 324722296000000,
+     "measure_end_ns": 324724125000000,
+     "metric_value": 14.2106953125,
+     "request_start_ns": 324720375000000,
+     "time_to_first_output_ms": 1921.0,
+     "output_sha256": "d4767dd16512f42eb651f1f83a884c6f5b7c59c882e2feae10340d2318265961",
+     "thinking_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+     "done_reason": "length",
+     "server_statistics": {
+      "load_duration": 1846596900,
+      "prompt_eval_duration": 85217000,
+      "prompt_eval_count": 75,
+      "eval_duration": 1818969000,
+      "eval_count": 128,
+      "total_duration": 3753721800
+     },
+     "model_before": null,
+     "model_after": {
+      "name": "qwen2.5:3b-instruct",
+      "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+      "size": 2081779875,
+      "size_vram": 2081779875,
+      "context_length": 2048
+     },
+     "overlap_samples": 0,
+     "process_identities": {
+      "23736": 1792301477.9234889,
+      "14280": 1792301478.5310311,
+      "34624": 1792301475.0725548,
+      "28348": 1792301475.0795524,
+      "7548": 1792301482.7941957,
+      "27552": 1792301482.9176724,
+      "31936": 1792301483.1189463,
+      "23176": 1792301483.3719184,
+      "15044": 1792301483.380515
+     },
+     "owned_helper_cleanup": [
+      {
+       "pid": 15468,
+       "process_start_time": 1792301478.5118897,
+       "returncode": 0
+      },
+      {
+       "pid": 2720,
+       "process_start_time": 1792301477.8945124,
+       "returncode": 0
+      }
+     ],
+     "server_cleanup": {
+      "job_owned_identities": {
+       "34624": 1792301475.0725548,
+       "28348": 1792301475.0795524,
+       "23176": 1792301483.3719184,
+       "15044": 1792301483.380515
+      },
+      "remaining_owned_pids": [],
+      "kill_on_job_close": true
+     }
+    }
+   ],
+   "verdict": {
+    "outcome": "FAIL",
+    "reason": "completed slowdown with recovery; mechanism remains unverified",
+    "slowdown": 2.3751728288718086,
+    "recovery": 1.0043781473628413
+   }
+  },
+  {
+   "trial": 2,
+   "execution_order": [
+    "baseline",
+    "pressure",
+    "recovery"
+   ],
+   "stages": [
+    {
+     "stage": "baseline",
+     "completed": true,
+     "errors": [],
+     "work_units": 128,
+     "latency_ms": 3734.0,
+     "pressure_observed": false,
+     "workload_signature": "383475b536eacf1b7e73ab679d398651651eaeb077700e8625d14367e5266ef8",
+     "environment_signature": "e5ac28c6d015e135f4abcedf3fa8bc610d93c1caeec49f8ce7c824e78e62e72e",
+     "host_pressure": false,
+     "metric": "decode_ms_per_token",
+     "ollama_runtime": {
+      "version": "0.34.4",
+      "executable_sha256": "d571e4cf0ad4456fccd33d5b985b6d63ba5669c6e5a812391704083952aae3d5",
+      "settings": {
+       "OLLAMA_NUM_PARALLEL": "1",
+       "OLLAMA_MAX_LOADED_MODELS": "1",
+       "OLLAMA_CONTEXT_LENGTH": "2048",
+       "OLLAMA_FLASH_ATTENTION": "1",
+       "OLLAMA_KV_CACHE_TYPE": "f16",
+       "OLLAMA_NO_CLOUD": "1",
+       "OLLAMA_NOPRUNE": "1"
+      }
+     },
+     "measure_start_ns": 324736562000000,
+     "measure_end_ns": 324738359000000,
+     "metric_value": 14.0957421875,
+     "request_start_ns": 324734625000000,
+     "time_to_first_output_ms": 1937.0,
+     "output_sha256": "d4767dd16512f42eb651f1f83a884c6f5b7c59c882e2feae10340d2318265961",
+     "thinking_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+     "done_reason": "length",
+     "server_statistics": {
+      "load_duration": 1842740400,
+      "prompt_eval_duration": 87686000,
+      "prompt_eval_count": 75,
+      "eval_duration": 1804255000,
+      "eval_count": 128,
+      "total_duration": 3737157500
+     },
+     "model_before": null,
+     "model_after": {
+      "name": "qwen2.5:3b-instruct",
+      "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+      "size": 2081779875,
+      "size_vram": 2081779875,
+      "context_length": 2048
+     },
+     "overlap_samples": 0,
+     "process_identities": {
+      "33736": 1792301492.2149665,
+      "16428": 1792301492.8074553,
+      "18552": 1792301489.3618467,
+      "3940": 1792301489.36707,
+      "17984": 1792301497.051358,
+      "12156": 1792301497.175917,
+      "26172": 1792301497.3766363,
+      "25572": 1792301497.6262527,
+      "3320": 1792301497.634657
+     },
+     "owned_helper_cleanup": [
+      {
+       "pid": 31996,
+       "process_start_time": 1792301492.784407,
+       "returncode": 0
+      },
+      {
+       "pid": 28188,
+       "process_start_time": 1792301492.186962,
+       "returncode": 0
+      }
+     ],
+     "server_cleanup": {
+      "job_owned_identities": {
+       "18552": 1792301489.3618467,
+       "3940": 1792301489.36707,
+       "25572": 1792301497.6262527,
+       "3320": 1792301497.634657
+      },
+      "remaining_owned_pids": [],
+      "kill_on_job_close": true
+     }
+    },
+    {
+     "stage": "pressure",
+     "completed": true,
+     "errors": [],
+     "work_units": 128,
+     "latency_ms": 7578.0,
+     "pressure_observed": true,
+     "workload_signature": "383475b536eacf1b7e73ab679d398651651eaeb077700e8625d14367e5266ef8",
+     "environment_signature": "e5ac28c6d015e135f4abcedf3fa8bc610d93c1caeec49f8ce7c824e78e62e72e",
+     "host_pressure": false,
+     "metric": "decode_ms_per_token",
+     "ollama_runtime": {
+      "version": "0.34.4",
+      "executable_sha256": "d571e4cf0ad4456fccd33d5b985b6d63ba5669c6e5a812391704083952aae3d5",
+      "settings": {
+       "OLLAMA_NUM_PARALLEL": "1",
+       "OLLAMA_MAX_LOADED_MODELS": "1",
+       "OLLAMA_CONTEXT_LENGTH": "2048",
+       "OLLAMA_FLASH_ATTENTION": "1",
+       "OLLAMA_KV_CACHE_TYPE": "f16",
+       "OLLAMA_NO_CLOUD": "1",
+       "OLLAMA_NOPRUNE": "1"
+      }
+     },
+     "measure_start_ns": 324752000000000,
+     "measure_end_ns": 324756109000000,
+     "metric_value": 32.1845390625,
+     "request_start_ns": 324748531000000,
+     "time_to_first_output_ms": 3469.0,
+     "output_sha256": "d4767dd16512f42eb651f1f83a884c6f5b7c59c882e2feae10340d2318265961",
+     "thinking_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+     "done_reason": "length",
+     "server_statistics": {
+      "load_duration": 3367939400,
+      "prompt_eval_duration": 89712000,
+      "prompt_eval_count": 75,
+      "eval_duration": 4119621000,
+      "eval_count": 128,
+      "total_duration": 7579992700
+     },
+     "model_before": null,
+     "model_after": {
+      "name": "qwen2.5:3b-instruct",
+      "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+      "size": 2081779875,
+      "size_vram": 2081779875,
+      "context_length": 2048
+     },
+     "overlap_samples": 34,
+     "process_identities": {
+      "19240": 1792301506.0767715,
+      "30124": 1792301506.6833022,
+      "20060": 1792301503.274116,
+      "2812": 1792301503.2781053,
+      "21380": 1792301510.9618268,
+      "25980": 1792301511.0917454,
+      "28980": 1792301511.2986212,
+      "28612": 1792301511.5577705,
+      "35044": 1792301511.56497
+     },
+     "owned_helper_cleanup": [
+      {
+       "pid": 13096,
+       "process_start_time": 1792301506.663454,
+       "returncode": 0
+      },
+      {
+       "pid": 11712,
+       "process_start_time": 1792301506.0507352,
+       "returncode": 0
+      }
+     ],
+     "server_cleanup": {
+      "job_owned_identities": {
+       "20060": 1792301503.274116,
+       "2812": 1792301503.2781053,
+       "28612": 1792301511.5577705,
+       "35044": 1792301511.56497
+      },
+      "remaining_owned_pids": [],
+      "kill_on_job_close": true
+     }
+    },
+    {
+     "stage": "recovery",
+     "completed": true,
+     "errors": [],
+     "work_units": 128,
+     "latency_ms": 3734.0,
+     "pressure_observed": false,
+     "workload_signature": "383475b536eacf1b7e73ab679d398651651eaeb077700e8625d14367e5266ef8",
+     "environment_signature": "e5ac28c6d015e135f4abcedf3fa8bc610d93c1caeec49f8ce7c824e78e62e72e",
+     "host_pressure": false,
+     "metric": "decode_ms_per_token",
+     "ollama_runtime": {
+      "version": "0.34.4",
+      "executable_sha256": "d571e4cf0ad4456fccd33d5b985b6d63ba5669c6e5a812391704083952aae3d5",
+      "settings": {
+       "OLLAMA_NUM_PARALLEL": "1",
+       "OLLAMA_MAX_LOADED_MODELS": "1",
+       "OLLAMA_CONTEXT_LENGTH": "2048",
+       "OLLAMA_FLASH_ATTENTION": "1",
+       "OLLAMA_KV_CACHE_TYPE": "f16",
+       "OLLAMA_NO_CLOUD": "1",
+       "OLLAMA_NOPRUNE": "1"
+      }
+     },
+     "measure_start_ns": 324769046000000,
+     "measure_end_ns": 324770843000000,
+     "metric_value": 14.091203125,
+     "request_start_ns": 324767109000000,
+     "time_to_first_output_ms": 1937.0,
+     "output_sha256": "d4767dd16512f42eb651f1f83a884c6f5b7c59c882e2feae10340d2318265961",
+     "thinking_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+     "done_reason": "length",
+     "server_statistics": {
+      "load_duration": 1848080100,
+      "prompt_eval_duration": 83551000,
+      "prompt_eval_count": 75,
+      "eval_duration": 1803674000,
+      "eval_count": 128,
+      "total_duration": 3738805000
+     },
+     "model_before": null,
+     "model_after": {
+      "name": "qwen2.5:3b-instruct",
+      "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+      "size": 2081779875,
+      "size_vram": 2081779875,
+      "context_length": 2048
+     },
+     "overlap_samples": 0,
+     "process_identities": {
+      "22024": 1792301524.758207,
+      "33428": 1792301525.3067255,
+      "9188": 1792301522.0163107,
+      "30796": 1792301522.0322697,
+      "6896": 1792301529.5355427,
+      "30884": 1792301529.6575522,
+      "19820": 1792301529.8602781,
+      "29060": 1792301530.115057,
+      "24760": 1792301530.1232872
+     },
+     "owned_helper_cleanup": [
+      {
+       "pid": 11328,
+       "process_start_time": 1792301525.2870908,
+       "returncode": 0
+      },
+      {
+       "pid": 34724,
+       "process_start_time": 1792301524.7299025,
+       "returncode": 0
+      }
+     ],
+     "server_cleanup": {
+      "job_owned_identities": {
+       "9188": 1792301522.0163107,
+       "30796": 1792301522.0322697,
+       "29060": 1792301530.115057,
+       "24760": 1792301530.1232872
+      },
+      "remaining_owned_pids": [],
+      "kill_on_job_close": true
+     }
+    }
+   ],
+   "verdict": {
+    "outcome": "FAIL",
+    "reason": "completed slowdown with recovery; mechanism remains unverified",
+    "slowdown": 2.2832809109577084,
+    "recovery": 0.9996779834336055
+   }
+  }
+ ],
+ "verdict": {
+  "outcome": "FAIL",
+  "reason": "2/2 concordant matched trials",
+  "slowdown": 2.3292268699147582,
+  "recovery": 1.0020280653982234
+ },
+ "fresh_validation": false
+}

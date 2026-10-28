@@ -1,0 +1,60 @@
+{
+ "schema_version": 1,
+ "groups": [
+  {
+   "recipe_signature": "114076cfbdfad702d7f95918cabc90d82274ecb6ebc22e6c833f14b6340dcc60",
+   "purpose": "standalone",
+   "data_origin": "live measurement",
+   "bundles": [
+    "20261016-qwen3vl-text-smoke"
+   ],
+   "errors": [
+    "RuntimeError: host commit pressure reached or unavailable",
+    "owned helper required forced termination",
+    "helper exit code 1",
+    "RuntimeError: host commit pressure reached or unavailable",
+    "owned helper required forced termination",
+    "helper exit code 1",
+    "RuntimeError: host commit pressure reached or unavailable",
+    "owned helper required forced termination",
+    "helper exit code 1"
+   ],
+   "planned_blocks": 1,
+   "primary_metric": "decode_ms_per_token",
+   "reproduced": 0,
+   "valid_non_reproductions": 0,
+   "invalid_or_missing": 1,
+   "reproduction_fraction_all_planned": 0.0,
+   "exact_95pct_binomial_interval": [
+    0.0,
+    0.9750000000000001
+   ],
+   "median_slowdown": null,
+   "median_recovery": null,
+   "statistical_limit": "conditional independent stationary whole-block assumption; invalid blocks included as non-successes; no token replication or tail-latency claim"
+  },
+  {
+   "recipe_signature": "f40bbb6ad0248799b2cda81caa8cce539443e5d37af6ff72e73a2011907555c5",
+   "purpose": "standalone",
+   "data_origin": "live measurement",
+   "bundles": [
+    "20261017-release-cuda"
+   ],
+   "errors": [],
+   "planned_blocks": 1,
+   "primary_metric": "completion_ms",
+   "reproduced": 0,
+   "valid_non_reproductions": 1,
+   "invalid_or_missing": 0,
+   "reproduction_fraction_all_planned": 0.0,
+   "exact_95pct_binomial_interval": [
+    0.0,
+    0.9750000000000001
+   ],
+   "median_slowdown": 0.9928373382624769,
+   "median_recovery": 0.9963031423290203,
+   "statistical_limit": "conditional independent stationary whole-block assumption; invalid blocks included as non-successes; no token replication or tail-latency claim"
+  }
+ ],
+ "pooling": "recipe, purpose and data origin kept separate"
+}

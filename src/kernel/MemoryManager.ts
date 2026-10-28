@@ -5,6 +5,8 @@ export class MemoryManager {
   public frames: MemoryFrame[] = [];
   public totalPageFaults: number = 0;
   public policy: PageReplacementPolicy = 'LRU';
+  /** CLOCK hand: index of the next frame the second-chance sweep inspects. */
+  public clockHand: number = 0;
 
   // Hardware Memory Segmentation Boundaries
   public static readonly KERNEL_SPACE_START = 0x0000;
@@ -70,8 +72,12 @@ export class MemoryManager {
 
   /** Pick eviction victims according to the active replacement policy. */
   private pickVictims(excludePid: number, count: number): MemoryFrame[] {
+    if (this.policy === 'CLOCK') return this.clockVictims(excludePid, count);
+
     const candidates = this.frames.filter(f => f.pid !== null && f.pid !== excludePid);
 
+    // OPTIMAL needs the future reference string, which this kernel does not model;
+    // it falls back to LRU (the Memory Map labels it so).
     switch (this.policy) {
       case 'FIFO':
         candidates.sort((a, b) => a.loadedAtTick - b.loadedAtTick);
@@ -85,6 +91,23 @@ export class MemoryManager {
     return candidates.slice(0, count);
   }
 
+  /**
+   * Second chance (CLOCK): sweep the hand over the frames; a referenced frame has its bit
+   * cleared and is passed over once, an unreferenced one is evicted. Two sweeps always suffice.
+   */
+  private clockVictims(excludePid: number, count: number): MemoryFrame[] {
+    const victims: MemoryFrame[] = [];
+    const n = this.frames.length;
+    for (let steps = 0; steps < 2 * n && victims.length < count; steps++) {
+      const f = this.frames[this.clockHand];
+      this.clockHand = (this.clockHand + 1) % n;
+      if (f.pid === null || f.pid === excludePid || victims.includes(f)) continue;
+      if (f.referenced) f.referenced = false;
+      else victims.push(f);
+    }
+    return victims;
+  }
+
   public allocateProcessSpace(proc: Process, currentTick: number): boolean {
     const pagesNeeded = Math.ceil(proc.memorySizeKB / 4);
     const allocated: number[] = [];
@@ -95,6 +118,7 @@ export class MemoryManager {
         this.frames[i].pageNumber = allocated.length;
         this.frames[i].lastAccessTick = currentTick;
         this.frames[i].loadedAtTick = currentTick;
+        this.frames[i].referenced = true;
         this.frames[i].color = proc.color;
         allocated.push(i);
       }
@@ -111,6 +135,7 @@ export class MemoryManager {
         victim.pageNumber = allocated.length;
         victim.lastAccessTick = currentTick;
         victim.loadedAtTick = currentTick;
+        victim.referenced = true;
         victim.color = proc.color;
         allocated.push(victim.frameId);
       }
@@ -123,6 +148,7 @@ export class MemoryManager {
   public touchFrame(frameId: number, currentTick: number) {
     if (this.frames[frameId]) {
       this.frames[frameId].lastAccessTick = currentTick;
+      this.frames[frameId].referenced = true;
     }
   }
 
@@ -138,6 +164,7 @@ export class MemoryManager {
         frame.color = '#334155';
         frame.lastAccessTick = 0;
         frame.loadedAtTick = 0;
+        frame.referenced = false;
       }
     }
   }

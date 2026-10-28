@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useKernelStore } from '../../stores/useKernelStore';
 import { BPFHookType } from '../../types/kernel';
 import { retroAudio } from '../../utils/audio';
+import { SpillEventsPanel } from '../../spillguard/panels';
 import { 
   Activity, 
   Plus, 
@@ -53,210 +54,141 @@ export const BPFStudioApp: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full bg-[#cecece] text-black font-pixel select-none flex flex-col text-xs overflow-hidden min-h-0 min-w-0">
-      {/* Top Header Banner */}
-      <div className="bg-[#dedede] border-b-2 border-black p-2.5 flex items-center justify-between shadow-xs">
-        <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 text-indigo-700" />
-          <span className="font-bold text-sm tracking-wide">In-Kernel eBPF Tracing & Probe Studio</span>
-        </div>
-        <div className="flex items-center gap-1.5 font-mono text-[10px]">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
-          <span className="bg-emerald-100 text-emerald-900 px-1.5 py-0.2 border border-emerald-400 font-bold">
-            eBPF VM Engine: JIT Active (Zero-Overhead)
-          </span>
-        </div>
-      </div>
+    <div className="h-full w-full flex flex-col min-h-0 min-w-0 bg-white font-pixel text-[13px]">
+      <header className="shrink-0 border-b-2 border-black px-3 py-2 flex items-center justify-between gap-2 flex-wrap bg-[var(--rt-panel)]">
+        <span className="font-bold flex items-center gap-2"><Activity className="w-4 h-4" /> eBPF tracing & probe studio</span>
+        <span className="flex items-center gap-1.5 font-terminal text-[16px] px-1.5 border-2 border-black bg-[var(--rt-min)]">
+          <span className="w-2 h-2 rounded-full bg-black animate-pulse" /> JIT active
+        </span>
+      </header>
 
-      <div className="flex-1 min-h-0 flex flex-col md:flex-row overflow-hidden">
-        {/* Left Column: Probes List & Attach Form */}
-        <div className="w-full md:w-1/2 border-r-2 border-black flex flex-col bg-[#e6e6e6] overflow-y-auto p-3 space-y-3">
-          
-          {/* Attach Probe Card */}
-          <div className="bg-white border-2 border-black p-3 shadow-[2px_2px_0px_rgba(0,0,0,0.5)] space-y-2">
-            <div className="flex items-center justify-between font-bold text-[11px] text-slate-800 border-b border-slate-300 pb-1">
-              <span className="flex items-center gap-1">
-                <Plus className="w-3.5 h-3.5 text-indigo-600" /> Compile & Attach eBPF Program
-              </span>
-              <div className="flex gap-1">
+      <div className="flex-1 min-h-0 flex flex-col md:flex-row">
+        {/* Left: attach form + probe list */}
+        <div className="md:w-1/2 min-h-0 flex flex-col gap-3 p-3 overflow-y-auto border-b-2 md:border-b-0 md:border-r-2 border-black bg-[var(--rt-side)]">
+          <section className="bg-white rt-raised p-3 space-y-2">
+            <div className="flex items-center justify-between gap-2 flex-wrap font-bold border-b-2 border-black pb-1">
+              <span className="flex items-center gap-1"><Plus className="w-4 h-4" /> Compile & attach a probe</span>
+              <span className="flex gap-1">
                 {presets.map((pr) => (
-                  <button
-                    key={pr.name}
-                    onClick={() => applyPreset(pr)}
-                    className="px-1 py-0.2 bg-slate-100 hover:bg-slate-200 border border-slate-400 text-[9px] font-mono"
-                  >
+                  <button key={pr.name} type="button" onClick={() => applyPreset(pr)} className="rt-btn rt-btn-sm !text-[15px] !px-1.5" title={`Preset: ${pr.name}`}>
                     {pr.name.split('_')[0]}
                   </button>
                 ))}
-              </div>
+              </span>
             </div>
 
             <form onSubmit={handleAttach} className="space-y-2">
               <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="block text-[10px] font-bold text-slate-700 mb-0.5">Probe Name:</label>
-                  <input
-                    type="text"
-                    value={newProbeName}
-                    onChange={(e) => setNewProbeName(e.target.value)}
-                    placeholder="my_kprobe"
-                    required
-                    className="w-full px-2 py-0.5 bg-slate-50 border border-black font-mono text-xs outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-slate-700 mb-0.5">Hook Point:</label>
-                  <select
-                    value={selectedHook}
-                    onChange={(e) => setSelectedHook(e.target.value as BPFHookType)}
-                    className="w-full px-1 py-0.5 bg-slate-50 border border-black font-mono text-xs outline-none cursor-pointer"
-                  >
-                    <option value="SCHED_SWITCH">SCHED_SWITCH (Context Switches)</option>
-                    <option value="PAGE_FAULT">PAGE_FAULT (Memory Paging)</option>
-                    <option value="SYSCALL_ENTER">SYSCALL_ENTER (VFS / Syscalls)</option>
+                <label className="block">
+                  <span className="block font-bold mb-0.5 text-[12px]">Probe name</span>
+                  <input type="text" value={newProbeName} onChange={(e) => setNewProbeName(e.target.value)} placeholder="my_kprobe" required className="w-full px-2 font-terminal text-[18px]" />
+                </label>
+                <label className="block">
+                  <span className="block font-bold mb-0.5 text-[12px]">Hook point</span>
+                  <select value={selectedHook} onChange={(e) => setSelectedHook(e.target.value as BPFHookType)} className="w-full px-1 font-terminal text-[18px] cursor-pointer">
+                    <option value="SCHED_SWITCH">SCHED_SWITCH (context switch)</option>
+                    <option value="PAGE_FAULT">PAGE_FAULT (paging)</option>
+                    <option value="SYSCALL_ENTER">SYSCALL_ENTER (syscalls)</option>
                   </select>
-                </div>
+                </label>
               </div>
-
-              <div>
-                <label className="block text-[10px] font-bold text-slate-700 mb-0.5">Filter & Aggregation Script:</label>
-                <input
-                  type="text"
-                  value={filterScript}
-                  onChange={(e) => setFilterScript(e.target.value)}
-                  placeholder="count(pid) or filter pid == 101"
-                  required
-                  className="w-full px-2 py-0.5 bg-slate-50 border border-black font-mono text-xs outline-none text-indigo-700 font-bold"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold border border-black shadow active:translate-y-0.5 cursor-pointer text-xs flex items-center justify-center gap-1"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Compile Bytecode & Load Hook</span>
+              <label className="block">
+                <span className="block font-bold mb-0.5 text-[12px]">Filter & aggregation script</span>
+                <input type="text" value={filterScript} onChange={(e) => setFilterScript(e.target.value)} placeholder="count(pid) or filter pid == 101" required className="w-full px-2 font-terminal text-[18px]" />
+              </label>
+              <button type="submit" className="rt-btn w-full">
+                <Sparkles className="w-4 h-4" /> Compile bytecode & load hook
               </button>
             </form>
-          </div>
+          </section>
 
-          {/* Active Probes Table */}
-          <div className="bg-white border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,0.5)] overflow-hidden">
-            <div className="bg-[#dedede] p-1.5 border-b border-black font-bold text-[11px] flex justify-between items-center">
-              <span>Attached Kernel Probes ({probes.length})</span>
-              <span className="text-[9px] text-slate-600 font-mono">Select to view map</span>
+          <section className="bg-white rt-raised">
+            <div className="px-2 py-1 border-b-2 border-black flex justify-between items-center gap-2 bg-[var(--rt-panel)]">
+              <span className="font-bold">Attached probes ({probes.length})</span>
+              <span className="font-terminal text-[15px] text-[var(--rt-muted)]">select to view its map</span>
             </div>
-            <div className="divide-y divide-slate-200 font-mono text-[11px]">
-              {probes.map((probe) => {
-                const isSelected = activeProbe?.id === probe.id;
-                return (
-                  <div 
-                    key={probe.id}
-                    onClick={() => setSelectedProbeId(probe.id)}
-                    className={`p-2 flex items-center justify-between cursor-pointer transition ${
-                      isSelected ? 'bg-indigo-50 border-l-4 border-indigo-600' : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <div>
-                      <div className="font-bold text-slate-900 flex items-center gap-1.5">
-                        <span className={`w-2 h-2 rounded-full ${probe.enabled ? 'bg-emerald-500' : 'bg-slate-400'}`} />
-                        <span>{probe.name}</span>
-                        <span className="text-[9px] bg-slate-200 px-1 py-0.2 rounded text-slate-700">
-                          {probe.hook}
-                        </span>
-                      </div>
-                      <div className="text-[10px] text-slate-500 font-mono mt-0.5">
-                        Filter: <span className="text-indigo-700">{probe.filterScript}</span>  {probe.eventCount} events
-                      </div>
+            {probes.map((probe) => {
+              const isSelected = activeProbe?.id === probe.id;
+              return (
+                <div
+                  key={probe.id}
+                  onClick={() => setSelectedProbeId(probe.id)}
+                  className={`px-2 py-1.5 flex items-center justify-between gap-2 cursor-pointer border-b border-black/15 last:border-b-0 ${isSelected ? 'bg-black text-white' : 'hover:bg-[#e6e6e6]'}`}
+                >
+                  <div className="min-w-0">
+                    <div className="font-bold flex items-center gap-1.5 min-w-0">
+                      <span className={`w-2.5 h-2.5 shrink-0 rounded-full border-2 ${isSelected ? 'border-white' : 'border-black'} ${probe.enabled ? 'bg-[var(--rt-min)]' : 'bg-[#bbb]'}`} />
+                      <span className="truncate">{probe.name}</span>
+                      <span className={`font-terminal text-[14px] px-1 border ${isSelected ? 'border-white' : 'border-black'}`}>{probe.hook}</span>
                     </div>
-
-                    <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
-                      <button
-                        onClick={() => { retroAudio.playClickSound(); toggleProbe(probe.id); }}
-                        className={`px-1.5 py-0.5 text-[9px] font-bold border rounded-xs ${
-                          probe.enabled 
-                            ? 'bg-emerald-100 text-emerald-900 border-emerald-400 hover:bg-emerald-200' 
-                            : 'bg-slate-200 text-slate-700 border-slate-400 hover:bg-slate-300'
-                        }`}
-                      >
-                        {probe.enabled ? 'ON' : 'OFF'}
-                      </button>
-                      <button
-                        onClick={() => { retroAudio.playClickSound(); removeProbe(probe.id); }}
-                        className="p-1 hover:text-rose-600 text-slate-400"
-                        title="Detach probe"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                    <div className={`font-terminal text-[16px] leading-tight truncate ${isSelected ? 'text-[#d0d0d0]' : 'text-[var(--rt-muted)]'}`}>
+                      {probe.filterScript} · {probe.eventCount} events
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
+                  <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
+                    <button
+                      onClick={() => { retroAudio.playClickSound(); toggleProbe(probe.id); }}
+                      className={`rt-btn rt-btn-sm !text-[15px] ${probe.enabled ? '!bg-[var(--rt-min)] !text-black' : ''}`}
+                      aria-pressed={probe.enabled}
+                    >
+                      {probe.enabled ? 'ON' : 'OFF'}
+                    </button>
+                    <button onClick={() => { retroAudio.playClickSound(); removeProbe(probe.id); }} className="p-1 hover:text-[var(--rt-close)]" title="Detach probe" aria-label={`Detach ${probe.name}`}>
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </section>
         </div>
 
-        {/* Right Column: BPF Map Visualizer & Live Event Log */}
-        <div className="w-full md:w-1/2 flex flex-col bg-[#dedede] p-3 space-y-3 overflow-hidden">
-          
-          {/* BPF Map Aggregation Inspector */}
-          <div className="bg-white border-2 border-black p-3 shadow-[2px_2px_0px_rgba(0,0,0,0.5)] flex-1 flex flex-col overflow-hidden">
-            <div className="flex items-center justify-between border-b border-slate-300 pb-1.5 mb-2">
-              <span className="font-bold text-xs flex items-center gap-1 text-slate-800 font-mono">
-                <BarChart3 className="w-3.5 h-3.5 text-indigo-700" /> BPF Map: {activeProbe?.name || 'None'}
-              </span>
-              <span className="text-[10px] font-mono text-slate-500">
-                Type: BPF_MAP_TYPE_HASH
-              </span>
+        {/* Right: map, ring buffer, real host events */}
+        <div className="md:w-1/2 min-h-0 flex flex-col gap-3 p-3 overflow-y-auto bg-[var(--rt-panel)]">
+          <section className="flex-1 min-h-[150px] flex flex-col bg-white rt-raised p-2.5">
+            <div className="shrink-0 flex items-center justify-between gap-2 border-b-2 border-black pb-1 mb-2">
+              <span className="font-bold flex items-center gap-1 min-w-0"><BarChart3 className="w-4 h-4 shrink-0" /> <span className="truncate">Map: {activeProbe?.name || 'none'}</span></span>
+              <span className="font-terminal text-[15px] text-[var(--rt-muted)]">BPF_MAP_TYPE_HASH</span>
             </div>
-
-            <div className="flex-1 min-h-0 overflow-y-auto space-y-2 pr-1 font-mono text-[11px] overscroll-contain">
+            <div className="flex-1 min-h-0 overflow-y-auto space-y-1.5 pr-1 font-terminal text-[17px]">
               {activeProbe && Object.keys(activeProbe.mapOutput).length > 0 ? (
                 Object.entries(activeProbe.mapOutput).map(([key, count]) => {
-                  const maxCount = Math.max(...Object.values(activeProbe.mapOutput), 1);
-                  const pct = Math.min(100, Math.round((count / maxCount) * 100));
+                  const max = Math.max(...Object.values(activeProbe.mapOutput), 1);
                   return (
-                    <div key={key} className="space-y-0.5">
-                      <div className="flex justify-between text-[10px]">
-                        <span className="font-bold text-slate-800">{key}</span>
-                        <span className="text-slate-600">{count} hits</span>
-                      </div>
-                      <div className="h-2.5 w-full bg-slate-100 border border-slate-300 rounded-xs overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 transition-all duration-300"
-                          style={{ width: `${pct}%` }}
-                        />
+                    <div key={key}>
+                      <div className="flex justify-between leading-tight"><span>{key}</span><span>{count} hits</span></div>
+                      <div className="h-3 bg-[var(--rt-soft)] border-2 border-black">
+                        <div className="h-full bg-black transition-[width] duration-300" style={{ width: `${Math.min(100, Math.round((count / max) * 100))}%` }} />
                       </div>
                     </div>
                   );
                 })
               ) : (
-                <div className="h-full flex items-center justify-center text-slate-400 text-xs">
-                  Awaiting probe event samples...
-                </div>
+                <div className="h-full flex items-center justify-center text-[var(--rt-muted)]">Waiting for probe samples…</div>
               )}
             </div>
-          </div>
+          </section>
 
-          {/* Zero-Overhead Telemetry Trace Stream */}
-          <div className="h-40 bg-[#111218] text-white border-2 border-black p-2.5 flex flex-col font-mono text-[10px] shadow-inner">
-            <div className="text-indigo-400 font-bold border-b border-slate-800 pb-1 mb-1.5 flex items-center justify-between">
-              <span>Kernel Telemetry Ring Buffer Stream:</span>
-              <span className="text-slate-500">{bpfEvents.length} events logged</span>
+          <section className="shrink-0 h-40 flex flex-col rt-raised bg-[#222]">
+            <div className="shrink-0 px-2 py-1 bg-[#333] text-white text-[12px] flex justify-between border-b-2 border-black">
+              <span>Ring buffer stream</span><span>{bpfEvents.length} events</span>
             </div>
-            <div className="flex-1 min-h-0 overflow-y-auto space-y-1 pr-1 text-slate-300 overscroll-contain">
+            <div className="flex-1 min-h-0 overflow-y-auto rt-dark-scroll p-2 space-y-0.5 font-terminal text-[16px] leading-tight text-[#e0e0e0]">
               {bpfEvents.slice(-20).map((ev, idx) => (
                 <div key={idx} className="truncate">
-                  <span className="text-slate-500">[t:{ev.timestamp}]</span>{' '}
-                  <span className="text-purple-400 font-bold">[{ev.hook}]</span>{' '}
-                  <span className="text-slate-200">{ev.details}</span>
+                  <span className="text-[#8a8a8a]">[t:{ev.timestamp}]</span>{' '}
+                  <span className="text-[#5af78e]">[{ev.hook}]</span>{' '}
+                  {ev.details}
                 </div>
               ))}
-              {bpfEvents.length === 0 && (
-                <div className="text-slate-500">Tracing queue empty.</div>
-              )}
+              {bpfEvents.length === 0 && <div className="text-[#8a8a8a]">Tracing queue empty.</div>}
             </div>
-          </div>
+          </section>
+
+          {/* Real host events from the SpillGuard agent (Live / Replay) */}
+          <section className="shrink-0 bg-white rt-raised p-2.5">
+            <SpillEventsPanel />
+          </section>
         </div>
       </div>
     </div>

@@ -1,0 +1,28 @@
+{
+  "name": "overhead-cuda",
+  "actions": [],
+  "workload": {
+    "kind": "cuda_probe",
+    "allocated_bytes": 67108864,
+    "iterations": 8192,
+    "warmup_ms": 1000
+  },
+  "protocol": {
+    "repeats": 1,
+    "slowdown_ratio": 2.0,
+    "recovery_ratio": 1.25,
+    "min_pressure_fraction": 0.5,
+    "min_overlap_samples": 2,
+    "sample_interval_ms": 100,
+    "lead_in_ms": 500,
+    "cooldown_ms": 1000,
+    "timeout_s": 20,
+    "max_requested_bytes": 1073741824,
+    "min_available_host_bytes": 1610612736,
+    "preparation": "warm",
+    "idle_ms": 3000,
+    "treatment_order": "fixed"
+  },
+  "schema_version": 1,
+  "seed": 0
+}

@@ -99,12 +99,12 @@ export const TopMenuBar: React.FC = () => {
               <img src="/assets/icons/logo.webp" alt="Apple" className="w-4 h-4 object-contain" />
             </button>
             {activeMenu === 'apple' && (
-              <div className="absolute top-full left-0 mt-1 w-52 bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[4px_4px_0px_rgba(0,0,0,0.5)] py-1 z-50 text-black font-pixel">
+              <div className="absolute top-full left-0 mt-1 w-52 rt-menu p-1.5 z-50 text-black font-pixel">
                 <button onClick={() => handleAction(() => open('about'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
                   <span>About AetherOS</span>
                 </button>
-                <div className="my-1 border-t border-[#888]" />
-                <button onClick={() => handleAction(() => open('settings'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white font-bold text-indigo-800 hover:text-white">
+                <div className="my-1 border-t-2 border-black" />
+                <button onClick={() => handleAction(() => open('settings'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white font-bold text-indigo-800">
                   <span>Control Panels / Settings...</span>
                 </button>
                 <button onClick={() => handleAction(() => open('test_runner'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
@@ -116,7 +116,10 @@ export const TopMenuBar: React.FC = () => {
                 <button onClick={() => handleAction(() => open('bpf_studio'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
                   <span>eBPF Telemetry Studio</span>
                 </button>
-                <div className="my-1 border-t border-[#888]" />
+                <button onClick={() => handleAction(() => open('spillguard'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white font-bold text-rose-800">
+                  <span>SpillGuard (Live GPU Memory)</span>
+                </button>
+                <div className="my-1 border-t-2 border-black" />
                 <button onClick={() => handleAction(() => resetLayout())} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
                   <span>Reset Windows Layout</span>
                 </button>
@@ -133,7 +136,7 @@ export const TopMenuBar: React.FC = () => {
               File
             </button>
             {activeMenu === 'file' && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[4px_4px_0px_rgba(0,0,0,0.5)] py-1 z-50 text-black font-pixel">
+              <div className="absolute top-full left-0 mt-1 w-48 rt-menu p-1.5 z-50 text-black font-pixel">
                 <button onClick={() => handleAction(() => spawnProcess('gui_task_' + Math.floor(Math.random()*100), 1, 6, 16))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
                   <span>Spawn CPU Process</span>
                 </button>
@@ -146,8 +149,8 @@ export const TopMenuBar: React.FC = () => {
                 <button onClick={() => handleAction(() => open('terminal'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
                   <span>Open Terminal CLI</span>
                 </button>
-                <div className="my-1 border-t border-[#888]" />
-                <button onClick={() => handleAction(() => setWelcomeModalOpen(true))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white font-bold text-amber-900 hover:text-white">
+                <div className="my-1 border-t-2 border-black" />
+                <button onClick={() => handleAction(() => setWelcomeModalOpen(true))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white font-bold text-amber-900">
                   <span>Lock Screen / Guidelines</span>
                 </button>
               </div>
@@ -163,17 +166,17 @@ export const TopMenuBar: React.FC = () => {
               Edit
             </button>
             {activeMenu === 'edit' && (
-              <div className="absolute top-full left-0 mt-1 w-52 bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[4px_4px_0px_rgba(0,0,0,0.5)] py-1 z-50 text-black font-pixel">
+              <div className="absolute top-full left-0 mt-1 w-52 rt-menu p-1.5 z-50 text-black font-pixel">
                 <button onClick={() => handleAction(() => refresh())} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
                   <span>Step Kernel Tick</span>
                 </button>
-                <button onClick={() => handleAction(() => triggerDeadlock())} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white text-rose-700 hover:text-white">
+                <button onClick={() => handleAction(() => triggerDeadlock())} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white text-rose-700">
                   <span>Simulate Deadlock</span>
                 </button>
-                <button onClick={() => handleAction(() => triggerPowerCut())} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white text-amber-700 hover:text-white">
+                <button onClick={() => handleAction(() => triggerPowerCut())} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white text-amber-700">
                   <span>Simulate Power Cut (WAL)</span>
                 </button>
-                <button onClick={() => handleAction(() => triggerSimulatedGPF())} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white text-purple-700 hover:text-white">
+                <button onClick={() => handleAction(() => triggerSimulatedGPF())} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white text-purple-700">
                   <span>Trigger Ring 3 Fault (#GP)</span>
                 </button>
               </div>
@@ -189,16 +192,16 @@ export const TopMenuBar: React.FC = () => {
               View
             </button>
             {activeMenu === 'view' && (
-              <div className="absolute top-full left-0 mt-1 w-56 bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[4px_4px_0px_rgba(0,0,0,0.5)] py-1 z-50 text-black font-pixel">
-                <button onClick={() => handleAction(toggleFullscreen)} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white flex items-center justify-between font-bold text-indigo-800 hover:text-white">
+              <div className="absolute top-full left-0 mt-1 w-56 rt-menu p-1.5 z-50 text-black font-pixel">
+                <button onClick={() => handleAction(toggleFullscreen)} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white flex items-center justify-between font-bold text-indigo-800">
                   <span>Toggle Fullscreen</span>
-                  <span className="text-[10px]">F11</span>
+                  <span className="text-[12px]">F11</span>
                 </button>
                 <button onClick={() => handleAction(toggleSound)} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white flex items-center justify-between">
                   <span>Sound Effects (8-Bit)</span>
                   <span>{!isMuted ? '✓' : 'Muted'}</span>
                 </button>
-                <div className="my-1 border-t border-[#888]" />
+                <div className="my-1 border-t-2 border-black" />
                 <button onClick={() => handleAction(toggleScanlines)} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white flex items-center justify-between">
                   <span>CRT Scanlines</span>
                   <span>{crtScanlines ? '✓' : ''}</span>
@@ -208,8 +211,8 @@ export const TopMenuBar: React.FC = () => {
                   <span>{crtGrain ? '✓' : ''}</span>
                 </button>
 
-                <div className="my-1 border-t border-[#888]" />
-                <div className="px-3 py-0.5 text-[10px] text-[#666] font-bold">DESKTOP WALLPAPERS</div>
+                <div className="my-1 border-t-2 border-black" />
+                <div className="px-3 py-0.5 text-[#666] font-bold text-[12px]">DESKTOP WALLPAPERS</div>
                 
                 <button onClick={() => handleAction(() => setWallpaper('mainframe'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white flex items-center justify-between">
                   <span>1. Mainframe Video</span>
@@ -231,8 +234,8 @@ export const TopMenuBar: React.FC = () => {
                   <span>{wallpaper === 'matrix' ? '✓' : ''}</span>
                 </button>
 
-                <div className="my-1 border-t border-[#888]" />
-                <button onClick={() => handleAction(() => open('settings'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white font-bold text-indigo-700 hover:text-white">
+                <div className="my-1 border-t-2 border-black" />
+                <button onClick={() => handleAction(() => open('settings'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white font-bold text-indigo-700">
                   <span>Wallpaper Settings...</span>
                 </button>
               </div>
@@ -248,15 +251,15 @@ export const TopMenuBar: React.FC = () => {
               Kernel
             </button>
             {activeMenu === 'kernel' && (
-              <div className="absolute top-full left-0 mt-1 w-52 bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[4px_4px_0px_rgba(0,0,0,0.5)] py-1 z-50 text-black font-pixel">
+              <div className="absolute top-full left-0 mt-1 w-52 rt-menu p-1.5 z-50 text-black font-pixel">
                 <button onClick={() => handleAction(togglePause)} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white flex items-center justify-between">
                   <span>{isPaused ? '▶ Resume Clock' : '⏸ Pause Clock'}</span>
                 </button>
                 <button onClick={() => handleAction(refresh)} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white flex items-center justify-between">
                   <span>Step Single Tick</span>
                 </button>
-                <div className="my-1 border-t border-[#888]" />
-                <div className="px-3 py-0.5 text-[10px] text-[#666] font-bold">SCHEDULER</div>
+                <div className="my-1 border-t-2 border-black" />
+                <div className="px-3 py-0.5 text-[#666] font-bold text-[12px]">SCHEDULER</div>
                 {(['MLFQ', 'ROUND_ROBIN', 'SRTF', 'FCFS', 'PRIORITY'] as const).map((algo) => (
                   <button key={algo} onClick={() => handleAction(() => setAlgorithm(algo))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white flex items-center justify-between">
                     <span>{algo}</span>
@@ -276,12 +279,15 @@ export const TopMenuBar: React.FC = () => {
               Diagnostic
             </button>
             {activeMenu === 'diagnostic' && (
-              <div className="absolute top-full left-0 mt-1 w-52 bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[4px_4px_0px_rgba(0,0,0,0.5)] py-1 z-50 text-black font-pixel">
-                <button onClick={() => handleAction(() => open('test_runner'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white font-bold text-emerald-700 hover:text-white">
+              <div className="absolute top-full left-0 mt-1 w-52 rt-menu p-1.5 z-50 text-black font-pixel">
+                <button onClick={() => handleAction(() => open('test_runner'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white font-bold text-emerald-700">
                   <span>Run Kernel Test Suite</span>
                 </button>
                 <button onClick={() => handleAction(() => open('deadlock_lab'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
                   <span>Open Deadlock Engine</span>
+                </button>
+                <button onClick={() => handleAction(() => open('memory_map'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
+                  <span>Virtual Memory Map</span>
                 </button>
                 <button onClick={() => handleAction(() => open('kernel_quest'))} className="w-full text-left px-3 py-1 hover:bg-black hover:text-white">
                   <span>KernelQuest Challenges</span>
@@ -318,7 +324,7 @@ export const TopMenuBar: React.FC = () => {
             className="p-1 hover:bg-black/10 rounded flex items-center gap-1"
           >
             <Battery className="w-3.5 h-3.5 text-black" />
-            <span className="text-[10px] font-mono">100%</span>
+            <span className="font-terminal text-[14px]">100%</span>
           </button>
 
           {/* Live Retro Clock */}
@@ -330,18 +336,18 @@ export const TopMenuBar: React.FC = () => {
 
       {/* Wi-Fi Info Popover */}
       {showWifiModal && (
-        <div className="absolute top-8 right-20 w-56 bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[4px_4px_0px_rgba(0,0,0,0.5)] p-3 z-50 text-black select-none text-xs font-pixel">
+        <div className="absolute top-8 right-20 w-56 p-3 z-50 text-black select-none text-xs font-pixel bg-[var(--rt-panel)] rt-raised">
           <div className="font-bold flex items-center gap-1.5 mb-1 text-[13px]">
             <Wifi className="w-4 h-4 text-indigo-700" />
             <span>AetherNet Status</span>
           </div>
-          <div className="text-[11px] text-slate-700 space-y-1">
+          <div className="text-slate-700 space-y-1 text-[12.5px]">
             <p><strong>Status:</strong> Connected (Loopback)</p>
             <p><strong>IP:</strong> 127.0.0.1 (Isolated Kernel)</p>
           </div>
           <button 
             onClick={() => setShowWifiModal(false)}
-            className="mt-2.5 w-full py-0.5 bg-[#cecece] border border-t-white border-l-white border-r-black border-b-black font-bold"
+            className="mt-2.5 w-full py-0.5 font-bold bg-white rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
           >
             Close
           </button>
@@ -350,18 +356,18 @@ export const TopMenuBar: React.FC = () => {
 
       {/* Battery Info Popover */}
       {showBatteryModal && (
-        <div className="absolute top-8 right-12 w-56 bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[4px_4px_0px_rgba(0,0,0,0.5)] p-3 z-50 text-black select-none text-xs font-pixel">
+        <div className="absolute top-8 right-12 w-56 p-3 z-50 text-black select-none text-xs font-pixel bg-[var(--rt-panel)] rt-raised">
           <div className="font-bold flex items-center gap-1.5 mb-1 text-[13px]">
             <Battery className="w-4 h-4 text-emerald-700" />
             <span>Battery & Power</span>
           </div>
-          <div className="text-[11px] text-slate-700 space-y-1">
+          <div className="text-slate-700 space-y-1 text-[12.5px]">
             <p><strong>State:</strong> AC Power (Direct)</p>
             <p><strong>Health:</strong> 100% Optimal</p>
           </div>
           <button 
             onClick={() => setShowBatteryModal(false)}
-            className="mt-2.5 w-full py-0.5 bg-[#cecece] border border-t-white border-l-white border-r-black border-b-black font-bold"
+            className="mt-2.5 w-full py-0.5 font-bold bg-white rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
           >
             Close
           </button>

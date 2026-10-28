@@ -33,3 +33,17 @@ Thumbs.db
 
 # Scratch instruction videos
 public/assets/changes we have to do/
+
+# Personal notes and scratch videos (kept out of public/ so they never ship in the build)
+notes/
+
+# SpillGuard agent
+agent/.venv/
+__pycache__/
+.pytest_cache/
+agent/build/
+agent/*.spec
+# live traces are large; curated ones live in traces/pilot, traces/w1 and public/traces
+traces/live-*.jsonl
+# Repro raw bundles contain machine details and are kept local by default.
+traces/repro/

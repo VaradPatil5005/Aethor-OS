@@ -1,0 +1,49 @@
+{
+  "name": "fixture-demo",
+  "actions": [
+    {
+      "id": "irrelevant-a",
+      "allocated_bytes": 16777216,
+      "start_ms": 0,
+      "duration_ms": 5000,
+      "touch_interval_ms": 0,
+      "phase": "pressure",
+      "mode": "hold",
+      "compute_duty_pct": 25
+    },
+    {
+      "id": "capacity",
+      "allocated_bytes": 134217728,
+      "start_ms": 0,
+      "duration_ms": 5000,
+      "touch_interval_ms": 0,
+      "phase": "pressure",
+      "mode": "hold",
+      "compute_duty_pct": 25
+    }
+  ],
+  "workload": {
+    "kind": "cuda_probe",
+    "allocated_bytes": 67108864,
+    "iterations": 2048,
+    "warmup_ms": 500
+  },
+  "protocol": {
+    "repeats": 3,
+    "slowdown_ratio": 2.0,
+    "recovery_ratio": 1.25,
+    "min_pressure_fraction": 0.5,
+    "min_overlap_samples": 2,
+    "sample_interval_ms": 100,
+    "lead_in_ms": 500,
+    "cooldown_ms": 1000,
+    "timeout_s": 30,
+    "max_requested_bytes": 1073741824,
+    "min_available_host_bytes": 2147483648,
+    "preparation": "warm",
+    "idle_ms": 3000,
+    "treatment_order": "fixed"
+  },
+  "schema_version": 1,
+  "seed": 0
+}

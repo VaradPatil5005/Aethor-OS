@@ -1,0 +1,10 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "environment.json": "e3ae3c24e2c7727e0ffa1b671df8b00f24638be60efdb44e1a59295ce59c5e46",
+    "recipe-template.json": "c24f95c17b382a3d332340a8759a5ab91801c0806c289b4f7ac5f28668eaf5be",
+    "REPLICATION.md": "70891e15804aa9a362a4bc0807b9c57ccc40c66263c51a597b5189ae69705bf5",
+    "results.json": "322cdb3164e395e205f3a3bef812603b4c6ef9007dbb8c92a507b67e4a309cf0",
+    "trial-001-pressure/trace.jsonl": "df50187d375d91bafcf03d95a12119f5760a0cd0bf037f13a0aa598e7bd209b8"
+  }
+}

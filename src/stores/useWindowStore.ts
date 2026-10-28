@@ -17,7 +17,8 @@ export type AppId =
   | 'settings'
   | 'community'
   | 'trash'
-  | 'bpf_studio';
+  | 'bpf_studio'
+  | 'spillguard';
 
 export interface WindowState {
   id: AppId;
@@ -112,7 +113,7 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
     deadlock_lab: { id: 'deadlock_lab', title: 'Deadlock & Concurrency Engine', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 680, height: 440, x: 140, y: 90 },
     terminal: { id: 'terminal', title: 'aethersh v2.4 - Aether Shell CLI', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 10, width: 620, height: 390, x: 250, y: 110 },
     file_explorer: { id: 'file_explorer', title: 'Finder - Crash-Consistent WAL Inodes', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 760, height: 460, x: 150, y: 80 },
-    music: { id: 'music', title: 'Vinyl Lo-Fi Audio Player', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 440, height: 380, x: 280, y: 130 },
+    music: { id: 'music', title: 'Vinyl Lo-Fi Audio Player', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 420, height: 470, x: 280, y: 130 },
     calculator: { id: 'calculator', title: 'Calculator', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 320, height: 390, x: 320, y: 120 },
     messages: { id: 'messages', title: 'Aether Messages', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 700, height: 490, x: 160, y: 70 },
     test_runner: { id: 'test_runner', title: 'Kernel Test Suite & Audit Journal', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 720, height: 480, x: 150, y: 70 },
@@ -122,7 +123,8 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
     settings: { id: 'settings', title: 'Control Panel - Desktop & Settings', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 600, height: 410, x: 220, y: 90 },
     community: { id: 'community', title: 'Community', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 780, height: 480, x: 160, y: 70 },
     trash: { id: 'trash', title: 'Trash', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 440, height: 320, x: 280, y: 140 },
-    bpf_studio: { id: 'bpf_studio', title: 'In-Kernel eBPF Tracing & Probe Studio', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 780, height: 490, x: 170, y: 75 }
+    bpf_studio: { id: 'bpf_studio', title: 'In-Kernel eBPF Tracing & Probe Studio', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 780, height: 490, x: 170, y: 75 },
+    spillguard: { id: 'spillguard', title: 'SpillGuard - Live GPU Memory Tiers', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 5, width: 760, height: 540, x: 130, y: 50 }
   },
 
   open: (id) => {
@@ -164,7 +166,8 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
         settings: { ...s.windows.settings, isOpen: false, x: 220, y: 90 },
         community: { ...s.windows.community, isOpen: false, x: 160, y: 70 },
         trash: { ...s.windows.trash, isOpen: false, x: 280, y: 140 },
-        bpf_studio: { ...s.windows.bpf_studio, isOpen: false, x: 170, y: 75 }
+        bpf_studio: { ...s.windows.bpf_studio, isOpen: false, x: 170, y: 75 },
+        spillguard: { ...s.windows.spillguard, isOpen: false, x: 130, y: 50 }
       }
     }));
   }

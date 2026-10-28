@@ -3,6 +3,7 @@ import { MemoryManager } from './MemoryManager';
 import { runBankersSafetyCheck } from './BankersAlgorithm';
 import { DeadlockEngine } from './DeadlockEngine';
 import { VFS } from './VFS';
+import { Kernel } from './Kernel';
 import { Process, BankerScenario } from '../types/kernel';
 
 export interface TestResult {
@@ -83,21 +84,32 @@ export class TestHarness {
     };
   }
 
+  /**
+   * Drives the real dual-core dispatcher (Kernel.step), not the scheduler in isolation:
+   * two processes pinned to core 0 under RR with a 2-tick quantum must run A A B B —
+   * A keeps the CPU for its whole quantum, then is preempted in favour of B.
+   */
   private static testRoundRobin(): TestResult {
     const start = performance.now();
-    const scheduler = new Scheduler('ROUND_ROBIN', 2);
-    const p1 = makeTestProcess(1, { state: 'RUNNING', quantumUsed: 2, remainingBurstTicks: 4 });
-    const p2 = makeTestProcess(2, { remainingBurstTicks: 6 });
+    const k = new Kernel();
+    k.processes = [];
+    k.scheduler.algorithm = 'ROUND_ROBIN';
+    k.scheduler.timeQuantum = 2;
+    k.scheduler.sync(k.processes);
+    k.spawnProcess('A', 2, 6, 4, undefined, 0);
+    k.spawnProcess('B', 2, 6, 4, undefined, 0);
+    for (let i = 0; i < 4; i++) k.step();
 
-    scheduler.sync([p1, p2]);
-    const next = scheduler.selectNext([p1, p2]);
-    const passed = next?.pid === 2;
+    const ran = k.ganttHistoryCore0.slice(-4).map((g) => g.name).join(' ');
+    const passed = ran === 'A A B B';
     return {
       id: 'unit_rr',
       category: 'Unit',
       name: 'Round Robin preempts at quantum exhaustion',
       passed,
-      message: passed ? 'Preempted P1 after 2-tick quantum and dispatched P2' : 'Failed to preempt after quantum',
+      message: passed
+        ? 'Core 0 ran A A B B: A held the CPU for its 2-tick quantum, then was preempted for B'
+        : `Expected core 0 to run "A A B B", got "${ran}"`,
       durationMs: Number((performance.now() - start).toFixed(2))
     };
   }

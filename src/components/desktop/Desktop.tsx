@@ -28,10 +28,12 @@ import { TestRunnerApp } from '../apps/TestRunnerApp';
 import { CommunityApp } from '../apps/CommunityApp';
 import { TrashApp } from '../apps/TrashApp';
 import { BPFStudioApp } from '../apps/BPFStudioApp';
+import { SpillGuardApp } from '../apps/SpillGuardApp';
 import { FalconPet } from '../apps/FalconPet';
 
 import { retroAudio } from '../../utils/audio';
 import { 
+  HardDrive,
   Globe, 
   Cpu, 
   Layers, 
@@ -61,7 +63,8 @@ export const Desktop: React.FC = () => {
     { id: 'calculator', label: 'Calculator', iconSrc: '/assets/icons/calculator.webp' },
     { id: 'task_manager', label: "Dash's Journal", iconSrc: '/assets/icons/blogs.webp' },
     { id: 'file_explorer', label: 'archive', iconSrc: '/assets/icons/folderIcon.webp' },
-    { id: 'bpf_studio', label: 'eBPF Studio', iconSrc: '/assets/icons/terminal.webp' }
+    { id: 'bpf_studio', label: 'eBPF Studio', iconSrc: '/assets/icons/terminal.webp' },
+    { id: 'spillguard', label: 'SpillGuard', iconSrc: '/assets/icons/spillguard.svg' }
   ];
 
   const handleIconClick = (id: AppId) => {
@@ -236,6 +239,10 @@ export const Desktop: React.FC = () => {
       <ComicDialogue />
 
       {/* --- ALL WINDOWS (Classic System 7 Window Frame) --- */}
+      <WindowFrame id="spillguard" icon={<HardDrive className="w-3.5 h-3.5 text-rose-700" />}>
+        <SpillGuardApp />
+      </WindowFrame>
+
       <WindowFrame id="bpf_studio" icon={<Radio className="w-3.5 h-3.5 text-purple-700" />}>
         <BPFStudioApp />
       </WindowFrame>

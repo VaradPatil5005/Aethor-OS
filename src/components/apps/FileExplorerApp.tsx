@@ -1,37 +1,49 @@
 import React, { useState } from 'react';
 import { useKernelStore } from '../../stores/useKernelStore';
 import { retroAudio } from '../../utils/audio';
-import { 
-  Folder, 
-  FileText, 
-  ArrowLeft, 
-  Plus, 
-  HardDrive, 
-  Monitor, 
-  ZapOff, 
-  RefreshCw, 
-  ShieldCheck, 
-  AlertTriangle,
-  ScrollText,
-  CheckCircle2
-} from 'lucide-react';
+import { Folder, ArrowLeft, Plus, HardDrive, Monitor, ZapOff, RefreshCw, ShieldCheck, AlertTriangle, ScrollText } from 'lucide-react';
+import type { Inode } from '../../types/kernel';
+import { globalKernel } from '../../kernel/Kernel';
+
+const PLACES = [
+  { id: 'root', label: 'Root (/)', icon: HardDrive, cmds: ['cd /'] },
+  { id: 'user', label: 'User space', icon: Monitor, cmds: ['cd /', 'cd user'] },
+  { id: 'etc', label: 'Config (etc)', icon: Folder, cmds: ['cd /', 'cd etc'] },
+];
+
+const WAL_STATE: Record<string, string> = {
+  CHECKPOINTED: 'bg-[var(--rt-min)] text-black',
+  COMMITTED: 'bg-[#7ec8ff] text-black',
+};
+
+/** A slim title strip with a Retrium close dot, used by the bottom drawers and the dialog. */
+const Strip: React.FC<{ title: string; onClose: () => void }> = ({ title, onClose }) => (
+  <div className="shrink-0 h-8 px-2 flex items-center justify-between gap-2 bg-[#333] text-white text-[13px]">
+    <span className="truncate">{title}</span>
+    <button type="button" className="rt-ctrl rt-ctrl-close" onClick={onClose} aria-label={`Close ${title}`}>x</button>
+  </div>
+);
 
 export const FileExplorerApp: React.FC = () => {
-  const { 
-    vfsInodes, 
-    executeTerminalCommand, 
-    currentVfsPath, 
-    superblock, 
-    journalLog, 
-    triggerPowerCut, 
-    recoverFSCK 
-  } = useKernelStore();
+  const { vfsInodes, executeTerminalCommand, currentVfsPath, superblock, journalLog, triggerPowerCut, recoverFSCK } = useKernelStore();
 
   const [selectedFile, setSelectedFile] = useState<{ name: string; content: string; size: number } | null>(null);
+  const [selectedInode, setSelectedInode] = useState<number | null>(null);
   const [newFileName, setNewFileName] = useState('');
-  const [sidebarLocation, setSidebarLocation] = useState<string>('root');
-  const [showJournalDrawer, setShowJournalDrawer] = useState<boolean>(false);
+  const [showJournal, setShowJournal] = useState(false);
   const [recoveryLogs, setRecoveryLogs] = useState<string[] | null>(null);
+
+  // vfsInodes is the whole filesystem; show only the current folder's children.
+  // (currentVfsPath changes on every cd, which re-renders this component.)
+  const children = vfsInodes.filter((i) => i.parentId === globalKernel.vfs.currentDirId);
+
+  // Highlight follows the real path, so it stays right after cd from the terminal too.
+  const place = currentVfsPath === '/' ? 'root' : currentVfsPath.startsWith('/user') ? 'user' : currentVfsPath.startsWith('/etc') ? 'etc' : null;
+
+  const go = (_id: string, cmds: string[]) => {
+    retroAudio.playClickSound();
+    cmds.forEach((c) => executeTerminalCommand(c));
+  };
 
   const handleCreateFile = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,310 +53,186 @@ export const FileExplorerApp: React.FC = () => {
     setNewFileName('');
   };
 
-  const handleItemClick = (inode: any) => {
+  const openItem = (inode: Inode) => {
     retroAudio.playClickSound();
     if (inode.type === 'directory') {
       executeTerminalCommand(`cd ${inode.name}`);
+      setSelectedInode(null);
     } else {
-      setSelectedFile({
-        name: inode.name,
-        content: inode.content || '(Empty file payload)',
-        size: inode.sizeBytes
-      });
+      setSelectedFile({ name: inode.name, content: inode.content || '(empty file)', size: inode.sizeBytes });
     }
   };
 
-  const handlePowerCut = () => {
+  const runFsck = () => {
     retroAudio.playClickSound();
-    triggerPowerCut();
-  };
-
-  const handleRunFsck = () => {
-    retroAudio.playClickSound();
-    const logs = recoverFSCK();
-    setRecoveryLogs(logs);
+    setRecoveryLogs(recoverFSCK());
   };
 
   return (
-    <div className="h-full w-full bg-[#cecece] text-black flex font-pixel select-none overflow-hidden text-xs relative min-h-0 min-w-0">
-      {/* Finder Left Sidebar */}
-      <div className="w-44 bg-[#dedede] border-r-2 border-[#888] flex flex-col p-2 space-y-3 shrink-0">
-        <div>
-          <div className="text-[10px] font-bold text-[#666] tracking-wider uppercase mb-1">
-            Favorites
-          </div>
-          <div className="space-y-0.5">
+    <div className="h-full w-full flex relative min-h-0 min-w-0 bg-white font-pixel text-[13px]">
+      {/* Sidebar */}
+      <aside className="w-44 shrink-0 flex flex-col gap-3 p-2 overflow-y-auto bg-[var(--rt-side)] border-r-2 border-black">
+        <nav className="space-y-1" aria-label="Places">
+          {PLACES.map(({ id, label, icon: Icon, cmds }) => (
             <button
-              onClick={() => { retroAudio.playClickSound(); executeTerminalCommand('cd /'); setSidebarLocation('root'); }}
-              className={`w-full text-left px-2 py-1 rounded-sm flex items-center gap-1.5 font-bold ${
-                sidebarLocation === 'root' ? 'bg-[#181a24] text-white' : 'hover:bg-[#eaeaea] text-black'
-              }`}
+              key={id}
+              onClick={() => go(id, cmds)}
+              className={`w-full text-left px-2 py-1.5 rounded flex items-center gap-1.5 font-bold rt-row ${place === id ? 'is-active' : ''}`}
             >
-              <HardDrive className="w-3.5 h-3.5" />
-              <span>Root (/)</span>
+              <Icon className="w-4 h-4 shrink-0" /> <span className="truncate">{label}</span>
             </button>
-            <button
-              onClick={() => { retroAudio.playClickSound(); executeTerminalCommand('cd user'); setSidebarLocation('user'); }}
-              className={`w-full text-left px-2 py-1 rounded-sm flex items-center gap-1.5 font-bold ${
-                sidebarLocation === 'user' ? 'bg-[#181a24] text-white' : 'hover:bg-[#eaeaea] text-black'
-              }`}
-            >
-              <Monitor className="w-3.5 h-3.5" />
-              <span>User Space</span>
-            </button>
-            <button
-              onClick={() => { retroAudio.playClickSound(); executeTerminalCommand('cd etc'); setSidebarLocation('etc'); }}
-              className={`w-full text-left px-2 py-1 rounded-sm flex items-center gap-1.5 font-bold ${
-                sidebarLocation === 'etc' ? 'bg-[#181a24] text-white' : 'hover:bg-[#eaeaea] text-black'
-              }`}
-            >
-              <Folder className="w-3.5 h-3.5" />
-              <span>Config (etc)</span>
-            </button>
-          </div>
-        </div>
+          ))}
+        </nav>
 
-        {/* Superblock WAL Metadata Status */}
-        <div className="p-2 bg-[#cecece] border border-t-white border-l-white border-r-[#888] border-b-[#888] text-[10px] text-slate-800 space-y-1">
-          <div className="font-bold text-black flex items-center justify-between">
-            <span>Superblock:</span>
-            <span className={`px-1 rounded-xs text-[9px] font-bold ${
-              superblock.isClean ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-200 text-rose-900 animate-pulse'
-            }`}>
-              {superblock.isClean ? 'CLEAN' : 'DIRTY / CRASH'}
+        <section className="bg-white rt-sunken p-2 space-y-0.5 font-terminal text-[17px] leading-tight">
+          <div className="flex items-center justify-between gap-1 font-pixel font-bold text-[12px]">
+            <span>Superblock</span>
+            <span className={`px-1 border-2 border-black ${superblock.isClean ? 'bg-[var(--rt-min)]' : 'bg-[var(--rt-close)] animate-pulse'}`}>
+              {superblock.isClean ? 'CLEAN' : 'DIRTY'}
             </span>
           </div>
-          <div>Mount: {superblock.mounted ? 'ONLINE' : 'UNMOUNTED'}</div>
+          <div>Mount: {superblock.mounted ? 'online' : 'unmounted'}</div>
           <div>Inodes: {vfsInodes.length} / 64</div>
-          <div>WAL Entries: {journalLog.length}</div>
-          <button
-            onClick={() => setShowJournalDrawer(!showJournalDrawer)}
-            className="w-full mt-1 px-1.5 py-0.5 bg-white hover:bg-slate-100 border border-black font-bold text-[9px] flex items-center justify-center gap-1 cursor-pointer"
-          >
-            <ScrollText className="w-3 h-3 text-indigo-700" />
-            <span>{showJournalDrawer ? 'Hide WAL Log' : 'View WAL Ring'}</span>
+          <div>WAL entries: {journalLog.length}</div>
+          <button onClick={() => setShowJournal((v) => !v)} className="rt-btn rt-btn-sm w-full !mt-1.5">
+            <ScrollText className="w-3.5 h-3.5" /> {showJournal ? 'Hide WAL log' : 'View WAL ring'}
           </button>
-        </div>
+        </section>
 
-        {/* Crash Consistency Simulation Controls */}
-        <div className="p-2 bg-[#dfdfdf] border border-[#888] space-y-1.5">
-          <div className="text-[10px] font-bold text-slate-800">Crash Consistency:</div>
-          <button
-            onClick={handlePowerCut}
-            className="w-full px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold text-[10px] border border-black rounded-xs flex items-center justify-center gap-1 cursor-pointer active:translate-y-0.5"
-            title="Interrupt active transaction and crash disk"
-          >
-            <ZapOff className="w-3 h-3" />
-            <span>Simulate Power Cut</span>
+        <section className="space-y-2">
+          <div className="font-bold text-[12px]">Crash consistency</div>
+          <button onClick={() => { retroAudio.playClickSound(); triggerPowerCut(); }} className="rt-btn rt-btn-sm w-full !bg-[var(--rt-close)] hover:!bg-black" title="Interrupt the active transaction and crash the disk">
+            <ZapOff className="w-3.5 h-3.5" /> Power cut
           </button>
-
-          <button
-            onClick={handleRunFsck}
-            className="w-full px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] border border-black rounded-xs flex items-center justify-center gap-1 cursor-pointer active:translate-y-0.5"
-            title="Replay journal and clean uncommitted blocks"
-          >
-            <RefreshCw className="w-3 h-3" />
-            <span>Run fsck Recovery</span>
+          <button onClick={runFsck} className="rt-btn rt-btn-sm w-full !bg-[var(--rt-min)] hover:!bg-black" title="Replay the journal and clean uncommitted blocks">
+            <RefreshCw className="w-3.5 h-3.5" /> Run fsck
           </button>
-        </div>
-      </div>
+        </section>
+      </aside>
 
-      {/* Main Finder Area */}
-      <div className="flex-1 flex flex-col bg-white overflow-hidden">
-        {/* Crash Warning Banner if dirty */}
+      {/* Main area */}
+      <div className="flex-1 min-w-0 flex flex-col">
         {!superblock.isClean && (
-          <div className="bg-rose-600 text-white px-3 py-1.5 flex items-center justify-between text-xs font-bold animate-pulse">
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4" />
-              <span>CRASH DETECTED: Storage unmounted with dirty uncommitted WAL blocks!</span>
-            </div>
-            <button
-              onClick={handleRunFsck}
-              className="bg-white text-rose-900 px-2 py-0.5 rounded-xs hover:bg-rose-100 text-[10px] font-bold"
-            >
-              Recover with fsck
-            </button>
+          <div className="shrink-0 bg-[var(--rt-close)] border-b-2 border-black px-3 py-1.5 flex items-center justify-between gap-2" role="alert">
+            <span className="flex items-center gap-2 font-bold"><AlertTriangle className="w-4 h-4 shrink-0" /> Crash detected: dirty WAL blocks</span>
+            <button onClick={runFsck} className="rt-btn rt-btn-sm">Recover</button>
           </div>
         )}
 
-        {/* Top Path & Controls */}
-        <div className="p-2 bg-[#dfdfdf] border-b border-[#888] flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 flex-1 truncate">
-            <button 
-              onClick={() => { retroAudio.playClickSound(); executeTerminalCommand('cd ..'); }}
-              className="px-2 py-0.5 bg-[#dedede] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white font-bold flex items-center gap-1"
-              title="Parent directory"
-            >
-              <ArrowLeft className="w-3 h-3" />
-              <span>Back</span>
-            </button>
-            <span className="font-mono text-xs font-bold text-slate-700 truncate bg-white px-2 py-0.5 border border-[#999] rounded-sm">
-              {currentVfsPath}
-            </span>
-          </div>
-
-          <form onSubmit={handleCreateFile} className="flex items-center gap-1">
+        <div className="shrink-0 p-2 border-b-2 border-black flex items-center gap-2 flex-wrap bg-[var(--rt-soft)]">
+          <button onClick={() => { retroAudio.playClickSound(); executeTerminalCommand('cd ..'); }} className="rt-btn rt-btn-sm" title="Parent directory">
+            <ArrowLeft className="w-3.5 h-3.5" /> Back
+          </button>
+          <span className="flex-1 min-w-[6rem] truncate bg-white border-2 border-black px-2 font-terminal text-[18px]" title={currentVfsPath}>
+            {currentVfsPath}
+          </span>
+          <form onSubmit={handleCreateFile} className="flex items-center gap-1.5">
             <input
               type="text"
               placeholder="new_file.txt"
+              aria-label="New file name"
               value={newFileName}
               onChange={(e) => setNewFileName(e.target.value)}
               disabled={!superblock.mounted}
-              className="px-2 py-0.5 bg-white border border-[#888] rounded-sm text-black font-mono text-xs outline-none w-28 disabled:opacity-50"
+              className="w-28 px-2 font-terminal text-[18px] disabled:opacity-50"
             />
-            <button
-              type="submit"
-              disabled={!superblock.mounted}
-              className="px-2 py-0.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold border border-black rounded-sm flex items-center gap-0.5 active:translate-y-0.5 cursor-pointer"
-            >
-              <Plus className="w-3 h-3" />
-              <span>Create (WAL)</span>
+            <button type="submit" disabled={!superblock.mounted} className="rt-btn rt-btn-sm">
+              <Plus className="w-3.5 h-3.5" /> Create
             </button>
           </form>
         </div>
 
-        {/* Inode Files Grid */}
-        <div className="flex-1 overflow-auto p-4 bg-[#f8f9fc]">
+        <div className="flex-1 min-h-0 overflow-y-auto p-3" onClick={() => setSelectedInode(null)}>
           {!superblock.mounted ? (
-            <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-500">
-              <ZapOff className="w-10 h-10 text-rose-500 mb-2" />
-              <p className="font-bold text-slate-800 text-sm">VFS Unmounted Due to Sudden Power Cut</p>
-              <p className="text-xs text-slate-600 mt-1 max-w-sm">
-                Dirty transactions in the Write-Ahead Log must be resolved by the recovery daemon before mounting.
+            <div className="h-full flex flex-col items-center justify-center text-center gap-2 p-6">
+              <ZapOff className="w-10 h-10" />
+              <p className="font-bold text-[15px]">Disk unmounted after a power cut</p>
+              <p className="font-terminal text-[18px] leading-tight max-w-sm text-[var(--rt-muted)]">
+                Dirty transactions in the write-ahead log must be replayed before the disk can mount again.
               </p>
-              <button
-                onClick={handleRunFsck}
-                className="mt-3 px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-sm border border-black shadow"
-              >
-                Run fsck Recovery Daemon
-              </button>
+              <button onClick={runFsck} className="rt-btn">Run fsck recovery</button>
             </div>
+          ) : children.length === 0 ? (
+            <p className="text-center font-terminal text-[18px] text-[var(--rt-muted)] mt-6">This folder is empty.</p>
           ) : (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-              {vfsInodes.map((inode) => (
-                <div
-                  key={inode.inodeNumber}
-                  onDoubleClick={() => handleItemClick(inode)}
-                  onClick={() => handleItemClick(inode)}
-                  className="p-2 bg-white hover:bg-indigo-50 border border-slate-300 hover:border-indigo-400 rounded-sm flex flex-col items-center justify-center cursor-pointer transition text-center shadow-sm group"
-                >
-                  <div className="mb-1 text-2xl group-hover:scale-105 transition">
-                    {inode.type === 'directory' ? '??' : '??'}
-                  </div>
-                  <span className="font-bold text-slate-800 text-xs truncate w-full">
-                    {inode.name}
-                  </span>
-                  <span className="text-[10px] font-mono text-slate-500">
-                    {inode.sizeBytes} B
-                  </span>
-                </div>
-              ))}
+            <div className="grid gap-1" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(88px, 1fr))' }}>
+              {children.map((inode) => {
+                const sel = selectedInode === inode.inodeNumber;
+                return (
+                  <button
+                    key={inode.inodeNumber}
+                    onClick={(e) => { e.stopPropagation(); setSelectedInode(inode.inodeNumber); }}
+                    onDoubleClick={() => openItem(inode)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') openItem(inode); }}
+                    className="flex flex-col items-center gap-1 px-1 py-2 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-black"
+                    title={`${inode.name} · ${inode.sizeBytes} B · double-click to open`}
+                  >
+                    <img
+                      src={inode.type === 'directory' ? '/assets/icons/folderIcon.webp' : '/assets/icons/TxtIcon.webp'}
+                      alt=""
+                      className="w-12 h-12 object-contain pointer-events-none"
+                      style={{ imageRendering: 'pixelated' }}
+                    />
+                    <span className={`max-w-full px-1 truncate leading-tight ${sel ? 'bg-black text-white' : ''}`}>{inode.name}</span>
+                    <span className="font-terminal text-[15px] leading-none text-[var(--rt-muted)]">{inode.sizeBytes} B</span>
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
 
-        {/* Selected File Viewer Modal */}
         {selectedFile && (
-          <div className="h-44 bg-[#181a24] text-slate-100 border-t-2 border-black flex flex-col">
-            <div className="p-1.5 bg-[#cecece] text-black border-b border-black flex items-center justify-between font-bold text-xs">
-              <span>Reading: {selectedFile.name} ({selectedFile.size} Bytes)</span>
-              <button 
-                onClick={() => setSelectedFile(null)}
-                className="px-1.5 py-0.5 bg-[#dedede] border border-black hover:bg-black hover:text-white"
-              >
-                Close
-              </button>
-            </div>
-            <pre className="flex-1 p-2 font-mono text-xs overflow-auto text-emerald-400 bg-[#111218] select-text whitespace-pre-wrap">
+          <section className="shrink-0 h-44 flex flex-col border-t-2 border-black">
+            <Strip title={`${selectedFile.name} (${selectedFile.size} B)`} onClose={() => setSelectedFile(null)} />
+            <pre className="flex-1 min-h-0 overflow-auto rt-dark-scroll p-2 bg-[#222] text-[#5af78e] whitespace-pre-wrap select-text font-terminal text-[18px] leading-tight">
               {selectedFile.content}
             </pre>
-          </div>
+          </section>
         )}
 
-        {/* WAL Journal Log Ring Buffer Drawer */}
-        {showJournalDrawer && (
-          <div className="h-48 bg-[#181a24] text-white border-t-2 border-black flex flex-col font-mono text-xs">
-            <div className="p-1.5 bg-[#cecece] text-black border-b border-black flex items-center justify-between font-bold">
-              <span>Ext4/XFS Write-Ahead Log (WAL) Ring Buffer</span>
-              <button onClick={() => setShowJournalDrawer(false)} className="px-1.5 py-0.2 bg-[#dedede] border border-black hover:bg-rose-600 hover:text-white">?</button>
-            </div>
-            <div className="flex-1 overflow-auto p-2">
-              <table className="w-full text-left text-[11px]">
-                <thead className="text-slate-400 border-b border-slate-700">
-                  <tr>
-                    <th className="pb-1">TXN</th>
-                    <th className="pb-1">OP</th>
-                    <th className="pb-1">PATH</th>
-                    <th className="pb-1">STATE</th>
-                    <th className="pb-1">PAYLOAD</th>
-                  </tr>
+        {showJournal && (
+          <section className="shrink-0 h-48 flex flex-col border-t-2 border-black">
+            <Strip title="Write-ahead log ring buffer" onClose={() => setShowJournal(false)} />
+            <div className="flex-1 min-h-0 overflow-auto rt-dark-scroll bg-[#222] text-[#e0e0e0] font-terminal text-[17px]">
+              <table className="w-full text-left border-collapse">
+                <thead className="sticky top-0 bg-[#333] text-[#bdbdbd]">
+                  <tr><th className="px-2">TXN</th><th className="px-2">OP</th><th className="px-2">PATH</th><th className="px-2">STATE</th><th className="px-2">PAYLOAD</th></tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody>
                   {journalLog.map((j) => (
-                    <tr key={j.txnId} className="hover:bg-slate-800/50">
-                      <td className="py-1 font-bold text-indigo-400">#{j.txnId}</td>
-                      <td className="py-1">{j.op}</td>
-                      <td className="py-1 text-slate-300">{j.path}</td>
-                      <td className="py-1">
-                        <span className={`px-1 py-0.2 rounded-xs text-[9px] font-bold ${
-                          j.state === 'CHECKPOINTED' ? 'bg-emerald-900 text-emerald-200' :
-                          j.state === 'COMMITTED' ? 'bg-blue-900 text-blue-200' : 'bg-amber-900 text-amber-200'
-                        }`}>
-                          {j.state}
-                        </span>
-                      </td>
-                      <td className="py-1 text-slate-400 truncate max-w-[120px]">
-                        {j.payload ? JSON.stringify(j.payload) : ''}
-                      </td>
+                    <tr key={j.txnId} className="border-b border-white/10">
+                      <td className="px-2">#{j.txnId}</td>
+                      <td className="px-2">{j.op}</td>
+                      <td className="px-2">{j.path}</td>
+                      <td className="px-2"><span className={`px-1 ${WAL_STATE[j.state] ?? 'bg-[var(--rt-max)] text-black'}`}>{j.state}</span></td>
+                      <td className="px-2 truncate max-w-[140px] text-[#9a9a9a]">{j.payload ? JSON.stringify(j.payload) : ''}</td>
                     </tr>
                   ))}
-                  {journalLog.length === 0 && (
-                    <tr>
-                      <td colSpan={5} className="py-4 text-center text-slate-500">
-                        Journal ring buffer empty.
-                      </td>
-                    </tr>
-                  )}
+                  {journalLog.length === 0 && <tr><td colSpan={5} className="py-4 text-center text-[#9a9a9a]">Journal empty.</td></tr>}
                 </tbody>
               </table>
             </div>
-          </div>
+          </section>
         )}
+      </div>
 
-        {/* fsck Recovery Modal Dialog */}
-        {recoveryLogs && (
-          <div className="absolute inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-            <div className="w-full max-w-md bg-[#dfdfdf] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[6px_6px_0px_rgba(0,0,0,0.8)] p-4 text-black font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-slate-400 pb-1.5 mb-2 font-bold font-pixel">
-                <span className="flex items-center gap-1.5 text-emerald-800">
-                  <ShieldCheck className="w-4 h-4" /> fsck.aether Crash Consistency Recovery
-                </span>
-                <button 
-                  onClick={() => setRecoveryLogs(null)}
-                  className="hover:text-rose-600 font-bold"
-                >
-                  ?
-                </button>
+      {recoveryLogs && (
+        <div className="absolute inset-0 z-50 bg-black/50 flex items-center justify-center p-4" role="dialog" aria-label="fsck recovery">
+          <div className="rt-window w-full max-w-md flex flex-col max-h-full">
+            <Strip title="fsck: crash-consistency recovery" onClose={() => setRecoveryLogs(null)} />
+            <div className="bg-white p-4 space-y-3 overflow-y-auto">
+              <p className="flex items-center gap-1.5 font-bold"><ShieldCheck className="w-4 h-4" /> Journal replayed</p>
+              <div className="bg-[#222] text-[#5af78e] p-2 max-h-48 overflow-y-auto rt-dark-scroll font-terminal text-[17px] leading-tight space-y-0.5">
+                {recoveryLogs.map((log, i) => <div key={i}>{log}</div>)}
               </div>
-
-              <div className="bg-[#111218] p-3 text-emerald-400 space-y-1 max-h-48 overflow-y-auto mb-3 rounded-xs">
-                {recoveryLogs.map((log, idx) => (
-                  <div key={idx} className="leading-relaxed">{log}</div>
-                ))}
-              </div>
-
               <div className="flex justify-end">
-                <button
-                  onClick={() => setRecoveryLogs(null)}
-                  className="px-4 py-1 bg-[#3b82f6] hover:bg-blue-600 text-white font-bold border border-black cursor-pointer font-pixel text-xs"
-                >
-                  Done (Remount VFS)
-                </button>
+                <button onClick={() => setRecoveryLogs(null)} className="rt-btn">Done (remount)</button>
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

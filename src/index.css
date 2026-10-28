@@ -1,11 +1,41 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   AetherOS design system — neo-brutalist classic-Mac (inspired by Retrium OS)
+   3px black outlines, hard offset shadows, Pixelify Sans for chrome,
+   VT323 for content, flat cream / white surfaces, chunky outlined scrollbars.
+   ========================================================================== */
+:root {
+  --rt-ink: #000000;
+  --rt-panel: #e9e4d5;      /* window body / cream panels */
+  --rt-paper: #ffffff;      /* content surfaces */
+  --rt-soft: #f0f0f0;       /* buttons, inputs at rest */
+  --rt-side: #e0e0e0;       /* sidebars, table heads */
+  --rt-title: #333333;      /* active title bar */
+  --rt-title-idle: #6b6b6b; /* inactive title bar */
+  --rt-note: #fffdf2;       /* speech bubbles / tips */
+  --rt-muted: #5b5344;
+  --rt-close: #ff5f57;
+  --rt-max: #febc2e;
+  --rt-min: #32cd32;
+  --rt-shadow-win: 8px 8px 0 rgba(0, 0, 0, 0.5);
+  --rt-shadow: 4px 4px 0 rgba(0, 0, 0, 0.9);
+  --rt-shadow-sm: 3px 3px 0 rgba(0, 0, 0, 0.9);
+}
+
 @layer base {
   body {
-    @apply bg-[#12131c] text-slate-100 overflow-hidden select-none antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pixelify Sans", sans-serif;
+    @apply overflow-hidden select-none antialiased;
+    background: #000;
+    color: var(--rt-ink);
+    font-family: 'Pixelify Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.4;
+  }
+  ::selection {
+    background: rgb(62, 68, 81);
+    color: rgb(224, 224, 224);
   }
 }
 
@@ -21,84 +51,182 @@
   font-family: 'Silkscreen', cursive, sans-serif;
 }
 
-/* Classic System 7 Vintage Titlebar Stripes */
-.mac-stripes {
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.25) 0px,
-    rgba(255, 255, 255, 0.25) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-}
-
-.mac-stripes-dark {
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.4) 0px,
-    rgba(0, 0, 0, 0.4) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-}
-
-/* 3D Beveled Buttons and Windows */
-.retro-bevel {
-  border-top: 2px solid rgba(255, 255, 255, 0.5);
-  border-left: 2px solid rgba(255, 255, 255, 0.5);
-  border-right: 2px solid rgba(0, 0, 0, 0.6);
-  border-bottom: 2px solid rgba(0, 0, 0, 0.6);
-}
-
-.retro-inset {
-  border-top: 2px solid rgba(0, 0, 0, 0.7);
-  border-left: 2px solid rgba(0, 0, 0, 0.7);
-  border-right: 2px solid rgba(255, 255, 255, 0.4);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-}
-
-.retro-btn {
-  border-top: 2px solid rgba(255, 255, 255, 0.6);
-  border-left: 2px solid rgba(255, 255, 255, 0.6);
-  border-right: 2px solid rgba(0, 0, 0, 0.7);
-  border-bottom: 2px solid rgba(0, 0, 0, 0.7);
-  transition: all 0.05s ease-in-out;
-}
-
-.retro-btn:active {
-  border-top: 2px solid rgba(0, 0, 0, 0.7);
-  border-left: 2px solid rgba(0, 0, 0, 0.7);
-  border-right: 2px solid rgba(255, 255, 255, 0.6);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.6);
-  transform: translate(1px, 1px);
-}
-
-/* Optional Soft CRT Filter (only when toggled on, never harsh) */
+/* Optional soft CRT filter (only when toggled on, never harsh) */
 .scanlines {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.08) 50%
-  );
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%);
   background-size: 100% 4px;
   pointer-events: none;
 }
 
-/* Retro Scrollbars */
-::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+/* ---------- Windows ------------------------------------------------------ */
+.rt-window {
+  border: 3px solid var(--rt-ink);
+  background: var(--rt-panel);
+  box-shadow: var(--rt-shadow-win);
 }
-::-webkit-scrollbar-track {
-  background: #2a2d38;
-  border: 1px solid #111;
+.rt-window.is-maximized {
+  box-shadow: none;
 }
-::-webkit-scrollbar-thumb {
-  background: #4f586d;
-  border-top: 2px solid #75829e;
-  border-left: 2px solid #75829e;
-  border-right: 2px solid #282c37;
-  border-bottom: 2px solid #282c37;
+.rt-titlebar {
+  height: 36px;
+  padding: 6px 8px;
+  background: var(--rt-title);
+  color: #fff;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1;
 }
-::-webkit-scrollbar-thumb:active {
-  background: #616c84;
+.rt-window:not(.is-active) .rt-titlebar {
+  background: var(--rt-title-idle);
+}
+.rt-ctrl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--rt-ink);
+  border-radius: 50%;
+  color: var(--rt-ink);
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+}
+.rt-ctrl:hover { filter: brightness(1.12); }
+.rt-ctrl:active { transform: translate(1px, 1px); }
+.rt-ctrl-close { background: var(--rt-close); }
+.rt-ctrl-max { background: var(--rt-max); font-family: Arial, sans-serif; font-weight: 900; font-size: 11px; }
+.rt-ctrl-min { background: var(--rt-min); }
+
+/* The scrollable body every app gets. Apps fill it with h-full and own their scrolling. */
+.rt-content {
+  background: var(--rt-paper);
+  color: var(--rt-ink);
+}
+
+/* ---------- Surfaces ----------------------------------------------------- */
+.rt-raised {            /* card / section: outlined, hard shadow */
+  border: 2px solid var(--rt-ink);
+  box-shadow: var(--rt-shadow-sm);
+}
+.rt-raised-sm {         /* small chip / button-like box */
+  border: 2px solid var(--rt-ink);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.9);
+}
+.rt-sunken {            /* well: outlined, flat */
+  border: 2px solid var(--rt-ink);
+  box-shadow: none;
+}
+.rt-sunken-sm {
+  border: 1px solid var(--rt-ink);
+}
+.rt-note {
+  color: var(--rt-ink);
+  background: var(--rt-note);
+  border: 3px solid var(--rt-ink);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.9);
+  font-family: 'VT323', monospace;
+}
+
+/* ---------- Controls ----------------------------------------------------- */
+.rt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 2px solid var(--rt-ink);
+  background: var(--rt-soft);
+  color: var(--rt-ink);
+  box-shadow: var(--rt-shadow-sm);
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  line-height: 1.1;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 60ms, box-shadow 60ms;
+}
+.rt-btn:hover:not(:disabled) { background: var(--rt-ink); color: #fff; }
+.rt-btn:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: none; }
+.rt-btn:disabled { background: #cfcfcf; color: #7c7c7c; box-shadow: none; transform: translate(3px, 3px); cursor: default; }
+.rt-btn:focus-visible { outline: 3px solid var(--rt-max); outline-offset: 2px; }
+.rt-btn-dark { background: var(--rt-ink); color: #fff; }
+.rt-btn-dark:hover:not(:disabled) { background: #333; }
+.rt-btn-sm { padding: 2px 8px; font-size: 16px; box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.9); }
+
+.rt-input,
+.rt-content input[type='text'],
+.rt-content input[type='number'],
+.rt-content input[type='search'],
+.rt-content input:not([type]),
+.rt-content textarea,
+.rt-content select {
+  border: 2px solid var(--rt-ink);
+  border-radius: 0;
+  background: #fff;
+  color: var(--rt-ink);
+  outline: none;
+}
+.rt-content input:focus-visible,
+.rt-content textarea:focus-visible,
+.rt-content select:focus-visible {
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.9);
+}
+.rt-content input[type='range'] { accent-color: #000; }
+/* Inputs that sit on dark or custom surfaces (the terminal prompt) opt out. */
+.rt-content input.rt-bare,
+.rt-content input.rt-bare:focus-visible { border: 0; background: transparent; box-shadow: none; }
+
+/* Lists: rows invert on hover like Retrium's menus and sidebars */
+.rt-row:hover { background: var(--rt-ink); color: #fff; }
+.rt-row.is-active { background: var(--rt-ink); color: #fff; }
+
+/* Top-bar menus */
+.rt-menu {
+  color: var(--rt-ink);
+  border: 2px solid var(--rt-ink);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  box-shadow: var(--rt-shadow-sm);
+}
+
+/* ---------- Scrollbars (Retrium: 13px, outlined track and thumb) --------- */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #9a9a9a #ececec;
+}
+::-webkit-scrollbar { width: 13px; height: 13px; }
+::-webkit-scrollbar-track { background: #ececec; border: 2px solid #000; }
+::-webkit-scrollbar-thumb { background: #9a9a9a; border: 2px solid #000; }
+::-webkit-scrollbar-thumb:hover { background: #7d7d7d; }
+::-webkit-scrollbar-thumb:active { background: #5f5f5f; }
+::-webkit-scrollbar-corner { background: #ececec; }
+
+/* Dark surfaces (terminal, matrix) use a slim dark bar instead */
+.rt-dark-scroll { scrollbar-color: #555 transparent; }
+.rt-dark-scroll::-webkit-scrollbar,
+.rt-dark-scroll ::-webkit-scrollbar { width: 8px; height: 8px; }
+.rt-dark-scroll::-webkit-scrollbar-track,
+.rt-dark-scroll ::-webkit-scrollbar-track { background: transparent; border: 0; }
+.rt-dark-scroll::-webkit-scrollbar-thumb,
+.rt-dark-scroll ::-webkit-scrollbar-thumb { background: #555; border: 0; }
+.rt-dark-scroll::-webkit-scrollbar-thumb:hover,
+.rt-dark-scroll ::-webkit-scrollbar-thumb:hover { background: #777; }
+
+/* A flex column that scrolls must not squash its children to fit: they keep their
+   natural height and the column scrolls instead (otherwise the last panel collapses). */
+.rt-content .flex-col.overflow-y-auto > *,
+.rt-content .flex-col.overflow-auto > * {
+  flex-shrink: 0;
+}
+
+/* Inner scroll panels (logs, maps) deliberately keep the default overscroll-behavior:
+   when one reaches its end the wheel carries on scrolling the window body instead of
+   getting stuck. App roots opt into overscroll-contain themselves. */
+
+@media (prefers-reduced-motion: reduce) {
+  .rt-btn, .rt-ctrl { transition: none; }
 }

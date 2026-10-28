@@ -1,0 +1,240 @@
+[
+  {
+    "page": 1,
+    "characters": 436,
+    "color_pixels": false,
+    "start": "Aethor OS  An Observable Operating Systems Simulator  with SpillGuard GPU Memory Diagnostics  OPERATING SYSTEM",
+    "end": "on number ___________________________________  Browser simulation \u2022 Native Windows telemetry \u2022 Reproducible experiments "
+  },
+  {
+    "page": 2,
+    "characters": 2593,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 2 Project report   \u2022   22 October 2026 Abstract Aethor OS, named",
+    "end": "osal and review material, record module ownership fields, and identify source-code excerpts and reproducibility inputs. "
+  },
+  {
+    "page": 3,
+    "characters": 865,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 3 Project report   \u2022   22 October 2026 Contents 2 Abstract 3 Con",
+    "end": "Material 32 Appendix D Source Code and Reproducibility Appendix 34 Appendix E Presentation Outline and Viva Preparation "
+  },
+  {
+    "page": 4,
+    "characters": 2840,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 4 Project report   \u2022   22 October 2026 1 Introduction and Proble",
+    "end": "orithms are new, or that it outperforms existing diagnostic systems would require additional comparison and validation. "
+  },
+  {
+    "page": 5,
+    "characters": 2726,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 5 Project report   \u2022   22 October 2026 2 Background and Related ",
+    "end": "ng tools and measure either diagnostic accuracy, reduction efficiency or educational benefit under a declared protocol. "
+  },
+  {
+    "page": 6,
+    "characters": 2665,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 6 Project report   \u2022   22 October 2026 3 Requirements and Develo",
+    "end": "evere application slowdown had yet been reproduced, while leaving the earlier negative and inconclusive records intact. "
+  },
+  {
+    "page": 7,
+    "characters": 2712,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 7 Project report   \u2022   22 October 2026 4 System Architecture Des",
+    "end": " reconnection. These storage mechanisms have distinct lifetimes and should not be described as one persistent database. "
+  },
+  {
+    "page": 8,
+    "characters": 1514,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 8 Project report   \u2022   22 October 2026 5 Operating Systems Algor",
+    "end": "on fields, touches allocated frames and publishes a bounded Gantt history. 5.2 Scheduling policies and actual semantics "
+  },
+  {
+    "page": 9,
+    "characters": 3602,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 9 Project report   \u2022   22 October 2026  Table 4 Scheduling polic",
+    "end": "KiB frame pool are separate teaching abstractions rather than a validated coherent hardware address-translation system. "
+  },
+  {
+    "page": 10,
+    "characters": 1998,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 10 Project report   \u2022   22 October 2026 5.5 Resource allocation ",
+    "end": "ker module addresses declared maximum claims rather than converting every graph cycle into a universal deadlock result. "
+  },
+  {
+    "page": 11,
+    "characters": 2389,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 11 Project report   \u2022   22 October 2026 6 Storage Shell and Obse",
+    "end": "eplay. The shell does not parse general Unix pipelines, execute arbitrary host binaries or implement POSIX job control. "
+  },
+  {
+    "page": 12,
+    "characters": 1512,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 12 Project report   \u2022   22 October 2026 6.3 Event probes The ker",
+    "end": "nd simulated browser Music, Calculator, Messages, Community Supporting desktop interactions; application-level behavior "
+  },
+  {
+    "page": 13,
+    "characters": 2397,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 13 Project report   \u2022   22 October 2026 7 SpillGuard Native Impl",
+    "end": " as a tie-breaker. This is an explanation heuristic, not proof that the selected process caused a paging mechanism. [8] "
+  },
+  {
+    "page": 14,
+    "characters": 2524,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 14 Project report   \u2022   22 October 2026 7.3 Fit estimation The e",
+    "end": "intended loopback workflow; they do not imply protection against arbitrary local code or a compromised browser context. "
+  },
+  {
+    "page": 15,
+    "characters": 2305,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 15 Project report   \u2022   22 October 2026 8 Experimental Framework",
+    "end": "ery checks. PASS means a valid trial remained below that threshold. An error, missing observation, changed environment, "
+  },
+  {
+    "page": 16,
+    "characters": 1829,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 16 Project report   \u2022   22 October 2026 guard stop or mixed repe",
+    "end": "der specified transforms is not a global minimum, and fixture success is not empirical superiority on the real witness. "
+  },
+  {
+    "page": 17,
+    "characters": 2417,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 17 Project report   \u2022   22 October 2026 9 Software Testing and E",
+    "end": " suites passed T10 Recipe, evidence and cleanup failures Conservative verdicts and bundle integrity Agent suites passed "
+  },
+  {
+    "page": 18,
+    "characters": 1904,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 18 Project report   \u2022   22 October 2026 Passing tests establish ",
+    "end": "rowser workflows need separate validation. These are identified improvement areas, not fabricated failing test results. "
+  },
+  {
+    "page": 19,
+    "characters": 1510,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 19 Project report   \u2022   22 October 2026 10 Results Performance a",
+    "end": "6 3709 14.04 / 14.06 33.31 / 33.07 2.37 / 2.35 FAIL / FAIL 512 3965 14.15 / 14.10 33.61 / 32.18 2.38 / 2.28 FAIL / FAIL "
+  },
+  {
+    "page": 20,
+    "characters": 2004,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 20 Project report   \u2022   22 October 2026 1.0 1.5 2.0 2.5 -512 0 2",
+    "end": "erence. Repeated page migration remains a hypothesis pending validated residency-event evidence. 10.4 Remedy evaluation "
+  },
+  {
+    "page": 21,
+    "characters": 2302,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 21 Project report   \u2022   22 October 2026  Table 13 Recorded inter",
+    "end": "nvelope, so the original 1 Hz agent figure must not be used as a universal cost for the research framework. [8, 10, 11] "
+  },
+  {
+    "page": 22,
+    "characters": 1650,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 22 Project report   \u2022   22 October 2026 10.6 Interface evidence ",
+    "end": "ord. These limitations define the practical scope of the project rather than diminishing the documented implementation. "
+  },
+  {
+    "page": 23,
+    "characters": 2574,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 23 Project report   \u2022   22 October 2026 11 User Manual and Demon",
+    "end": "s 8765. A restarted agent uses a new token, so reopen the new printed link if the interface reports an expired session. "
+  },
+  {
+    "page": 24,
+    "characters": 2171,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 24 Project report   \u2022   22 October 2026 11.6 Replay and research",
+    "end": "ios and detector limitations 7 Remedy comparison and limitations Unchanged target work, recovery and scoped conclusions "
+  },
+  {
+    "page": 25,
+    "characters": 2707,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 25 Project report   \u2022   22 October 2026 12 Conclusion and Future",
+    "end": "ed evidence; final assessment also depends on an in-person feature demonstration and verified individual contributions. "
+  },
+  {
+    "page": 26,
+    "characters": 2929,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 26 Project report   \u2022   22 October 2026 References [1] R. H. Arp",
+    "end": "rsation. Review requirements, deliverables, general instructions and four VTOP upload fields. Received 22 October 2026. "
+  },
+  {
+    "page": 27,
+    "characters": 1297,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 27 Project report   \u2022   22 October 2026 Appendix A Faculty Requi",
+    "end": "ion PPT 15\u201320 slides: problem through Q&A Appendix E provides an 18-slide outline; create and submit the PPT separately "
+  },
+  {
+    "page": 28,
+    "characters": 2394,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 28 Project report   \u2022   22 October 2026  Table 18 Detailed revie",
+    "end": "red vector diagrams and a true two-tone screenshot. A later faculty template should take precedence if one is supplied. "
+  },
+  {
+    "page": 29,
+    "characters": 1705,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 29 Project report   \u2022   22 October 2026 Appendix B Proposal Mate",
+    "end": "stency History and evidence Git; JSON; JSONL; SHA-256 Version history and replayable experimental records B.2 Work plan "
+  },
+  {
+    "page": 30,
+    "characters": 1673,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 30 Project report   \u2022   22 October 2026  Table 20 Relative work ",
+    "end": " verification, evidence evaluation and documentation Explain algorithms, implementation boundaries and measured results "
+  },
+  {
+    "page": 31,
+    "characters": 2876,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 31 Project report   \u2022   22 October 2026 Appendix C Design and Re",
+    "end": " scope statements are resolved by using dated evidence rather than rewriting old negative records as positive outcomes. "
+  },
+  {
+    "page": 32,
+    "characters": 2286,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 32 Project report   \u2022   22 October 2026 Appendix D Source Code a",
+    "end": "ush({ pid: i, workBefore, workAfter: [...work] });   finished[i] = true;   safeSequence.push(i);   progressed = true; } "
+  },
+  {
+    "page": 33,
+    "characters": 1847,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 33 Project report   \u2022   22 October 2026 D.3 Exact source excerpt",
+    "end": "nts rather than included indiscriminately. Back up the full working tree separately, including files not yet committed. "
+  },
+  {
+    "page": 34,
+    "characters": 2517,
+    "color_pixels": false,
+    "start": "AETHOR OS   |   OPERATING SYSTEMS LAB PROJECT 34 Project report   \u2022   22 October 2026 Appendix E Presentation ",
+    "end": "claim a residency mechanism or a superior reducer? Each answer should refer to actual source and an observable example. "
+  }
+]

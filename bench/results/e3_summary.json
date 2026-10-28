@@ -1,0 +1,75 @@
+{
+ "fits": {
+  "fa0_const": {
+   "flash_attn": false,
+   "features": "const",
+   "coef": [
+    208.11
+   ],
+   "loo_mae_mb": 368,
+   "loo_max_mb": 908,
+   "n": 9
+  },
+  "fa0_const+vision": {
+   "flash_attn": false,
+   "features": "const+vision",
+   "coef": [
+    -86.2,
+    662.2
+   ],
+   "loo_mae_mb": 243,
+   "loo_max_mb": 641,
+   "n": 9
+  },
+  "fa0_linear+vision": {
+   "flash_attn": false,
+   "features": "linear+vision",
+   "coef": [
+    234.71,
+    -25.88,
+    535.39
+   ],
+   "loo_mae_mb": 46,
+   "loo_max_mb": 93,
+   "n": 9
+  },
+  "fa1_const": {
+   "flash_attn": true,
+   "features": "const",
+   "coef": [
+    535.22
+   ],
+   "loo_mae_mb": 281,
+   "loo_max_mb": 398,
+   "n": 9
+  },
+  "fa1_const+vision": {
+   "flash_attn": true,
+   "features": "const+vision",
+   "coef": [
+    310.6,
+    505.4
+   ],
+   "loo_mae_mb": 73,
+   "loo_max_mb": 143,
+   "n": 9
+  },
+  "fa1_linear+vision": {
+   "flash_attn": true,
+   "features": "linear+vision",
+   "coef": [
+    234.71,
+    6.12,
+    535.39
+   ],
+   "loo_mae_mb": 46,
+   "loo_max_mb": 93,
+   "n": 9
+  }
+ },
+ "best": "fa1_linear+vision",
+ "ollama_size_vram_mae_mb": 902,
+ "partial_offload_rows": [
+  "qwen3-vl:2b@32768"
+ ]
+}

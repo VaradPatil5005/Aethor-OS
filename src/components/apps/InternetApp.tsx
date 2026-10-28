@@ -40,21 +40,21 @@ export const InternetApp: React.FC = () => {
       title: 'TOAST COUNTS - Nutritional Position Paper',
       category: 'Scientific Publication',
       content: (
-        <div className="space-y-4 font-mono text-xs text-black bg-[#fffdfa] p-4 border border-black">
+        <div className="space-y-4 text-black bg-[#fffdfa] p-4 border border-black font-terminal text-[17px]">
           <div className="border-b-2 border-black pb-2">
             <h2 className="text-base font-bold text-amber-900">TOAST COUNTS: A NUTRITIONAL POSITION PAPER</h2>
-            <p className="text-[10px] text-slate-500">Published in the Journal of Retro Culinary Physics (2026)</p>
+            <p className="text-slate-500 text-[12px]">Published in the Journal of Retro Culinary Physics (2026)</p>
           </div>
           <p>
             <strong>Abstract:</strong> Bread subjected to radiant heating undergoes the Maillard reaction, transforming starches into aromatic compounds. We argue that toast constitutes a distinct thermodynamic state from soft bread.
           </p>
           <div className="p-3 bg-amber-50 border border-amber-300 rounded-sm">
             <p className="font-bold text-amber-900">Key Finding:</p>
-            <p className="text-[11px] text-amber-800">
+            <p className="text-amber-800 text-[12.5px]">
               When butter is applied within 8 seconds of ejection, lipid absorption increases by 340%, optimizing breakfast satisfaction coefficients.
             </p>
           </div>
-          <p className="text-[11px] text-slate-600 italic">"Toast is bread that went to university and came back cultured."</p>
+          <p className="text-slate-600 italic text-[12.5px]">"Toast is bread that went to university and came back cultured."</p>
         </div>
       )
     },
@@ -63,18 +63,18 @@ export const InternetApp: React.FC = () => {
       title: 'The Back Shelf - Undernet Archive',
       category: 'Software Repository',
       content: (
-        <div className="space-y-3 font-mono text-xs text-black">
+        <div className="space-y-3 text-black font-terminal text-[17px]">
           <div className="p-3 bg-[#f0e68c] border-2 border-black font-bold">
             WARNING: UNVERIFIED THIRD-PARTY SYSTEM UTILITIES
           </div>
           <p>Welcome to The Back Shelf. Software archived from decommissioned labs and private networks.</p>
           <div className="p-2 border border-black bg-[#fff] space-y-1">
-            <div className="font-bold text-indigo-800">[PKG] RootBeer v1.4 (Root Privilege Patcher)</div>
+            <div className="font-bold text-black">[PKG] RootBeer v1.4 (Root Privilege Patcher)</div>
             <p className="text-slate-600">Elevates user permissions and bypasses legacy 1990s machine safeguards.</p>
-            <div className="text-[10px] text-emerald-700">MD5: e4d909c290d0fb1ca068ffaddf22cbd0</div>
+            <div className="text-emerald-700 text-[12px]">MD5: e4d909c290d0fb1ca068ffaddf22cbd0</div>
           </div>
           <div className="p-2 border border-black bg-[#fff] space-y-1">
-            <div className="font-bold text-indigo-800">[SYS] MorphyDriver v2.1</div>
+            <div className="font-bold text-black">[SYS] MorphyDriver v2.1</div>
             <p className="text-slate-600">Canine process daemon and memory guardian driver.</p>
           </div>
         </div>
@@ -85,20 +85,20 @@ export const InternetApp: React.FC = () => {
       title: 'BYTEMART - Electronics & Silicon',
       category: 'Marketplace',
       content: (
-        <div className="space-y-3 font-mono text-xs text-black">
-          <div className="p-2 bg-indigo-600 text-white font-bold text-center">
+        <div className="space-y-3 text-black font-terminal text-[17px]">
+          <div className="p-2 bg-black text-white font-bold text-center">
             BYTEMART SUPERSTORE: CLEARANCE ON VINTAGE SILICON
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="p-2 border border-slate-400 bg-white">
               <div className="font-bold">68040 Microprocessor 33MHz</div>
               <div className="text-emerald-700 font-bold">$129.99</div>
-              <p className="text-[11px] text-slate-500">Perfect for retro desktop sandboxes.</p>
+              <p className="text-slate-500 text-[12.5px]">Perfect for retro desktop sandboxes.</p>
             </div>
             <div className="p-2 border border-slate-400 bg-white">
               <div className="font-bold">16MB 72-pin SIMM RAM</div>
               <div className="text-emerald-700 font-bold">$49.95</div>
-              <p className="text-[11px] text-slate-500">Fast page mode, 60ns parity.</p>
+              <p className="text-slate-500 text-[12.5px]">Fast page mode, 60ns parity.</p>
             </div>
           </div>
         </div>
@@ -109,7 +109,7 @@ export const InternetApp: React.FC = () => {
       title: 'Building Notice: Rent Due',
       category: 'Personal Web Page',
       content: (
-        <div className="space-y-2 font-mono text-xs text-black bg-[#fffdd0] p-4 border border-black">
+        <div className="space-y-2 text-black bg-[#fffdd0] p-4 border border-black font-terminal text-[17px]">
           <h2 className="text-sm font-bold text-rose-800">BUILDING MANAGER NOTICE</h2>
           <p>This is Mr. Ditkovich. Rent was due yesterday.</p>
           <p>If door is broken, you fix door. Then I fix door.</p>
@@ -122,8 +122,8 @@ export const InternetApp: React.FC = () => {
       title: 'NeoTech Labs - Operating Systems Research',
       category: 'Research Institute',
       content: (
-        <div className="space-y-3 font-mono text-xs text-black">
-          <h2 className="text-sm font-bold text-indigo-900 border-b border-indigo-900 pb-1">
+        <div className="space-y-3 text-black font-terminal text-[17px]">
+          <h2 className="text-sm font-bold text-black border-b border-black pb-1">
             Research Brief: Deterministic Discrete Event Microkernels
           </h2>
           <p>
@@ -132,7 +132,7 @@ export const InternetApp: React.FC = () => {
           </p>
           <div className="p-2 bg-slate-100 border border-slate-300">
             <strong>Key Principles:</strong>
-            <ul className="list-disc pl-4 space-y-0.5 mt-1 text-[11px]">
+            <ul className="list-disc pl-4 space-y-0.5 mt-1 text-[12.5px]">
               <li>Dual-Core Symmetric Multiprocessing (SMP) with Work-Stealing queues.</li>
               <li>Write-Ahead Log (WAL) Crash-Consistent Inode Journaling with automated fsck replay.</li>
               <li>In-Kernel eBPF Probes on SCHED_SWITCH, PAGE_FAULT, and SYSCALL_ENTER.</li>
@@ -289,14 +289,14 @@ export const InternetApp: React.FC = () => {
   const activeQuery = isSearchResult ? decodeURIComponent(currentUrl.split('?q=')[1] || searchTerm) : searchTerm;
 
   return (
-    <div className="h-full w-full bg-[#cecece] text-black flex flex-col font-pixel select-none overflow-hidden text-xs min-h-0 min-w-0">
+    <div className="h-full w-full text-black flex flex-col font-pixel select-none overflow-hidden text-xs min-h-0 min-w-0 bg-white">
       {/* Browser Navigation Toolbar */}
-      <div className="p-2 bg-[#dfdfdf] border-b-2 border-[#888] flex items-center gap-2">
+      <div className="p-2 border-b-2 flex items-center gap-2 bg-[var(--rt-soft)] border-black">
         <button
           onClick={handleBack}
           disabled={historyIdx === 0}
           title="Back"
-          className="p-1 bg-[#dedede] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white disabled:opacity-40 disabled:cursor-not-allowed"
+          className="p-1 disabled:opacity-40 disabled:cursor-not-allowed bg-[var(--rt-panel)] rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
         </button>
@@ -305,7 +305,7 @@ export const InternetApp: React.FC = () => {
           onClick={handleForward}
           disabled={historyIdx >= history.length - 1}
           title="Forward"
-          className="p-1 bg-[#dedede] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white disabled:opacity-40 disabled:cursor-not-allowed"
+          className="p-1 disabled:opacity-40 disabled:cursor-not-allowed bg-[var(--rt-panel)] rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
         >
           <ArrowRight className="w-3.5 h-3.5" />
         </button>
@@ -313,7 +313,7 @@ export const InternetApp: React.FC = () => {
         <button
           onClick={() => navigateTo(currentUrl)}
           title="Reload"
-          className="p-1 bg-[#dedede] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white"
+          className="p-1 bg-[var(--rt-panel)] rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
         >
           <RotateCw className="w-3.5 h-3.5" />
         </button>
@@ -321,26 +321,26 @@ export const InternetApp: React.FC = () => {
         <button
           onClick={() => navigateTo('home')}
           title="Home (Snoogle)"
-          className="p-1 bg-[#dedede] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white"
+          className="p-1 bg-[var(--rt-panel)] rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
         >
           <Home className="w-3.5 h-3.5" />
         </button>
 
         {/* Address Field Bar */}
         <form onSubmit={handleAddressSubmit} className="flex-1 flex items-center gap-1">
-          <div className="flex-1 flex items-center bg-white border border-t-black border-l-black border-r-white border-b-white px-2 py-0.5">
+          <div className="flex-1 flex items-center bg-white px-2 py-0.5 rt-sunken-sm">
             <Globe className="w-3.5 h-3.5 text-slate-400 mr-1.5 shrink-0" />
             <input
               type="text"
               value={addressBar}
               onChange={(e) => setAddressBar(e.target.value)}
-              className="w-full bg-transparent text-black font-mono text-xs outline-none"
+              className="w-full bg-transparent text-black outline-none font-terminal text-[17px]"
               placeholder="Enter site address or search..."
             />
           </div>
           <button
             type="submit"
-            className="px-3 py-0.5 bg-[#dedede] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white font-bold"
+            className="px-3 py-0.5 font-bold bg-[var(--rt-panel)] rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
           >
             Go
           </button>
@@ -348,21 +348,21 @@ export const InternetApp: React.FC = () => {
       </div>
 
       {/* Main Browser Viewport */}
-      <div className="flex-1 overflow-auto bg-white p-4 relative">
+      <div className="flex-1 min-h-0 overflow-auto bg-white p-4 relative">
         {isLoading ? (
           /* Retro Fetching Page Loader */
           <div className="absolute inset-0 bg-white/95 flex flex-col items-center justify-center p-6 text-center">
-            <div className="w-64 p-4 bg-[#dfdfdf] border-2 border-t-white border-l-white border-r-black border-b-black shadow-[4px_4px_0px_rgba(0,0,0,0.5)]">
+            <div className="w-64 p-4 bg-[var(--rt-soft)] rt-raised">
               <div className="font-bold text-xs mb-2">Fetching Page...</div>
               <div className="w-full h-3 bg-white border border-black p-0.5 overflow-hidden">
-                <div className="h-full bg-indigo-600 animate-pulse w-full" />
+                <div className="h-full bg-black animate-pulse w-full" />
               </div>
-              <div className="text-[10px] text-slate-600 mt-2">Connecting to host node...</div>
+              <div className="text-slate-600 mt-2 text-[12px]">Connecting to host node...</div>
             </div>
           </div>
         ) : currentUrl === 'home' ? (
           /* Snoogle Search Home Page (Exact AetherOS Replica Matching Frame 25s) */
-          <div className="h-full flex flex-col items-center justify-center text-center max-w-lg mx-auto py-6">
+          <div className="min-h-full flex flex-col items-center justify-center text-center max-w-lg mx-auto py-2">
             {/* Snoogle Pixel Title / Logo */}
             <div className="mb-2">
               <img 
@@ -387,7 +387,7 @@ export const InternetApp: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-[11px] text-slate-600 font-pixel mb-5 italic">
+            <p className="text-slate-600 font-pixel mb-5 italic text-[12.5px]">
               Coz it knows everything you snoop for!
             </p>
 
@@ -399,19 +399,19 @@ export const InternetApp: React.FC = () => {
               }} 
               className="w-full mb-6 flex gap-1.5"
             >
-              <div className="flex-1 flex items-center bg-white border-2 border-t-black border-l-black border-r-white border-b-white px-3 py-1 shadow-inner">
+              <div className="flex-1 flex items-center bg-white px-3 py-1 rt-sunken">
                 <Search className="w-4 h-4 text-slate-400 mr-2 shrink-0" />
                 <input
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Click a bookmark or recent search..."
-                  className="w-full text-xs font-mono outline-none text-black bg-transparent"
+                  className="w-full outline-none text-black bg-transparent font-terminal text-[17px]"
                 />
               </div>
               <button
                 type="submit"
-                className="px-4 py-1 bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white font-bold text-xs"
+                className="px-4 py-1 font-bold text-xs bg-[var(--rt-panel)] rt-raised"
               >
                 Go
               </button>
@@ -419,7 +419,7 @@ export const InternetApp: React.FC = () => {
 
             {/* Bookmarks Carousel Strip (Matching Video) */}
             <div className="w-full mb-5">
-              <div className="text-[11px] font-bold text-black uppercase tracking-wider mb-2 text-center border-b border-black pb-1">
+              <div className="font-bold text-black uppercase tracking-wider mb-2 text-center border-b border-black pb-1 text-[12.5px]">
                 BOOKMARKS
               </div>
               <div className="flex flex-wrap items-center justify-center gap-3">
@@ -427,7 +427,7 @@ export const InternetApp: React.FC = () => {
                   <button
                     key={bm.url}
                     onClick={() => navigateTo(bm.url)}
-                    className="underline text-black hover:text-indigo-700 font-pixel text-xs flex items-center gap-1 cursor-pointer"
+                    className="underline text-black hover:text-black font-pixel text-xs flex items-center gap-1 cursor-pointer"
                   >
                     <span>{bm.label}</span>
                   </button>
@@ -437,7 +437,7 @@ export const InternetApp: React.FC = () => {
 
             {/* Recent Searches (Matching Video Frame 25s) */}
             <div className="w-full mb-4 text-left">
-              <div className="text-[11px] font-bold text-black uppercase tracking-wider mb-2 text-center border-b border-black pb-1">
+              <div className="font-bold text-black uppercase tracking-wider mb-2 text-center border-b border-black pb-1 text-[12.5px]">
                 RECENT
               </div>
               <div className="space-y-1 mt-2">
@@ -445,7 +445,7 @@ export const InternetApp: React.FC = () => {
                   <button
                     key={i}
                     onClick={() => performSearch(rs)}
-                    className="w-full text-left font-mono text-xs text-slate-700 hover:text-black hover:bg-slate-100 px-2 py-0.5 rounded cursor-pointer block truncate"
+                    className="w-full text-left text-slate-700 hover:text-black hover:bg-slate-100 px-2 py-0.5 rounded cursor-pointer block truncate font-terminal text-[17px]"
                   >
                     {rs}
                   </button>
@@ -453,7 +453,7 @@ export const InternetApp: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-[10px] text-slate-500 font-mono mt-auto">
+            <p className="text-slate-500 mt-auto font-terminal text-[14px]">
               Snoogle has indexed 52 pages across AetherNet.
             </p>
           </div>
@@ -468,7 +468,7 @@ export const InternetApp: React.FC = () => {
               <div className="text-xs font-bold text-black">
                 Snoogle results for: <span className="underline">{activeQuery}</span>
               </div>
-              <div className="text-[11px] text-slate-500 font-mono mt-0.5">
+              <div className="text-slate-500 mt-0.5 font-terminal text-[15px]">
                 About {getSearchResults(activeQuery).length} results. (0.43 seconds)
               </div>
             </div>
@@ -485,14 +485,14 @@ export const InternetApp: React.FC = () => {
                         navigateTo(res.targetSite);
                       }
                     }}
-                    className={`text-sm font-bold text-blue-800 hover:underline block text-left ${res.targetSite ? 'cursor-pointer' : 'cursor-default'}`}
+                    className={`text-sm font-bold text-black hover:underline block text-left ${res.targetSite ? 'cursor-pointer' : 'cursor-default'}`}
                   >
                     {res.title}
                   </button>
-                  <div className="text-[11px] text-emerald-800 font-mono">
+                  <div className="text-emerald-800 font-terminal text-[15px]">
                     {res.url}
                   </div>
-                  <p className="text-xs font-mono text-slate-800 leading-relaxed">
+                  <p className="text-slate-800 leading-relaxed font-terminal text-[17px]">
                     {res.snippet}
                   </p>
                 </div>
@@ -504,21 +504,21 @@ export const InternetApp: React.FC = () => {
           <div className="max-w-xl mx-auto py-2 text-left">
             <div className="border-b-2 border-black pb-2 mb-3 flex items-baseline justify-between">
               <h1 className="text-base font-bold text-black font-silkscreen">{mockSites[currentUrl].title}</h1>
-              <span className="text-[10px] text-slate-500 font-mono">{mockSites[currentUrl].category}</span>
+              <span className="text-slate-500 font-terminal text-[14px]">{mockSites[currentUrl].category}</span>
             </div>
             {mockSites[currentUrl].content}
           </div>
         ) : (
           /* 404 Node Not Found View */
-          <div className="h-full flex flex-col items-center justify-center text-center p-6">
+          <div className="min-h-full flex flex-col items-center justify-center text-center p-6">
             <div className="p-4 bg-rose-50 border-2 border-rose-500 max-w-md">
               <div className="font-bold text-rose-800 text-sm mb-1">HTTP 404: Node Not Reachable</div>
-              <p className="text-xs text-slate-700 font-mono mb-3">
+              <p className="text-slate-700 mb-3 font-terminal text-[17px]">
                 The node '{currentUrl}' could not be reached through the local mesh router.
               </p>
               <button
                 onClick={() => navigateTo('home')}
-                className="px-3 py-1 bg-[#dedede] border border-black font-bold text-xs"
+                className="px-3 py-1 border border-black font-bold text-xs bg-[var(--rt-panel)]"
               >
                 Return to Snoogle
               </button>

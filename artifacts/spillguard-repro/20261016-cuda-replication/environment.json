@@ -1,0 +1,7 @@
+{
+  "os": "Windows 11 build 10.0.26200",
+  "python": "3.12.6",
+  "nvidia_driver": "581.83",
+  "ram_mb": 15654,
+  "logical_cpus": 16
+}

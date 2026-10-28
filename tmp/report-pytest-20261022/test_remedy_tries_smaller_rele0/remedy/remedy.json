@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "status": "evaluated",
+  "reports": [
+    {
+      "intervention": "original",
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 3.0,
+        "recovery": 1.0
+      },
+      "bundle": "original-validation"
+    },
+    {
+      "intervention": "release-owned-holder",
+      "bundle": "release-owned-holder",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      },
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "background_queue_cost_ms": null,
+      "queue_cost_scope": "delay until after the full matched block; includes experimental controls/setup",
+      "background_execution": null,
+      "experiment_wall_s": 0.01600000006146729,
+      "changed_target_requirements": [],
+      "requested_bytes": 0,
+      "operation": "owned holder removed before target",
+      "no_third_party_unload_or_pause": true
+    },
+    {
+      "intervention": "serialize-owned-background",
+      "bundle": "serialize-owned-background",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      },
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "background_queue_cost_ms": 0.0,
+      "queue_cost_scope": "delay until after the full matched block; includes experimental controls/setup",
+      "background_execution": {
+        "completed": true
+      },
+      "experiment_wall_s": 0.0,
+      "changed_target_requirements": [],
+      "requested_bytes": 0,
+      "operation": "owned holder removed before target",
+      "no_third_party_unload_or_pause": true
+    },
+    {
+      "intervention": "release-half-owned-bytes",
+      "bundle": "release-half-owned-bytes",
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 3.0,
+        "recovery": 1.0
+      },
+      "target_ratio": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "background_queue_cost_ms": null,
+      "queue_cost_scope": "delay until after the full matched block; includes experimental controls/setup",
+      "background_execution": null,
+      "experiment_wall_s": 0.046999999904073775,
+      "changed_target_requirements": [],
+      "requested_bytes": 117440512,
+      "operation": "owned allocation reduced",
+      "no_third_party_unload_or_pause": true
+    },
+    {
+      "intervention": "release-eighth-owned-bytes",
+      "bundle": "release-eighth-owned-bytes",
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 3.0,
+        "recovery": 1.0
+      },
+      "target_ratio": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "background_queue_cost_ms": null,
+      "queue_cost_scope": "delay until after the full matched block; includes experimental controls/setup",
+      "background_execution": null,
+      "experiment_wall_s": 0.03100000007543713,
+      "changed_target_requirements": [],
+      "requested_bytes": 205520896,
+      "operation": "owned allocation reduced",
+      "no_third_party_unload_or_pause": true
+    },
+    {
+      "intervention": "pause-owned-activity",
+      "bundle": "pause-owned-activity",
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 3.0,
+        "recovery": 1.0
+      },
+      "target_ratio": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "background_queue_cost_ms": null,
+      "queue_cost_scope": "delay until after the full matched block; includes experimental controls/setup",
+      "background_execution": null,
+      "experiment_wall_s": 0.0,
+      "changed_target_requirements": [],
+      "requested_bytes": 234881024,
+      "operation": "owned holder kept, accesses stopped",
+      "no_third_party_unload_or_pause": true
+    }
+  ],
+  "original_proxy_signature": null,
+  "task_requirements_preserved": true,
+  "limits": "fresh-instance pressure-off/reduced-allocation controls; not persistent-process live memory release or arbitrary application coordination"
+}

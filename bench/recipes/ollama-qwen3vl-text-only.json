@@ -1,0 +1,47 @@
+{
+  "name": "ollama-decode-pilot",
+  "actions": [
+    {
+      "id": "holder",
+      "allocated_bytes": 134217728,
+      "start_ms": 0,
+      "duration_ms": 15000,
+      "touch_interval_ms": 0,
+      "phase": "decode",
+      "mode": "hold",
+      "compute_duty_pct": 25
+    }
+  ],
+  "workload": {
+    "model": "qwen3-vl:2b",
+    "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+    "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+    "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+    "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+    "kind": "ollama",
+    "num_ctx": 2048,
+    "num_predict": 512,
+    "generation_seed": 0,
+    "temperature": 0.0,
+    "num_gpu": 999,
+    "warmup_prompt": "Reply with the word ready."
+  },
+  "protocol": {
+    "repeats": 1,
+    "slowdown_ratio": 2.0,
+    "recovery_ratio": 1.25,
+    "min_pressure_fraction": 0.5,
+    "min_overlap_samples": 2,
+    "sample_interval_ms": 100,
+    "lead_in_ms": 500,
+    "cooldown_ms": 1000,
+    "timeout_s": 90,
+    "max_requested_bytes": 1073741824,
+    "min_available_host_bytes": 1610612736,
+    "preparation": "warm",
+    "idle_ms": 3000,
+    "treatment_order": "fixed"
+  },
+  "schema_version": 1,
+  "seed": 0
+}

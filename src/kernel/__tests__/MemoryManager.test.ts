@@ -64,3 +64,31 @@ describe('MemoryManager eviction policies', () => {
     expect(pBFrame?.pid).toBe(3); // pB gets evicted
   });
 });
+
+describe('MemoryManager CLOCK (second chance)', () => {
+  // Same reference string under both policies; CLOCK and LRU must pick different victims.
+  function run(policy: 'CLOCK' | 'LRU') {
+    const mem = new MemoryManager(3, policy);
+    for (const [pid, tick] of [[1, 0], [2, 1], [3, 2]]) mem.allocateProcessSpace(makeProcess(pid, 4), tick);
+    mem.allocateProcessSpace(makeProcess(4, 4), 3); // fault: evicts frame 0 under both policies
+    mem.touchFrame(1, 10);
+    mem.touchFrame(2, 11);
+    mem.allocateProcessSpace(makeProcess(5, 4), 12); // second fault
+    return mem.frames.map((f) => f.pid);
+  }
+
+  it('first fault: every bit was set on load, so one sweep clears them and frame 0 goes', () => {
+    const mem = new MemoryManager(3, 'CLOCK');
+    for (const [pid, tick] of [[1, 0], [2, 1], [3, 2]]) mem.allocateProcessSpace(makeProcess(pid, 4), tick);
+    mem.allocateProcessSpace(makeProcess(4, 4), 3);
+    expect(mem.frames.map((f) => f.pid)).toEqual([4, 2, 3]);
+    expect(mem.clockHand).toBe(1);
+  });
+
+  it('gives referenced frames a second chance where LRU evicts the oldest access', () => {
+    // CLOCK: hand at frame 1 clears b, c, d, then evicts b (frame 1).
+    expect(run('CLOCK')).toEqual([4, 5, 3]);
+    // LRU: d (frame 0, last access tick 3) is the least recently used.
+    expect(run('LRU')).toEqual([5, 2, 3]);
+  });
+});

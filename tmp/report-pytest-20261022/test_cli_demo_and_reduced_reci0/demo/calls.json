@@ -1,0 +1,102 @@
+[
+  {
+    "purpose": "search",
+    "bundle": "001-search",
+    "verdict": {
+      "outcome": "FAIL",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 3.0,
+      "recovery": 1.0
+    }
+  },
+  {
+    "purpose": "search",
+    "bundle": "002-search",
+    "verdict": {
+      "outcome": "PASS",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 1.0,
+      "recovery": 1.0
+    }
+  },
+  {
+    "purpose": "search",
+    "bundle": "003-search",
+    "verdict": {
+      "outcome": "PASS",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 1.0,
+      "recovery": 1.0
+    }
+  },
+  {
+    "purpose": "search",
+    "bundle": "004-search",
+    "verdict": {
+      "outcome": "FAIL",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 3.0,
+      "recovery": 1.0
+    }
+  },
+  {
+    "purpose": "search",
+    "bundle": "005-search",
+    "verdict": {
+      "outcome": "PASS",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 1.0,
+      "recovery": 1.0
+    }
+  },
+  {
+    "purpose": "search",
+    "bundle": "006-search",
+    "verdict": {
+      "outcome": "PASS",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 1.0,
+      "recovery": 1.0
+    }
+  },
+  {
+    "purpose": "search",
+    "bundle": "007-search",
+    "verdict": {
+      "outcome": "FAIL",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 3.0,
+      "recovery": 1.0
+    }
+  },
+  {
+    "purpose": "search",
+    "bundle": "008-search",
+    "verdict": {
+      "outcome": "PASS",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 1.0,
+      "recovery": 1.0
+    }
+  },
+  {
+    "purpose": "search",
+    "bundle": "009-search",
+    "verdict": {
+      "outcome": "PASS",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 1.0,
+      "recovery": 1.0
+    }
+  },
+  {
+    "purpose": "validation",
+    "bundle": "010-validation",
+    "verdict": {
+      "outcome": "FAIL",
+      "reason": "3/3 concordant matched trials",
+      "slowdown": 3.0,
+      "recovery": 1.0
+    }
+  }
+]

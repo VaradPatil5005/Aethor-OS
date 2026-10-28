@@ -1,0 +1,8 @@
+{
+  "approved_for_execution": false,
+  "plan_sha256": "47c792d041d317ff7052f89c8c8d38eb336c309480f70385d3b2706cdf131444",
+  "evidence_bundles": [],
+  "reason": "No valid >=2x application slowdown with recovery; 1 GiB pilot reached host commit guard. Per-target/state/level calibration is incomplete.",
+  "executed_final_cells": 0,
+  "executed_final_blocks": 0
+}

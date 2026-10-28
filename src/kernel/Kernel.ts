@@ -255,6 +255,16 @@ export class Kernel {
    */
   public step() {
     this.currentTick++;
+
+    // Every tick is a dispatch decision: whatever ran last tick goes back to READY and competes
+    // again. Without this a RUNNING process was skipped by selectNextForCore forever, so each
+    // process ran a single tick and the cores then sat idle (the RR quantum never mattered).
+    // The policy itself keeps a process on the CPU: under RR/MLFQ it stays at the head of its
+    // core queue until onProcessRan rotates it out at quantum exhaustion.
+    for (const p of this.processes) {
+      if (p.state === 'RUNNING') p.state = 'READY';
+    }
+
     this.scheduler.sync(this.processes);
 
     // 1. Work-Stealing Check: If a core is starved and the other is loaded, steal tasks

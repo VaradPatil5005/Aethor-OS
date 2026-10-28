@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "groups": [
+    {
+      "recipe_signature": "1d537131999af69e84855df0cae4d6ef7074370b4ffb572a2312799afc781c8c",
+      "purpose": "standalone",
+      "data_origin": "live measurement",
+      "bundles": [
+        "F:\\os\\AetherOS-Complete-Project\\aetheros\\traces\\repro\\20261016-ollama-smoke-1536mib"
+      ],
+      "errors": [],
+      "planned_blocks": 1,
+      "primary_metric": "decode_ms_per_token",
+      "reproduced": 0,
+      "valid_non_reproductions": 1,
+      "invalid_or_missing": 0,
+      "reproduction_fraction_all_planned": 0.0,
+      "exact_95pct_binomial_interval": [
+        0.0,
+        0.9750000000000001
+      ],
+      "median_slowdown": 1.0180203139510264,
+      "median_recovery": 1.0027574054511827,
+      "statistical_limit": "conditional independent stationary whole-block assumption; invalid blocks included as non-successes; no token replication or tail-latency claim"
+    },
+    {
+      "recipe_signature": "c88b4cc8b4392c24633263868af65420892a91a0940c01fb536e1f67771d0cb8",
+      "purpose": "calibration",
+      "data_origin": "live measurement",
+      "bundles": [
+        "F:\\os\\AetherOS-Complete-Project\\aetheros\\traces\\repro\\20261016-calibration-pilot\\level-128mib"
+      ],
+      "errors": [],
+      "planned_blocks": 1,
+      "primary_metric": "decode_ms_per_token",
+      "reproduced": 0,
+      "valid_non_reproductions": 1,
+      "invalid_or_missing": 0,
+      "reproduction_fraction_all_planned": 0.0,
+      "exact_95pct_binomial_interval": [
+        0.0,
+        0.9750000000000001
+      ],
+      "median_slowdown": 1.0190289308578282,
+      "median_recovery": 1.0177086235199202,
+      "statistical_limit": "conditional independent stationary whole-block assumption; invalid blocks included as non-successes; no token replication or tail-latency claim"
+    },
+    {
+      "recipe_signature": "6b492d9590bbf847cbd4d552ab68f26102aafff2c17ae1f1096cd08ae72e547a",
+      "purpose": "calibration",
+      "data_origin": "live measurement",
+      "bundles": [
+        "F:\\os\\AetherOS-Complete-Project\\aetheros\\traces\\repro\\20261016-calibration-pilot\\level-1024mib"
+      ],
+      "errors": [
+        "RuntimeError: host commit pressure reached or unavailable",
+        "owned helper required forced termination",
+        "helper exit code 1"
+      ],
+      "planned_blocks": 1,
+      "primary_metric": "decode_ms_per_token",
+      "reproduced": 0,
+      "valid_non_reproductions": 0,
+      "invalid_or_missing": 1,
+      "reproduction_fraction_all_planned": 0.0,
+      "exact_95pct_binomial_interval": [
+        0.0,
+        0.9750000000000001
+      ],
+      "median_slowdown": null,
+      "median_recovery": null,
+      "statistical_limit": "conditional independent stationary whole-block assumption; invalid blocks included as non-successes; no token replication or tail-latency claim"
+    },
+    {
+      "recipe_signature": "f40bbb6ad0248799b2cda81caa8cce539443e5d37af6ff72e73a2011907555c5",
+      "purpose": "standalone",
+      "data_origin": "live measurement",
+      "bundles": [
+        "F:\\os\\AetherOS-Complete-Project\\aetheros\\traces\\repro\\20261016-frozen-source-cuda"
+      ],
+      "errors": [],
+      "planned_blocks": 1,
+      "primary_metric": "completion_ms",
+      "reproduced": 0,
+      "valid_non_reproductions": 1,
+      "invalid_or_missing": 0,
+      "reproduction_fraction_all_planned": 0.0,
+      "exact_95pct_binomial_interval": [
+        0.0,
+        0.9750000000000001
+      ],
+      "median_slowdown": 1.0,
+      "median_recovery": 1.0,
+      "statistical_limit": "conditional independent stationary whole-block assumption; invalid blocks included as non-successes; no token replication or tail-latency claim"
+    }
+  ],
+  "pooling": "recipe, purpose and data origin kept separate"
+}

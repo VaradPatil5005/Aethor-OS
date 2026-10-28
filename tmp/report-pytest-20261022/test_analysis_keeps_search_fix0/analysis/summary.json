@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "groups": [
+    {
+      "recipe_signature": "48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c",
+      "purpose": "search",
+      "data_origin": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+      "bundles": [
+        "F:\\os\\AetherOS-Complete-Project\\aetheros\\tmp\\report-pytest-20261022\\test_analysis_keeps_search_fix0\\search"
+      ],
+      "errors": [],
+      "planned_blocks": 3,
+      "primary_metric": "completion_ms",
+      "reproduced": 3,
+      "valid_non_reproductions": 0,
+      "invalid_or_missing": 0,
+      "reproduction_fraction_all_planned": 1.0,
+      "exact_95pct_binomial_interval": [
+        0.2924017738212866,
+        1.0
+      ],
+      "median_slowdown": 3.0,
+      "median_recovery": 1.0,
+      "statistical_limit": "conditional independent stationary whole-block assumption; invalid blocks included as non-successes; no token replication or tail-latency claim"
+    },
+    {
+      "recipe_signature": "48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c",
+      "purpose": "validation",
+      "data_origin": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+      "bundles": [
+        "F:\\os\\AetherOS-Complete-Project\\aetheros\\tmp\\report-pytest-20261022\\test_analysis_keeps_search_fix0\\validation"
+      ],
+      "errors": [],
+      "planned_blocks": 3,
+      "primary_metric": "completion_ms",
+      "reproduced": 3,
+      "valid_non_reproductions": 0,
+      "invalid_or_missing": 0,
+      "reproduction_fraction_all_planned": 1.0,
+      "exact_95pct_binomial_interval": [
+        0.2924017738212866,
+        1.0
+      ],
+      "median_slowdown": 3.0,
+      "median_recovery": 1.0,
+      "statistical_limit": "conditional independent stationary whole-block assumption; invalid blocks included as non-successes; no token replication or tail-latency claim"
+    }
+  ],
+  "pooling": "recipe, purpose and data origin kept separate"
+}

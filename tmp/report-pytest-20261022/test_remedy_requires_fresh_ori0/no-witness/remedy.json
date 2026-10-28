@@ -1,0 +1,17 @@
+{
+  "status": "not-evaluable",
+  "reason": "fresh original witness did not reproduce",
+  "reports": [
+    {
+      "intervention": "original",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      },
+      "bundle": "original-validation"
+    }
+  ],
+  "task_requirements_preserved": true
+}

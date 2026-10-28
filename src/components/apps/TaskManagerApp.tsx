@@ -49,20 +49,20 @@ export const TaskManagerApp: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full bg-[#cecece] text-black flex flex-col p-3 font-pixel select-none overflow-y-auto space-y-3 text-xs min-h-0 min-w-0 overscroll-contain">
+    <div className="h-full w-full text-black flex flex-col p-3 font-pixel select-none overflow-y-auto space-y-3 text-xs min-h-0 min-w-0 overscroll-contain bg-white">
       {/* Top Retro Controls Panel */}
-      <div className="bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black p-2.5 shadow-[2px_2px_0px_rgba(0,0,0,0.3)] flex flex-wrap items-center justify-between gap-2">
+      <div className="p-2.5 flex flex-wrap items-center justify-between gap-2 bg-[var(--rt-panel)] rt-raised">
         {/* Play/Pause Clock */}
         <div className="flex items-center gap-2">
           <button 
             onClick={() => { retroAudio.playClickSound(); togglePause(); }}
-            className="px-3 py-1 bg-[#cecece] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white font-bold flex items-center gap-1.5 hover:bg-white cursor-pointer"
+            className="px-3 py-1 font-bold flex items-center gap-1.5 hover:bg-white cursor-pointer bg-white rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
           >
             {isPaused ? <Play className="w-3.5 h-3.5 fill-current text-emerald-700" /> : <Pause className="w-3.5 h-3.5 fill-current text-rose-700" />}
             <span>{isPaused ? 'Resume Clock' : 'Pause Clock'}</span>
           </button>
 
-          <span className="font-mono text-xs font-bold text-slate-800 bg-white px-2 py-0.5 border border-[#888]">
+          <span className="font-bold text-slate-800 bg-white px-2 py-0.5 border border-black font-terminal text-[17px]">
             Tick: #{stats.tick}
           </span>
         </div>
@@ -70,8 +70,8 @@ export const TaskManagerApp: React.FC = () => {
         {/* Algorithm Dropdown */}
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1">
-            <Sliders className="w-3.5 h-3.5 text-indigo-700" />
-            <span className="font-bold text-[11px] text-slate-800">Policy:</span>
+            <Sliders className="w-3.5 h-3.5 text-black" />
+            <span className="font-bold text-slate-800 text-[12.5px]">Policy:</span>
           </div>
           <select 
             value={schedulerAlgorithm}
@@ -79,7 +79,7 @@ export const TaskManagerApp: React.FC = () => {
               retroAudio.playClickSound();
               setAlgorithm(e.target.value as SchedulingAlgorithm);
             }}
-            className="bg-white border border-t-black border-l-black border-r-white border-b-white px-2 py-0.5 text-black font-pixel text-xs cursor-pointer shadow-inner outline-none"
+            className="bg-white px-2 py-0.5 text-black font-pixel text-xs cursor-pointer outline-none rt-sunken-sm"
           >
             <option value="MLFQ">MLFQ (Multi-Level Feedback)</option>
             <option value="ROUND_ROBIN">Round Robin (Preemptive)</option>
@@ -93,7 +93,7 @@ export const TaskManagerApp: React.FC = () => {
         {/* Speed Slider */}
         <div className="flex items-center gap-2">
           <Clock className="w-3.5 h-3.5 text-slate-700" />
-          <span className="font-bold text-[11px] text-slate-800">Speed:</span>
+          <span className="font-bold text-slate-800 text-[12.5px]">Speed:</span>
           <input 
             type="range" 
             min={200} 
@@ -101,35 +101,35 @@ export const TaskManagerApp: React.FC = () => {
             step={100}
             value={speedMs}
             onChange={(e) => setSpeed(Number(e.target.value))}
-            className="w-20 accent-indigo-600 cursor-pointer"
+            className="w-20 accent-black cursor-pointer"
           />
-          <span className="font-mono text-[10px] text-slate-600 w-10 text-right">{speedMs}ms</span>
+          <span className="text-slate-600 w-10 text-right font-terminal text-[14px]">{speedMs}ms</span>
         </div>
       </div>
 
       {/* SMP Dual-Core Telemetry Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {/* Core 0 Card */}
-        <div className="bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black p-2.5 shadow-[2px_2px_0px_rgba(0,0,0,0.3)] space-y-1.5">
-          <div className="flex items-center justify-between border-b border-[#aaa] pb-1">
+        <div className="p-2.5 space-y-1.5 bg-[var(--rt-panel)] rt-raised">
+          <div className="flex items-center justify-between border-b pb-1 border-black/40">
             <div className="flex items-center gap-1.5 font-bold text-xs text-black">
-              <Cpu className="w-4 h-4 text-indigo-700" />
+              <Cpu className="w-4 h-4 text-black" />
               <span>CPU Core 0 (Primary)</span>
             </div>
-            <span className="bg-indigo-100 text-indigo-900 px-1.5 py-0.2 border border-indigo-300 font-mono text-[10px] font-bold">
+            <span className="bg-[var(--rt-soft)] text-black px-1.5 py-0.2 border border-black font-bold font-terminal text-[14px]">
               Load: {cpus[0].loadPercentage}%
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-2 text-center text-[10px] pt-1 font-mono">
-            <div className="bg-white p-1 border border-[#aaa]">
+          <div className="grid grid-cols-3 gap-2 text-center pt-1 font-terminal text-[14px]">
+            <div className="bg-white p-1 border border-black/40">
               <span className="text-slate-500 block">CURRENT</span>
               <span className="font-bold text-slate-800">{cpus[0].currentPid ? `#${cpus[0].currentPid}` : 'IDLE'}</span>
             </div>
-            <div className="bg-white p-1 border border-[#aaa]">
+            <div className="bg-white p-1 border border-black/40">
               <span className="text-slate-500 block">RUNQUEUE</span>
               <span className="font-bold text-slate-800">{cpus[0].runqueue.length} tasks</span>
             </div>
-            <div className="bg-white p-1 border border-[#aaa]">
+            <div className="bg-white p-1 border border-black/40">
               <span className="text-slate-500 block">STOLEN</span>
               <span className="font-bold text-emerald-700">+{cpus[0].stolenTasksCount}</span>
             </div>
@@ -137,26 +137,26 @@ export const TaskManagerApp: React.FC = () => {
         </div>
 
         {/* Core 1 Card */}
-        <div className="bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black p-2.5 shadow-[2px_2px_0px_rgba(0,0,0,0.3)] space-y-1.5">
-          <div className="flex items-center justify-between border-b border-[#aaa] pb-1">
+        <div className="p-2.5 space-y-1.5 bg-[var(--rt-panel)] rt-raised">
+          <div className="flex items-center justify-between border-b pb-1 border-black/40">
             <div className="flex items-center gap-1.5 font-bold text-xs text-black">
               <Cpu className="w-4 h-4 text-emerald-700" />
               <span>CPU Core 1 (Secondary)</span>
             </div>
-            <span className="bg-emerald-100 text-emerald-900 px-1.5 py-0.2 border border-emerald-300 font-mono text-[10px] font-bold">
+            <span className="bg-emerald-100 text-emerald-900 px-1.5 py-0.2 border border-emerald-300 font-bold font-terminal text-[14px]">
               Load: {cpus[1].loadPercentage}%
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-2 text-center text-[10px] pt-1 font-mono">
-            <div className="bg-white p-1 border border-[#aaa]">
+          <div className="grid grid-cols-3 gap-2 text-center pt-1 font-terminal text-[14px]">
+            <div className="bg-white p-1 border border-black/40">
               <span className="text-slate-500 block">CURRENT</span>
               <span className="font-bold text-slate-800">{cpus[1].currentPid ? `#${cpus[1].currentPid}` : 'IDLE'}</span>
             </div>
-            <div className="bg-white p-1 border border-[#aaa]">
+            <div className="bg-white p-1 border border-black/40">
               <span className="text-slate-500 block">RUNQUEUE</span>
               <span className="font-bold text-slate-800">{cpus[1].runqueue.length} tasks</span>
             </div>
-            <div className="bg-white p-1 border border-[#aaa]">
+            <div className="bg-white p-1 border border-black/40">
               <span className="text-slate-500 block">STOLEN</span>
               <span className="font-bold text-emerald-700">+{cpus[1].stolenTasksCount}</span>
             </div>
@@ -165,99 +165,99 @@ export const TaskManagerApp: React.FC = () => {
       </div>
 
       {/* Dual Parallel Live Gantt Streams */}
-      <div className="bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black p-2.5 shadow-[2px_2px_0px_rgba(0,0,0,0.3)] space-y-2">
-        <div className="flex items-center justify-between font-bold text-[11px] text-slate-800">
+      <div className="p-2.5 space-y-2 bg-[var(--rt-panel)] rt-raised">
+        <div className="flex items-center justify-between font-bold text-slate-800 text-[12.5px]">
           <span>SMP Dual-Core Concurrent Timeline Streams (Last 30 Ticks)</span>
-          <span className="text-[10px] font-mono text-slate-600 flex items-center gap-1">
-            <ArrowRightLeft className="w-3 h-3 text-indigo-600" /> CFS Work-Stealing Enabled
+          <span className="text-slate-600 flex items-center gap-1 font-terminal text-[14px]">
+            <ArrowRightLeft className="w-3 h-3 text-black" /> CFS Work-Stealing Enabled
           </span>
         </div>
 
         {/* Core 0 Gantt Track */}
         <div className="space-y-1">
-          <div className="flex items-center justify-between text-[10px] font-mono text-slate-700">
-            <span className="font-bold text-indigo-800">CPU 0 Timeline:</span>
+          <div className="flex items-center justify-between text-slate-700 font-terminal text-[14px]">
+            <span className="font-bold text-black">CPU 0 Timeline:</span>
             <span>Tick #{stats.tick}</span>
           </div>
-          <div className="h-8 bg-white border-2 border-t-black border-l-black border-r-white border-b-white p-1 flex items-center gap-0.5 overflow-x-auto shadow-inner">
+          <div className="h-8 bg-white p-1 flex items-center gap-0.5 overflow-x-auto rt-sunken">
             {ganttCore0.slice(-30).map((g, idx) => (
               <div 
                 key={idx} 
                 style={{ backgroundColor: g.color || '#334155' }} 
-                className="h-full w-5 rounded-xs shrink-0 flex items-center justify-center text-[9px] font-mono font-bold text-white border border-black/40 shadow-xs"
+                className="h-full w-5 shrink-0 flex items-center justify-center font-bold text-white border border-black/40 shadow-xs font-terminal text-[13px]"
                 title={`Core 0 - Tick #${g.tick} - ${g.name} (PID: ${g.pid ?? 'IDLE'})`}
               >
                 {g.pid ?? ''}
               </div>
             ))}
             {ganttCore0.length === 0 && (
-              <span className="text-slate-400 font-mono text-[10px] pl-2">CPU 0 timeline initializing...</span>
+              <span className="text-slate-400 pl-2 font-terminal text-[14px]">CPU 0 timeline initializing...</span>
             )}
           </div>
         </div>
 
         {/* Core 1 Gantt Track */}
         <div className="space-y-1 pt-1">
-          <div className="flex items-center justify-between text-[10px] font-mono text-slate-700">
+          <div className="flex items-center justify-between text-slate-700 font-terminal text-[14px]">
             <span className="font-bold text-emerald-800">CPU 1 Timeline:</span>
             <span>Tick #{stats.tick}</span>
           </div>
-          <div className="h-8 bg-white border-2 border-t-black border-l-black border-r-white border-b-white p-1 flex items-center gap-0.5 overflow-x-auto shadow-inner">
+          <div className="h-8 bg-white p-1 flex items-center gap-0.5 overflow-x-auto rt-sunken">
             {ganttCore1.slice(-30).map((g, idx) => (
               <div 
                 key={idx} 
                 style={{ backgroundColor: g.color || '#334155' }} 
-                className="h-full w-5 rounded-xs shrink-0 flex items-center justify-center text-[9px] font-mono font-bold text-white border border-black/40 shadow-xs"
+                className="h-full w-5 shrink-0 flex items-center justify-center font-bold text-white border border-black/40 shadow-xs font-terminal text-[13px]"
                 title={`Core 1 - Tick #${g.tick} - ${g.name} (PID: ${g.pid ?? 'IDLE'})`}
               >
                 {g.pid ?? ''}
               </div>
             ))}
             {ganttCore1.length === 0 && (
-              <span className="text-slate-400 font-mono text-[10px] pl-2">CPU 1 timeline initializing...</span>
+              <span className="text-slate-400 pl-2 font-terminal text-[14px]">CPU 1 timeline initializing...</span>
             )}
           </div>
         </div>
       </div>
 
       {/* Spawn New Process Form with Core Affinity */}
-      <form onSubmit={handleCreate} className="bg-[#dedede] border-2 border-t-white border-l-white border-r-black border-b-black p-2.5 shadow-[2px_2px_0px_rgba(0,0,0,0.3)] flex flex-wrap items-center gap-2">
-        <span className="font-bold text-[11px] text-slate-800">Spawn Process:</span>
+      <form onSubmit={handleCreate} className="p-2.5 flex flex-wrap items-center gap-2 bg-[var(--rt-panel)] rt-raised">
+        <span className="font-bold text-slate-800 text-[12.5px]">Spawn Process:</span>
         <input 
           type="text" 
           value={procName} 
           onChange={(e) => setProcName(e.target.value)} 
           placeholder="Name" 
-          className="bg-white border border-t-black border-l-black border-r-white border-b-white px-2 py-0.5 text-black font-mono text-xs w-28 outline-none"
+          className="bg-white px-2 py-0.5 text-black w-28 outline-none font-terminal text-[17px] rt-sunken-sm"
         />
         <div className="flex items-center gap-1">
-          <span className="text-[10px] font-bold text-slate-700">Burst:</span>
+          <span className="font-bold text-slate-700 text-[12px]">Burst:</span>
           <input 
             type="number" 
             min={1} 
             max={50} 
             value={burst} 
             onChange={(e) => setBurst(Number(e.target.value))} 
-            className="w-12 bg-white border border-t-black border-l-black border-r-white border-b-white px-1 py-0.5 text-black font-mono text-xs text-center"
+            className="w-12 bg-white px-1 py-0.5 text-black text-center font-terminal text-[17px] rt-sunken-sm"
           />
         </div>
         <div className="flex items-center gap-1">
-          <span className="text-[10px] font-bold text-slate-700">Prio:</span>
+          <span className="font-bold text-slate-700 text-[12px]">Prio:</span>
           <input 
             type="number" 
             min={1} 
             max={5} 
             value={priority} 
             onChange={(e) => setPriority(Number(e.target.value))} 
-            className="w-10 bg-white border border-t-black border-l-black border-r-white border-b-white px-1 py-0.5 text-black font-mono text-xs text-center"
+            className="w-10 bg-white px-1 py-0.5 text-black text-center font-terminal text-[17px] rt-sunken-sm"
           />
         </div>
         <div className="flex items-center gap-1">
-          <span className="text-[10px] font-bold text-slate-700">Affinity:</span>
+          <span className="font-bold text-slate-700 text-[12px]">Affinity:</span>
           <select
             value={affinity}
             onChange={(e) => setAffinity(e.target.value === 'ANY' ? 'ANY' : (Number(e.target.value) as 0 | 1))}
-            className="bg-white border border-t-black border-l-black border-r-white border-b-white px-1 py-0.5 text-black font-mono text-xs outline-none cursor-pointer"
+            className="bg-white px-1 py-0.5 text-black outline-none cursor-pointer font-terminal text-[17px] rt-sunken-sm"
           >
             <option value="ANY">Any Core</option>
             <option value="0">Core 0 Only</option>
@@ -266,7 +266,7 @@ export const TaskManagerApp: React.FC = () => {
         </div>
         <button 
           type="submit" 
-          className="px-3 py-0.5 bg-[#cecece] border border-t-white border-l-white border-r-black border-b-black active:border-t-black active:border-l-black active:border-r-white active:border-b-white font-bold flex items-center gap-1 hover:bg-white cursor-pointer ml-auto"
+          className="px-3 py-0.5 font-bold flex items-center gap-1 hover:bg-white cursor-pointer ml-auto bg-white rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
         >
           <Plus className="w-3 h-3 text-black" />
           <span>Dispatch Process</span>
@@ -274,14 +274,14 @@ export const TaskManagerApp: React.FC = () => {
       </form>
 
       {/* Process Control Block (PCB) Table with Core Affinity Controls */}
-      <div className="bg-white border-2 border-t-black border-l-black border-r-white border-b-white shadow-inner overflow-hidden">
-        <div className="bg-[#dedede] p-1.5 border-b border-[#888] font-bold text-[11px] text-black flex items-center justify-between">
+      <div className="bg-white overflow-hidden rt-sunken">
+        <div className="p-1.5 border-b font-bold text-black flex items-center justify-between bg-[var(--rt-panel)] border-black text-[12.5px]">
           <span>Process Control Block (PCB) Multi-Core Register Table</span>
-          <span className="text-[10px] text-slate-600 font-mono">Click Affinity to Toggle</span>
+          <span className="text-slate-600 font-terminal text-[14px]">Click Affinity to Toggle</span>
         </div>
         <div className="overflow-x-auto max-h-56">
-          <table className="w-full text-left font-mono text-xs">
-            <thead className="bg-[#ececec] border-b border-[#aaa] text-slate-700 text-[10px] sticky top-0">
+          <table className="w-full text-left font-terminal text-[17px]">
+            <thead className="bg-[#ececec] border-b text-slate-700 sticky top-0 border-black/40 text-[12px]">
               <tr>
                 <th className="p-1.5 w-12">PID</th>
                 <th className="p-1.5">NAME</th>
@@ -296,14 +296,14 @@ export const TaskManagerApp: React.FC = () => {
             </thead>
             <tbody className="divide-y divide-slate-200">
               {processes.map((p) => (
-                <tr key={p.pid} className="hover:bg-indigo-50">
+                <tr key={p.pid} className="hover:bg-[var(--rt-soft)]">
                   <td className="p-1.5 font-bold text-slate-800">#{p.pid}</td>
                   <td className="p-1.5 font-bold flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-xs inline-block border border-black/50" style={{ backgroundColor: p.color }} />
+                    <span className="w-2.5 h-2.5 inline-block border border-black/50" style={{ backgroundColor: p.color }} />
                     <span className="text-black">{p.name}</span>
                   </td>
                   <td className="p-1.5">
-                    <span className={`px-1.5 py-0.2 rounded-xs text-[10px] font-bold border border-black/30 ${
+                    <span className={`px-1.5 py-0.2 font-bold border border-black/30 text-[12px] ${
                       p.state === 'RUNNING' ? 'bg-emerald-200 text-emerald-900' :
                       p.state === 'WAITING' ? 'bg-rose-200 text-rose-900' : 'bg-slate-200 text-slate-800'
                     }`}>
@@ -313,9 +313,9 @@ export const TaskManagerApp: React.FC = () => {
                   <td className="p-1.5">
                     <button
                       onClick={() => cycleAffinity(p.pid, p.coreAffinity ?? 'ANY')}
-                      className={`px-1.5 py-0.5 rounded-xs font-bold text-[10px] border cursor-pointer hover:opacity-80 ${
-                        p.coreAffinity === 'ANY' ? 'bg-blue-100 text-blue-900 border-blue-400' :
-                        p.coreAffinity === 0 ? 'bg-indigo-100 text-indigo-900 border-indigo-400' :
+                      className={`px-1.5 py-0.5 font-bold border cursor-pointer hover:opacity-80 text-[12px] ${
+                        p.coreAffinity === 'ANY' ? 'bg-[var(--rt-soft)] text-black border-black' :
+                        p.coreAffinity === 0 ? 'bg-[var(--rt-soft)] text-black border-black' :
                         'bg-emerald-100 text-emerald-900 border-emerald-400'
                       }`}
                       title="Click to toggle affinity"
@@ -328,11 +328,11 @@ export const TaskManagerApp: React.FC = () => {
                   </td>
                   <td className="p-1.5 font-bold text-slate-800">{p.remainingBurstTicks} / {p.totalBurstTicks}</td>
                   <td className="p-1.5 text-slate-600">{p.waitingTicks}t</td>
-                  <td className="p-1.5 text-indigo-700 font-bold">Q{p.queueLevel}</td>
+                  <td className="p-1.5 text-black font-bold">Q{p.queueLevel}</td>
                   <td className="p-1.5 text-right">
                     <button 
                       onClick={() => handleKill(p.pid)} 
-                      className="px-1.5 py-0.5 bg-rose-100 hover:bg-rose-600 hover:text-white border border-rose-700 rounded-xs text-[10px] font-bold"
+                      className="px-1.5 py-0.5 bg-rose-100 hover:bg-rose-600 hover:text-white border border-rose-700 font-bold text-[12px]"
                     >
                       KILL
                     </button>

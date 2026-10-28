@@ -4,7 +4,7 @@
 > *Architected and developed by [Varad Patil](https://github.com/VaradPatil5005)*
 
 [![Build & Typecheck](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Unit Tests](https://img.shields.io/badge/tests-28%2F28%20passing-emerald.svg)]()
+[![Unit Tests](https://img.shields.io/badge/tests-33%20vitest%20%2B%2020%20pytest-emerald.svg)]()
 [![Architecture](https://img.shields.io/badge/architecture-SMP%20Dual--Core%20Work--Stealing-blue.svg)]()
 [![Kernel](https://img.shields.io/badge/kernel-Deterministic%20Microkernel-purple.svg)]()
 [![VFS](https://img.shields.io/badge/VFS-Crash--Consistent%20WAL-orange.svg)]()
@@ -14,6 +14,7 @@
 
 ## Table of Contents
 1. [Abstract](#abstract)
+   - [SpillGuard: real GPU memory spill, live](#spillguard-real-gpu-memory-spill-live)
 2. [Overview](#overview)
 3. [Detailed Architecture](#detailed-architecture)
    - [3.1 High-Level Architectural Schema](#31-high-level-architectural-schema)
@@ -41,12 +42,59 @@ Modern operating systems education suffers from a profound cognitive gap between
 **Aethor OS (AetherOS)** bridges this divide. It is a full-featured, mathematically rigorous, interactive operating system simulation platform built from the ground up using **TypeScript**, **React 18**, **Tailwind CSS**, and **Zustand**. Aethor OS implements a deterministic clock-driven microkernel featuring:
 - **6 CPU Scheduling Algorithms** including a 3-level Multi-Level Feedback Queue (MLFQ) with dynamic priority aging and preemption.
 - **Symmetric Multiprocessing (SMP)** across simulated dual cores with dynamic work-stealing load balancing.
-- **Virtual Memory Paging** across 16 physical page frames with Least Recently Used (LRU) and FIFO page replacement, translation lookaside buffer (TLB) hits/misses, and fault handlers.
+- **Virtual Memory Paging** across 32 physical page frames (4 KB each) with LRU, FIFO and CLOCK (second-chance) page replacement and page-fault accounting.
 - **Crash-Consistent Virtual File System (VFS)** governed by a Write-Ahead Log (WAL) that guarantees metadata durability across simulated power failures.
 - **Dijkstra's Banker's Algorithm** with multi-resource safety matrices and Wait-For Graph (WFG) cycle detection.
 - **Simulated Extended Berkeley Packet Filter (eBPF)** runtime providing non-intrusive kprobe telemetry.
 
 All subsystems are unified beneath a vintage **Classic Mac OS / System 7 retro desktop** providing real-time Gantt execution streams, interactive diagnostic consoles, and full test suite verification.
+
+### SpillGuard: real GPU memory spill, live
+
+The new [SpillGuard Repro workflow](docs/SPILLGUARD_REPRO.md) builds on the existing
+agent with controlled baseline/pressure/recovery experiments, rerunnable evidence
+bundles and a plain ddmin reducer. The first live target is a synthetic CUDA probe;
+real application and phase/residency-aware research validation remain open.
+
+The [local AI adapter](docs/SPILLGUARD_REPRO_OLLAMA.md) now pins installed Ollama
+models and measures streamed inference with owned server cleanup.
+
+**First reproduced witness (18 Oct 2026, [results](docs/SPILLGUARD_REPRO_RESULTS_20261018.md)):** an active
+co-tenant pushing demand 256–512 MiB past the RTX 3050's VRAM slowed Qwen2.5-3B decode **2.28–2.38×**
+(4/4 matched trials, full recovery, identical output) versus 1.15–1.22× while it still fit. An idle co-tenant
+of the same size gave 1.03× with the same memory counters, and the counter-based detector raised 3 false
+alarms in 9 valid trials. Pilot sample sizes, one laptop; the residency mechanism is not yet verified. In
+AetherOS: SpillGuard → evidence desk → **Load measured dose-response**.
+
+The expanded [research guide](docs/SPILLGUARD_RESEARCH_GUIDE.md) covers phase-aware
+and baseline reducers, guarded remedies, campaign planning, analysis, source exports
+and the AetherOS evidence desk. The [execution ledger](docs/SPILLGUARD_EXECUTION.md)
+maps every dossier phase to delivered work and missing evidence. The 72-cell study
+is gated: current pilots did not establish severe application slowdown before host
+memory limits. A software feature is not a completed research result.
+The 17 October 2026 release check passed 148 agent tests, 44 frontend tests and the
+production build; older test-output examples below describe earlier checkpoints.
+
+AetherOS also has a real-hardware mode. **SpillGuard** is a small Windows agent (`agent/`, Python) that watches
+the GPU's actual video memory manager and detects *silent spill*: when a game or local AI model needs more VRAM
+than the card has, Windows and the NVIDIA driver (536.40+) quietly page the overflow into system RAM over PCIe.
+Nothing errors; the app just gets slower. SpillGuard detects it, names the process responsible, and checks
+*before launch* whether a model will fit (Banker's-style admission control on VRAM). AetherOS is its dashboard:
+the SpillGuard app, a twin view in Memory Map, real events in eBPF Studio, real Banker's matrices in Deadlock Lab,
+`spillguard` commands in `aethersh`, and two KernelQuest challenges.
+
+Measured on an RTX 3050 6 GB laptop (driver 581.83, Windows 11 26200), mean ± sd over repeated runs:
+
+| Experiment | Result |
+| --- | --- |
+| E1 cost of spill: GPU write bandwidth, resident vs spilled block | 163.3 ± 0.1 GB/s vs 13.2 ± 0.0 GB/s, **12.4× slower** (n = 3) |
+| E2 detection (W1 stress, 3 spill + 2 near-full no-spill runs) | recall 3/3, **0 false positives**, latency **0.95 ± 0.03 s** after true onset |
+| E3 VRAM fit estimator vs measured runner footprint (Ollama, 2 models × 5 contexts) | leave-one-out MAE **46 MB** (max 93); Ollama's own `size_vram` is off by 902 MB |
+| E5 agent overhead at 1 Hz | 2.3 % of one core (≈ 0.14 % of the 16-thread CPU), 52 MB RSS |
+
+Run it: `npm run build`, then in `agent/`: `python -m spillguard serve` and open the link it prints. No NVIDIA GPU?
+Open SpillGuard → **Replay** → **Demo trace** to play a spill recorded on the author's laptop.
+Design, method, raw numbers and limitations: [docs/SPILLGUARD.md](docs/SPILLGUARD.md).
 
 ---
 
@@ -79,9 +127,9 @@ Instead of treating kernel behavior as a black box, Aethor OS exposes internal r
 │                              AETHOR OS MICROKERNEL CORE                                │
 │  ┌───────────────────────┬───────────────────────┬──────────────────────────────────┐  │
 │  │    CPU SCHEDULER      │     SMP MULTI-CORE    │     VIRTUAL MEMORY (PAGING)      │  │
-│  │  - FCFS, SJF, SRTF    │  - Dual Runqueues     │  - 16 Physical Frames            │  │
-│  │  - Round Robin (RR)   │  - Core Affinity Pids │  - LRU / FIFO Replacement        │  │
-│  │  - 3-Level MLFQ Aging │  - Work-Stealing      │  - TLB Cache & Page Faults       │  │
+│  │  - FCFS, SJF, SRTF    │  - Dual Runqueues     │  - 32 Physical Frames            │  │
+│  │  - Round Robin (RR)   │  - Core Affinity Pids │  - LRU / FIFO / CLOCK            │  │
+│  │  - 3-Level MLFQ Aging │  - Work-Stealing      │  - Page-Fault Accounting         │  │
 │  ├───────────────────────┼───────────────────────┼──────────────────────────────────┤  │
 │  │   DEADLOCK & SYNC     │  CRASH-CONSISTENT VFS │       SIMULATED eBPF PROBES      │  │
 │  │  - Banker's Algorithm │  - Inode Table & Tree │  - Kprobes & Tracepoints         │  │
@@ -122,7 +170,7 @@ Aethor OS models a dual-core SMP processor (**Core 0** and **Core 1**):
 - **Independent Runqueues:** Core 0 and Core 1 maintain separate process ID arrays (`coreQueues[0]` and `coreQueues[1]`).
 - **Core Affinity:** Processes can be pinned to `CORE 0`, `CORE 1`, or set to `ANY CORE`. When `ANY CORE` is specified, the dispatcher assigns the process to the core with the shortest backlog.
 - **Work-Stealing Algorithm (Blumofe-Leiserson):** When Core $A$ (thief) empties its runqueue while Core $B$ (victim) has $N \ge 2$ runnable processes, Core $A$ performs an atomic work-stealing operation:
-  $$	ext{Stolen Tasks} = \left\lfloor rac{N}{2} ightfloor$$
+  $$\text{Stolen Tasks} = \left\lfloor \frac{N}{2} \right\rfloor$$
   Tasks are stolen from the tail of the victim's queue to preserve cache locality for recently executed processes, updating total steal telemetry.
 
 ---
@@ -130,13 +178,15 @@ Aethor OS models a dual-core SMP processor (**Core 0** and **Core 1**):
 ### 3.4 Virtual Memory Management & Page Frame Mapping
 *Implementation: `src/kernel/MemoryManager.ts`*
 
-The virtual memory subsystem manages a physical address space divided into **16 Physical Page Frames** (128 KB total simulated physical RAM):
+The virtual memory subsystem manages a physical address space divided into **32 Physical Page Frames** of 4 KB (128 KB total simulated physical RAM):
 - **Address Translation:** Maps virtual pages from active processes into physical frame indices via a software page table.
-- **Page Fault Handler:** When a virtual page reference is missing from physical memory, a page fault is raised, incrementing telemetry and triggering the replacement engine.
+- **Page Fault Handler:** When a process needs more frames than are free, a page fault is counted for each missing page and the replacement engine picks victims.
 - **Page Replacement Policies:**
   - **Least Recently Used (LRU):** Tracks the exact tick of last access for each frame, evicting the frame that has remained unreferenced for the longest time interval.
-  - **FIFO (First-In, First-Out):** Evicts the oldest allocated frame using a circular queue.
-- **Dirty Bit & Flushing:** Tracks whether a frame was written to, ensuring proper write-back upon eviction.
+  - **FIFO (First-In, First-Out):** Evicts the frame that was loaded earliest.
+  - **CLOCK (Second Chance):** A reference bit is set on load and on every access; the clock hand clears set bits as it sweeps and evicts the first frame whose bit is already clear.
+  - **Optimal** needs the future reference string, which this kernel does not model, so it runs LRU (the Memory Map says so).
+- **Twin view (SpillGuard):** next to the simulated frames, Memory Map shows the real GPU's VRAM residency and the pages it has spilled to system RAM — the same paging idea on real hardware.
 
 ---
 
@@ -159,10 +209,11 @@ The Virtual File System implements a hierarchical inode tree with atomic transac
 Aethor OS provides an interactive concurrency and deadlock laboratory:
 - **Dijkstra's Banker's Algorithm:** Manages multi-resource allocation across three distinct system resource types ($R_1, R_2, R_3$).
   - Evaluates the safety condition:
-    $$	ext{Need}[i][j] = 	ext{Max}[i][j] - 	ext{Allocation}[i][j]$$
-  - Discovers whether a safe sequence exists where all processes can finish without deadlock. If an allocation leads to an unsafe state, the kernel denies the grant.
+    $$\text{Need}[i][j] = \text{Max}[i][j] - \text{Allocation}[i][j]$$
+  - Discovers whether a safe sequence exists where all processes can finish without deadlock. The simulated lab performs the safety check only; it does not grant or deny requests.
+  - **On real hardware (SpillGuard):** Deadlock Lab also fills the matrices with your GPU's real VRAM Allocation / Max / Available, and the agent uses the same check to grant or deny a model launch. Because a game or chat server never "finishes", long-lived processes have their remaining need reserved up front instead of joining the safe sequence; the panel shows the textbook and the long-lived verdict side by side.
 - **Wait-For Graph (WFG) & Cycle Detection:**
-  - Constructs a directed graph where nodes are processes and edges represent dependency ($P_A 	o P_B$ means $P_A$ is blocked waiting for a resource held by $P_B$).
+  - Constructs a directed graph where nodes are processes and edges represent dependency ($P_A \to P_B$ means $P_A$ is blocked waiting for a resource held by $P_B$).
   - Runs depth-first cycle detection to identify deadlocks in real time, highlighting deadlocked processes in crimson and offering automated deadlock recovery (killing victim process or releasing resources).
 
 ---
@@ -186,7 +237,7 @@ Provides a high-performance observability subsystem inspired by modern Linux eBP
 Aethor OS features a custom System 7 window manager built on `react-rnd`:
 - **Stationary Titlebar Pinning:** Window headers feature `shrink-0 relative z-20`, guaranteeing that control buttons (`_`, `□`, `✕`) remain pinned at the top regardless of window content size.
 - **Container-Scoped Scrolling:** All 17 applications feature `min-h-0 min-w-0` bounding with internal `overflow-y-auto overscroll-contain`. Scopes mousewheel and scroll events exclusively to the application view, eliminating browser scroll jumping.
-- **Boundary Clamping:** Windows are clamped to $Y \ge 28	ext{px}$, preventing windows from being dragged beneath the global top menu bar.
+- **Boundary Clamping:** Windows are clamped to $Y \ge 28\text{px}$, preventing windows from being dragged beneath the global top menu bar.
 
 ---
 
@@ -198,10 +249,11 @@ Aethor OS features a custom System 7 window manager built on `react-rnd`:
 | **Kernel Monitor** | 📊 | SMP multi-core CPU usage meters, GPF register dumps (`eip`, `esp`, `cr3`, `eax`, `cs`, `eflags`), event log. |
 | **BPF Studio** | 📡 | Simulated eBPF kprobes, tracepoint hook attachments, live packet/syscall stream. |
 | **Deadlock Lab** | 🛡️ | Dijkstra's Banker's Algorithm matrix editor, Wait-For Graph cycle visualization, deadlock resolution. |
-| **Memory Map** | 📑 | 16 physical page frame map, LRU vs. FIFO replacement visualizer, TLB hit/fault counters. |
+| **Memory Map** | 📑 | 32-frame physical memory map, LRU / FIFO / CLOCK replacement, page-fault counter, and a twin view of real GPU VRAM residency (SpillGuard). |
 | **Test Runner** | ✅ | Interactive kernel audit suite executing 28 automated unit tests with microsecond timing. |
 | **KernelQuest** | 🏆 | Gamified educational challenges testing CPU scheduling, paging, and deadlock problem solving. |
-| **Terminal (`aethersh`)** | 💻 | Full Unix-style CLI with `ps`, `top`, `kill`, `schedule`, `smp`, `banker`, `deadlock`, `wal`, `matrix`. |
+| **Terminal (`aethersh`)** | 💻 | Unix-style CLI: `ps`, `kill`, `run`, `sched`, `quantum`, `affinity`, `memstat`, `gpf`, `deadlock`, `bpf`, `powercut`, `fsck`, VFS commands, and `spillguard status / why / events / fit / demo`. |
+| **SpillGuard** | 🟥 | Real GPU memory tiers on this PC (Live) or a recorded trace (Replay): spill detection, culprit attribution, VRAM fit check. |
 | **Finder / Files** | 📁 | Inode file manager backed by Crash-Consistent VFS, directory tree, and file reader. |
 | **Snoogle Browser** | 🌐 | Retro simulated search engine and web browser with interactive search queries. |
 | **Messages** | 💬 | Interactive chat with OS Ma'am (with ready-to-post template bubbles) and Marathi family chats (Baba & Aai). |
@@ -225,7 +277,7 @@ Aethor OS features a custom System 7 window manager built on `react-rnd`:
 | **Deadlock Safety Matrices** | ❌ No | ❌ Theoretical homework only | ✅ **Interactive Banker's Algorithm matrix & Wait-For Graph cycles** |
 | **Non-Intrusive eBPF Tracing** | ❌ No | ❌ Requires Linux 4.x+ kernel | ✅ **Built-in simulated kprobes & tracepoint telemetry engine** |
 | **Setup & Installation** | Browser-only | Hours of cross-compiler & QEMU debugging | ✅ **Single command (`npm run dev`) or instant web access** |
-| **Automated Verification** | ❌ No tests | ⚠️ Complex Python test harness | ✅ **Integrated Vitest suite with 28 passing unit tests in GUI & CLI** |
+| **Automated Verification** | ❌ No tests | ⚠️ Complex Python test harness | ✅ **33 Vitest kernel tests + 20 pytest agent tests (one replays a real GPU trace)** |
 
 ---
 
@@ -245,31 +297,40 @@ Aethor OS features a custom System 7 window manager built on `react-rnd`:
 ### 3. Inducing and Resolving Deadlocks
 1. Launch **Deadlock Lab**.
 2. Examine the Allocation, Maximum, Available, and Need matrices for the Banker's Algorithm.
-3. Request resource vectors that violate the safety condition; observe the kernel reject the request.
-4. Switch to the **Wait-For Graph** tab and inject cyclic dependencies; observe the cycle detection highlight deadlocked processes in red.
+3. Click **Compute Safe Sequence** to run the safety check and step through Work / Need.
+4. Scroll to **Banker's algorithm on real VRAM** (needs SpillGuard Live or Replay): slide the new launch's claim and compare the textbook verdict with the long-lived one.
+5. Switch to the **Wait-For Graph** tab and inject cyclic dependencies; observe the cycle detection highlight deadlocked processes in red.
 
 ### 4. Interactive Terminal Commands (`aethersh`)
-Double-click **Terminal** and try these commands:
+Open **Terminal** from the dock and try these commands:
 ```bash
 # Process Management
-ps                     # Display active processes, PIDs, priority, and states
-top                    # Launch interactive real-time process monitor
+ps                     # Processes, PCBs and core affinities
+run worker 12          # Create a process with a 12-tick burst
 kill 3                 # Terminate process with PID 3
-schedule mlfq          # Switch scheduler to Multi-Level Feedback Queue
-schedule rr 4          # Switch scheduler to Round Robin with quantum = 4
+sched MLFQ             # Switch scheduler (MLFQ, ROUND_ROBIN, SRTF, PRIORITY, FCFS, SJF)
+quantum 4              # Set the Round Robin quantum
+affinity 3 1           # Pin PID 3 to core 1 (0 | 1 | any)
 
-# Multi-Core & Hardware Telemetry
-smp                    # Display Core 0 vs Core 1 runqueues and steal count
-memstat                # Display physical RAM frame allocation and fault stats
-uname -a               # Display microkernel release and architecture
+# Memory, Faults & Tracing
+memstat                # Physical frame allocation and page-fault stats
+gpf 3                  # Inject a simulated General Protection Fault
+bpf                    # Dump active eBPF probes and their maps
 
 # Concurrency & Storage
-banker                 # Run Banker's safety check on resource matrices
-deadlock               # Scan Wait-For Graph for cyclic deadlocks
-wal                    # View Crash-Consistent VFS Write-Ahead Log
+deadlock               # Inject a deadlock scenario
+powercut               # Simulate a storage power failure mid-write
+fsck                   # Replay the VFS journal and recover
+ls, cd, cat, touch, mkdir, rm
 
-# Fun & Retro Easter Eggs
-matrix                 # Toggle cybernetic green matrix digital rain
+# Real GPU memory (SpillGuard)
+spillguard demo        # Replay a spill recorded on an RTX 3050 laptop
+spillguard status      # VRAM / shared / RAM tiers per process
+spillguard why 1234    # Explain one process's spill state and culprit
+spillguard fit qwen2.5:3b-instruct 8192   # VRAM estimate + admission (Live)
+
+# Fun
+matrix                 # Toggle the matrix digital rain
 theme classic          # Switch desktop wallpaper (classic, mainframe, lavender, matrix)
 ```
 
@@ -341,15 +402,22 @@ npm test -- --run
 ```
 Expected output:
 ```
-✓ src/kernel/__tests__/MemoryManager.test.ts    (2 tests)
+✓ src/kernel/__tests__/MemoryManager.test.ts    (4 tests)
 ✓ src/kernel/__tests__/DeadlockEngine.test.ts    (3 tests)
 ✓ src/kernel/__tests__/BankersAlgorithm.test.ts (4 tests)
 ✓ src/kernel/__tests__/Scheduler.test.ts        (5 tests)
 ✓ src/kernel/__tests__/VFSExtended.test.ts      (3 tests)
+✓ src/kernel/__tests__/SpillAdmission.test.ts   (3 tests)
 ✓ src/kernel/__tests__/AdvancedSubsystems.test.ts (11 tests)
 
-Test Files  6 passed (6)
-Tests       28 passed (28)
+Test Files  7 passed (7)
+Tests       33 passed (33)
+```
+
+The SpillGuard agent has its own suite (one test replays a real spill trace recorded on an RTX 3050):
+```bash
+cd agent
+python -m pytest -q        # 20 passed
 ```
 
 ### Production Build

@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "method": "plain-ddmin-action-deletion",
+  "recipe": {
+    "name": "fixture-demo",
+    "actions": [
+      {
+        "id": "capacity",
+        "allocated_bytes": 134217728,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 0,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      },
+      {
+        "id": "touch",
+        "allocated_bytes": 67108864,
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "touch_interval_ms": 100,
+        "phase": "pressure",
+        "mode": "hold",
+        "compute_duty_pct": 25
+      }
+    ],
+    "workload": {
+      "kind": "cuda_probe",
+      "allocated_bytes": 67108864,
+      "iterations": 2048,
+      "warmup_ms": 500
+    },
+    "protocol": {
+      "repeats": 3,
+      "slowdown_ratio": 2.0,
+      "recovery_ratio": 1.25,
+      "min_pressure_fraction": 0.5,
+      "min_overlap_samples": 2,
+      "sample_interval_ms": 100,
+      "lead_in_ms": 500,
+      "cooldown_ms": 1000,
+      "timeout_s": 30,
+      "max_requested_bytes": 1073741824,
+      "min_available_host_bytes": 2147483648,
+      "preparation": "warm",
+      "idle_ms": 3000,
+      "treatment_order": "fixed"
+    },
+    "schema_version": 1,
+    "seed": 0
+  },
+  "search": [
+    {
+      "actions": [
+        "irrelevant-a",
+        "capacity",
+        "touch",
+        "irrelevant-b"
+      ],
+      "recipe_signature": "48dc0d046585924fa25209b7288c7bb02bd553ed9d0d4520e25e959a2d37c91c",
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 3.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "actions": [
+        "touch",
+        "irrelevant-b"
+      ],
+      "recipe_signature": "3d47570e321ee340fde89c8fa5265c47740a1d761c167b17a79db8345064ec0f",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "actions": [
+        "irrelevant-a",
+        "capacity"
+      ],
+      "recipe_signature": "cb3392b2ca87553c03e484f7db91b00844dd974c042037b0a5b591e4f96372e2",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "actions": [
+        "capacity",
+        "touch",
+        "irrelevant-b"
+      ],
+      "recipe_signature": "681e2ce5b22eeba415d258c2872f9f64a001d115f76f27d0bd61662a76d8a2fe",
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 3.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "actions": [
+        "touch",
+        "irrelevant-b"
+      ],
+      "recipe_signature": "3d47570e321ee340fde89c8fa5265c47740a1d761c167b17a79db8345064ec0f",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "actions": [
+        "capacity",
+        "irrelevant-b"
+      ],
+      "recipe_signature": "c8e8bf84b279c54ba817efd9e5f2284350b1a43a483e9005d95ae2606564965d",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "actions": [
+        "capacity",
+        "touch"
+      ],
+      "recipe_signature": "c32fa182b86e3f01fc3b5bbbdb4801d7e91a1ecb35786a64aab558e1804e0a25",
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 3.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "actions": [
+        "touch"
+      ],
+      "recipe_signature": "c406e3d960b91a58d5ad1f04e70b57f3c1cb8d0db262a59fb0a679df1bb5b6f0",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "actions": [
+        "capacity"
+      ],
+      "recipe_signature": "e24d31ed21633f52676411f9bc361590e298dd908ac7931959ed67539dea3ab1",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "3/3 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      }
+    }
+  ],
+  "validation": {
+    "outcome": "FAIL",
+    "reason": "3/3 concordant matched trials",
+    "slowdown": 3.0,
+    "recovery": 1.0
+  },
+  "one_minimal": true,
+  "stop_reason": "action deletion search complete",
+  "minimality_scope": "single action deletion under this protocol; no global minimum claim"
+}

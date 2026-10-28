@@ -1,22 +1,24 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { TestHarness, TestResult } from '../../kernel/TestHarness';
 import { useKernelStore } from '../../stores/useKernelStore';
 import { retroAudio } from '../../utils/audio';
-import { CheckCircle2, XCircle, Play, Download, Upload, Filter, Terminal, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, XCircle, Play, Download, ShieldCheck } from 'lucide-react';
+
+type Tab = 'tests' | 'journal' | 'export';
+const FILTERS = ['ALL', 'SCHEDULER', 'MEMORY', 'DEADLOCK', 'VFS'];
 
 export const TestRunnerApp: React.FC = () => {
   const { journal, stats, vfsInodes, processes } = useKernelStore();
-  const [activeTab, setActiveTab] = useState<'tests' | 'journal' | 'export'>('tests');
+  const [activeTab, setActiveTab] = useState<Tab>('tests');
   const [testResults, setTestResults] = useState<TestResult[]>(() => TestHarness.runAllTests());
-  const [isRunning, setIsRunning] = useState<boolean>(false);
-  const [journalFilter, setJournalFilter] = useState<string>('ALL');
+  const [isRunning, setIsRunning] = useState(false);
+  const [journalFilter, setJournalFilter] = useState('ALL');
 
   const runTests = () => {
     retroAudio.playClickSound();
     setIsRunning(true);
     setTimeout(() => {
-      const results = TestHarness.runAllTests();
-      setTestResults(results);
+      setTestResults(TestHarness.runAllTests());
       setIsRunning(false);
       retroAudio.playBootChime();
     }, 400);
@@ -24,14 +26,7 @@ export const TestRunnerApp: React.FC = () => {
 
   const handleExportDisk = () => {
     retroAudio.playClickSound();
-    const diskImage = {
-      timestamp: new Date().toISOString(),
-      stats,
-      processes,
-      vfsInodes,
-      journal
-    };
-    const blob = new Blob([JSON.stringify(diskImage, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify({ timestamp: new Date().toISOString(), stats, processes, vfsInodes, journal }, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -40,203 +35,149 @@ export const TestRunnerApp: React.FC = () => {
     URL.revokeObjectURL(url);
   };
 
-  const filteredJournal = journal.filter((entry) => {
-    if (journalFilter === 'ALL') return true;
-    return entry.type.toUpperCase().includes(journalFilter);
-  });
-
+  const filteredJournal = journal.filter((e) => journalFilter === 'ALL' || e.type.toUpperCase().includes(journalFilter));
   const passedCount = testResults.filter((r) => r.passed).length;
   const totalCount = testResults.length;
+  const allPass = passedCount === totalCount;
+
+  const tabs: [Tab, string][] = [
+    ['tests', `Test suite (${passedCount}/${totalCount})`],
+    ['journal', `Event journal (${journal.length})`],
+    ['export', 'Disk snapshot'],
+  ];
 
   return (
-    <div className="h-full w-full bg-[#181a24] text-slate-100 flex flex-col font-pixel select-none min-h-0 min-w-0 overflow-hidden text-xs">
-      {/* Top Retro Tab Bar */}
-      <div className="h-8 bg-[#cecece] text-black border-b-2 border-black flex items-center justify-between px-2">
-        <div className="flex items-center gap-1">
-          <button
-            onClick={() => { retroAudio.playClickSound(); setActiveTab('tests'); }}
-            className={`px-3 py-1 text-xs font-bold border-t border-l border-r border-black rounded-t-sm ${
-              activeTab === 'tests' ? 'bg-[#181a24] text-white' : 'bg-[#dedede] text-black hover:bg-white'
-            }`}
-          >
-            🧪 Test Suite ({passedCount}/{totalCount})
-          </button>
-          <button
-            onClick={() => { retroAudio.playClickSound(); setActiveTab('journal'); }}
-            className={`px-3 py-1 text-xs font-bold border-t border-l border-r border-black rounded-t-sm ${
-              activeTab === 'journal' ? 'bg-[#181a24] text-white' : 'bg-[#dedede] text-black hover:bg-white'
-            }`}
-          >
-            📜 Event Journal ({journal.length})
-          </button>
-          <button
-            onClick={() => { retroAudio.playClickSound(); setActiveTab('export'); }}
-            className={`px-3 py-1 text-xs font-bold border-t border-l border-r border-black rounded-t-sm ${
-              activeTab === 'export' ? 'bg-[#181a24] text-white' : 'bg-[#dedede] text-black hover:bg-white'
-            }`}
-          >
-            💾 Disk Snapshot
-          </button>
+    <div className="h-full w-full flex flex-col min-h-0 min-w-0 bg-[var(--rt-panel)] font-pixel text-[13px]">
+      {/* Tab strip */}
+      <div className="shrink-0 flex items-center justify-between gap-2 flex-wrap px-2 py-2 border-b-2 border-black bg-[var(--rt-side)]">
+        <div className="flex border-2 border-black bg-white" role="tablist">
+          {tabs.map(([id, label]) => (
+            <button
+              key={id}
+              role="tab"
+              aria-selected={activeTab === id}
+              onClick={() => { retroAudio.playClickSound(); setActiveTab(id); }}
+              className={`px-2.5 py-0.5 font-bold border-r-2 last:border-r-0 border-black ${activeTab === id ? 'bg-black text-white' : 'hover:bg-[var(--rt-soft)]'}`}
+            >
+              {label}
+            </button>
+          ))}
         </div>
-
-        <button
-          onClick={runTests}
-          disabled={isRunning}
-          className="px-2.5 py-0.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs border border-black rounded-sm flex items-center gap-1 active:translate-y-0.5"
-        >
-          <Play className="w-3 h-3 fill-current" />
-          <span>{isRunning ? 'Executing...' : 'Run All Tests'}</span>
+        <button onClick={runTests} disabled={isRunning} className="rt-btn rt-btn-sm">
+          <Play className="w-3.5 h-3.5 fill-current" /> {isRunning ? 'Running…' : 'Run all tests'}
         </button>
       </div>
 
-      {/* Main Content Pane */}
-      <div className="flex-1 min-h-0 overflow-auto p-3 overscroll-contain">
-        {/* Tab 1: Test Suite */}
-        {activeTab === 'tests' && (
-          <div className="space-y-3">
-            {/* Banner Summary */}
-            <div className="p-3 bg-emerald-950/70 border border-emerald-600 rounded flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-6 h-6 text-emerald-400" />
-                <div>
-                  <div className="text-sm font-bold text-emerald-300">
-                    Academic Grading Verification Suite
-                  </div>
-                  <div className="text-[11px] text-emerald-400/80">
-                    Proves AetherOS is an authentic deterministic kernel simulation, not merely a visual UI.
-                  </div>
+      {activeTab === 'tests' && (
+        <div className="flex-1 min-h-0 overflow-y-auto p-3 space-y-3">
+          <div className={`rt-raised p-3 flex items-center justify-between gap-3 flex-wrap ${allPass ? 'bg-[#dcf7d9]' : 'bg-[#ffe3e1]'}`}>
+            <div className="flex items-center gap-2 min-w-0">
+              <ShieldCheck className="w-6 h-6 shrink-0" />
+              <div className="min-w-0">
+                <div className="font-bold text-[14px]">Kernel verification suite</div>
+                <div className="font-terminal text-[17px] leading-tight text-[var(--rt-muted)]">
+                  Checks the simulated kernel's invariants, not just the UI.
                 </div>
-              </div>
-              <div className="text-right">
-                <div className="text-xl font-bold font-terminal text-emerald-300">
-                  {passedCount} / {totalCount} PASSED
-                </div>
-                <div className="text-[10px] text-emerald-400">100% Verification Rate</div>
               </div>
             </div>
+            <div className="text-right font-terminal">
+              <div className="text-[26px] leading-none">{passedCount} / {totalCount}</div>
+              <div className="text-[16px]">{allPass ? 'all passing' : `${totalCount - passedCount} failing`}</div>
+            </div>
+          </div>
 
-            {/* Test Categories */}
-            {(['Unit', 'Integration', 'E2E'] as const).map((category) => {
-              const items = testResults.filter((t) => t.category === category);
-              if (items.length === 0) return null;
-
-              return (
-                <div key={category} className="space-y-1.5">
-                  <div className="text-xs font-bold text-indigo-400 tracking-wider uppercase border-b border-slate-700 pb-0.5">
-                    {category} Tests ({items.filter((i) => i.passed).length}/{items.length})
-                  </div>
-                  <div className="grid gap-1.5">
-                    {items.map((test) => (
-                      <div
-                        key={test.id}
-                        className="p-2 bg-[#202330] border border-slate-700/80 rounded flex items-start justify-between gap-2 text-xs"
-                      >
-                        <div className="flex items-start gap-2 flex-1">
-                          {test.passed ? (
-                            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                          ) : (
-                            <XCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-                          )}
-                          <div>
-                            <div className="font-bold text-slate-200">{test.name}</div>
-                            <div className="text-[11px] text-slate-400 font-mono mt-0.5">
-                              {test.message}
-                            </div>
-                          </div>
-                        </div>
-                        <span className="text-[10px] font-mono text-slate-500 shrink-0">
-                          {test.durationMs}ms
-                        </span>
+          {(['Unit', 'Integration', 'E2E'] as const).map((category) => {
+            const items = testResults.filter((t) => t.category === category);
+            if (!items.length) return null;
+            return (
+              <section key={category} className="space-y-1.5">
+                <h3 className="font-bold uppercase tracking-wide border-b-2 border-black pb-0.5">
+                  {category} tests ({items.filter((i) => i.passed).length}/{items.length})
+                </h3>
+                {items.map((t) => (
+                  <div key={t.id} className="bg-white rt-sunken p-2 flex items-start justify-between gap-2">
+                    <div className="flex items-start gap-2 min-w-0">
+                      {t.passed
+                        ? <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-700" aria-label="passed" />
+                        : <XCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#c0261b]" aria-label="failed" />}
+                      <div className="min-w-0">
+                        <div className="font-bold">{t.name}</div>
+                        <div className="font-terminal text-[17px] leading-tight text-[var(--rt-muted)] break-words">{t.message}</div>
                       </div>
-                    ))}
+                    </div>
+                    <span className="font-terminal text-[16px] shrink-0">{t.durationMs} ms</span>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Tab 2: Event Journal */}
-        {activeTab === 'journal' && (
-          <div className="h-full flex flex-col space-y-2">
-            {/* Filter Bar */}
-            <div className="flex items-center justify-between bg-[#202330] p-2 rounded border border-slate-700 text-xs">
-              <div className="flex items-center gap-1.5 font-bold text-slate-300">
-                <Filter className="w-3.5 h-3.5" />
-                <span>Filter Log:</span>
-              </div>
-              <div className="flex gap-1">
-                {['ALL', 'SCHEDULER', 'MEMORY', 'DEADLOCK', 'VFS'].map((f) => (
-                  <button
-                    key={f}
-                    onClick={() => { retroAudio.playClickSound(); setJournalFilter(f); }}
-                    className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                      journalFilter === f ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    {f}
-                  </button>
                 ))}
-              </div>
-            </div>
+              </section>
+            );
+          })}
+        </div>
+      )}
 
-            {/* Journal Table */}
-            <div className="flex-1 min-h-0 overflow-auto bg-[#121318] border border-slate-800 rounded font-mono text-xs overscroll-contain">
-              {filteredJournal.length === 0 ? (
-                <div className="p-4 text-center text-slate-500">No events logged for this filter.</div>
-              ) : (
-                <table className="w-full text-left">
-                  <thead className="bg-[#1f222e] text-slate-400 border-b border-slate-700 sticky top-0 text-[11px]">
-                    <tr>
-                      <th className="p-1.5 w-16">TICK</th>
-                      <th className="p-1.5 w-28">SUBSYSTEM</th>
-                      <th className="p-1.5">MUTATION DETAIL</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-800/80">
-                    {filteredJournal.map((entry, idx) => (
-                      <tr key={idx} className="hover:bg-white/5">
-                        <td className="p-1.5 text-amber-400 font-bold">#{entry.tick}</td>
-                        <td className="p-1.5 text-indigo-300 font-bold">{entry.type}</td>
-                        <td className="p-1.5 text-slate-300">{entry.message}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
+      {activeTab === 'journal' && (
+        <div className="flex-1 min-h-0 flex flex-col p-3 gap-2">
+          <div className="shrink-0 flex items-center gap-1.5 flex-wrap">
+            <span className="font-bold mr-1">Filter:</span>
+            {FILTERS.map((f) => (
+              <button
+                key={f}
+                onClick={() => { retroAudio.playClickSound(); setJournalFilter(f); }}
+                className={`rt-btn rt-btn-sm ${journalFilter === f ? '!bg-black !text-white' : ''}`}
+                aria-pressed={journalFilter === f}
+              >
+                {f}
+              </button>
+            ))}
           </div>
-        )}
+          <div className="flex-1 min-h-0 overflow-auto bg-white rt-sunken font-terminal text-[17px]">
+            {filteredJournal.length === 0 ? (
+              <div className="p-4 text-center text-[var(--rt-muted)]">No events for this filter.</div>
+            ) : (
+              <table className="w-full text-left border-collapse">
+                <thead className="sticky top-0 bg-[var(--rt-side)] font-pixel text-[12px]">
+                  <tr className="border-b-2 border-black">
+                    <th className="px-2 py-1 w-16">Tick</th>
+                    <th className="px-2 py-1 w-36">Subsystem</th>
+                    <th className="px-2 py-1">Detail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredJournal.map((e, i) => (
+                    <tr key={i} className="border-b border-black/15 rt-row">
+                      <td className="px-2 py-0.5">#{e.tick}</td>
+                      <td className="px-2 py-0.5 font-bold">{e.type}</td>
+                      <td className="px-2 py-0.5">{e.message}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+      )}
 
-        {/* Tab 3: Disk Snapshot & State Persistence */}
-        {activeTab === 'export' && (
-          <div className="p-4 bg-[#202330] border border-slate-700 rounded space-y-4 text-xs">
+      {activeTab === 'export' && (
+        <div className="flex-1 min-h-0 overflow-y-auto p-3">
+          <section className="bg-white rt-raised p-3 space-y-3">
             <div>
-              <h3 className="text-sm font-bold text-slate-200 mb-1">
-                Deterministic Disk Image Serialization
-              </h3>
-              <p className="text-slate-400 text-[11px] leading-relaxed">
-                Save the complete operating system state into a portable JSON disk snapshot. Includes all active processes, PCB registers, allocated physical memory frames, hierarchical Inode VFS, and the complete audit journal for offline verification.
+              <h3 className="font-bold text-[14px] mb-1">Deterministic disk image</h3>
+              <p className="font-terminal text-[18px] leading-tight text-[var(--rt-muted)]">
+                Save the whole OS state as a JSON snapshot: processes and their PCBs, physical frames, the inode tree
+                and the full audit journal, for offline checking.
               </p>
             </div>
-
-            <div className="p-3 bg-black/40 border border-slate-800 rounded font-mono space-y-1 text-[11px] text-slate-300">
-              <div>• Monotonic System Clock: Tick #{stats.tick}</div>
-              <div>• Active CPU Processes: {processes.length}</div>
-              <div>• VFS Inode Count: {vfsInodes.length} blocks allocated</div>
-              <div>• Total Journal Entries: {journal.length}</div>
-            </div>
-
-            <button
-              onClick={handleExportDisk}
-              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded flex items-center gap-2 shadow active:translate-y-0.5"
-            >
-              <Download className="w-4 h-4" />
-              <span>Export System Disk Image (.json)</span>
+            <ul className="rt-sunken bg-[var(--rt-soft)] p-2 font-terminal text-[18px] leading-tight space-y-0.5">
+              <li>System clock: tick #{stats.tick}</li>
+              <li>Processes: {processes.length}</li>
+              <li>VFS inodes: {vfsInodes.length}</li>
+              <li>Journal entries: {journal.length}</li>
+            </ul>
+            <button onClick={handleExportDisk} className="rt-btn">
+              <Download className="w-4 h-4" /> Export disk image (.json)
             </button>
-          </div>
-        )}
-      </div>
+          </section>
+        </div>
+      )}
     </div>
   );
 };

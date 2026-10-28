@@ -85,6 +85,10 @@ export const RetroDock: React.FC = () => {
     open(id);
   };
 
+  // Like Retrium, the dock steps aside while a window is maximized so it never covers content.
+  const anyMaximized = Object.values(windows).some((w) => w.isOpen && !w.isMinimized && w.isMaximized);
+  if (anyMaximized) return null;
+
   return (
     <div className="fixed bottom-3 left-1/2 -translate-x-1/2 z-40 select-none">
       <div className="flex items-center gap-3 px-4 py-2 backdrop-blur-md bg-white/40 border border-white/60 shadow-2xl rounded-2xl">

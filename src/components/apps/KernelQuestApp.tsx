@@ -1,62 +1,44 @@
 import React from 'react';
 import { useKernelStore } from '../../stores/useKernelStore';
-import { Trophy, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Trophy } from 'lucide-react';
+import { CulpritQuest, FitQuest, QuestCard, questText } from '../../spillguard/quests';
 
 export const KernelQuestApp: React.FC = () => {
   const { deadlockState, stats, triggerDeadlock, spawnProcess } = useKernelStore();
 
   return (
-    <div className="h-full w-full p-4 space-y-4 text-xs font-sans min-h-0 min-w-0 overflow-y-auto bg-[#13151f] text-slate-200 overscroll-contain">
-      <div className="bg-gradient-to-r from-indigo-900/60 to-purple-900/60 p-3 rounded-lg border border-indigo-700/50">
-        <div className="flex items-center gap-2">
-          <Trophy className="w-5 h-5 text-yellow-400" />
-          <span className="font-bold text-sm text-white">KernelQuest: OS Debugging Challenges</span>
+    <div className="h-full w-full p-3 flex flex-col gap-3 overflow-y-auto min-h-0 min-w-0 bg-[var(--rt-panel)] font-pixel text-[13px]">
+      <header className="bg-black text-white rt-raised px-3 py-2">
+        <div className="flex items-center gap-2 font-bold text-[15px]">
+          <Trophy className="w-5 h-5 text-[var(--rt-max)]" /> KernelQuest: OS debugging challenges
         </div>
-        <p className="text-slate-300 mt-1">
-          Master real-world operating system mechanics by solving kernel panics, resolving resource contentions, and avoiding thrashing.
+        <p className="font-terminal text-[18px] leading-tight text-[#d8d8d8] mt-0.5">
+          Solve deadlocks, starvation and real GPU memory spills.
         </p>
-      </div>
+      </header>
 
-      <div className="space-y-3">
-        <div className="p-3 rounded border bg-slate-900 border-slate-700">
-          <div className="flex justify-between items-center">
-            <span className="font-bold text-indigo-300">Quest 1: Break the Mutual Exclusion Deadlock</span>
-            {deadlockState.isDeadlocked ? (
-              <span className="text-amber-400 flex items-center gap-1 font-semibold">
-                <AlertTriangle className="w-3.5 h-3.5" /> Deadlock Active (Preempt a thread in Deadlock Lab)
-              </span>
-            ) : (
-              <span className="text-emerald-400 flex items-center gap-1 font-semibold">
-                <CheckCircle className="w-3.5 h-3.5" /> Solved / Safe
-              </span>
-            )}
-          </div>
-          <p className="text-slate-400 mt-1">
-            Trigger a circular wait scenario and resolve it by preempting one of the competing mutex lock holders.
-          </p>
-          <button onClick={triggerDeadlock} className="mt-2 px-2.5 py-1 bg-red-600 hover:bg-red-500 text-white rounded font-medium">
-            Start Quest 1: Trigger Deadlock
-          </button>
-        </div>
+      <QuestCard
+        n={1}
+        title="Break the mutual-exclusion deadlock"
+        status={deadlockState.isDeadlocked ? { tone: 'warn', text: 'Deadlock active' } : { tone: 'done', text: 'Safe' }}
+      >
+        <p className={questText}>
+          Trigger a circular wait, then resolve it in Deadlock Lab by preempting one of the mutex holders.
+        </p>
+        <button onClick={triggerDeadlock} className="rt-btn rt-btn-sm">Trigger deadlock</button>
+      </QuestCard>
 
-        <div className="p-3 rounded border bg-slate-900 border-slate-700">
-          <div className="flex justify-between items-center">
-            <span className="font-bold text-indigo-300">Quest 2: CPU Starvation Prevention with MLFQ</span>
-            <span className="text-slate-400">Total Completed: {stats.completedProcesses}</span>
-          </div>
-          <p className="text-slate-400 mt-1">
-            Spawn 5 high-burst tasks and verify how MLFQ dynamically degrades their priority to prevent starving interactive tasks.
-          </p>
-          <button 
-            onClick={() => {
-              for (let i = 1; i <= 4; i++) spawnProcess(`heavy_job_${i}`, 1, 30, 16);
-            }} 
-            className="mt-2 px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded font-medium"
-          >
-            Spawn Heavy Workload Batch
-          </button>
-        </div>
-      </div>
+      <QuestCard n={2} title="Prevent CPU starvation with MLFQ" status={{ tone: 'idle', text: `${stats.completedProcesses} completed` }}>
+        <p className={questText}>
+          Spawn four long CPU-bound jobs and watch MLFQ demote them so short interactive tasks are not starved.
+        </p>
+        <button onClick={() => { for (let i = 1; i <= 4; i++) spawnProcess(`heavy_job_${i}`, 1, 30, 16); }} className="rt-btn rt-btn-sm">
+          Spawn heavy workload
+        </button>
+      </QuestCard>
+
+      <CulpritQuest />
+      <FitQuest />
     </div>
   );
 };

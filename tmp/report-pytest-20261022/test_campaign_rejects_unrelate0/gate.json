@@ -1,0 +1,7 @@
+{
+  "approved_for_execution": true,
+  "plan_sha256": "1c1d36af804e4459c533db65856d9164b5c1c1d00c6cbe7e2a8920e2e7a46719",
+  "evidence_bundles": [
+    "mock-calibration"
+  ]
+}

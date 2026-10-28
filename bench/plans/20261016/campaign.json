@@ -1,0 +1,4431 @@
+{
+  "schema_version": 1,
+  "purpose": "fixed-size final campaign; separate calibration required",
+  "seed": 42,
+  "replication_unit": "whole matched block",
+  "cells": [
+    {
+      "id": "cell-050",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "hold",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-hold-256",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-019",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "burst",
+      "level_mib": 128,
+      "recipe": {
+        "name": "cuda-write-warm-burst-128",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-031",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "burst",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen25-text-cold-burst-128",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-047",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "reacquire",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen25-text-warm-reacquire-256",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 268435456,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-008",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "burst",
+      "level_mib": 256,
+      "recipe": {
+        "name": "cuda-write-cold-burst-256",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 268435456,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-021",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "burst",
+      "level_mib": 512,
+      "recipe": {
+        "name": "cuda-write-warm-burst-512",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 536870912,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-016",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "ramp",
+      "level_mib": 128,
+      "recipe": {
+        "name": "cuda-write-warm-ramp-128",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 33554432,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 33554432,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 33554432,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 33554432,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-034",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "reacquire",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen25-text-cold-reacquire-128",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 134217728,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-053",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "ramp",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-ramp-256",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 67108864,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 67108864,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 67108864,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 67108864,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-005",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "ramp",
+      "level_mib": 256,
+      "recipe": {
+        "name": "cuda-write-cold-ramp-256",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 67108864,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 67108864,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 67108864,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 67108864,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-037",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "hold",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen25-text-warm-hold-128",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-043",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "burst",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen25-text-warm-burst-128",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-044",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "burst",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen25-text-warm-burst-256",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 268435456,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-049",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "hold",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-hold-128",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-017",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "ramp",
+      "level_mib": 256,
+      "recipe": {
+        "name": "cuda-write-warm-ramp-256",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 67108864,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 67108864,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 67108864,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 67108864,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-058",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "reacquire",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-reacquire-128",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 134217728,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-030",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "ramp",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen25-text-cold-ramp-512",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 134217728,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 134217728,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-057",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "burst",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-burst-512",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 536870912,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-069",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "burst",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-burst-512",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 536870912,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-063",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "hold",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-hold-512",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-054",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "ramp",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-ramp-512",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 134217728,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 134217728,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-071",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "reacquire",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-reacquire-256",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 268435456,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-040",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "ramp",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen25-text-warm-ramp-128",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 33554432,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 33554432,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 33554432,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 33554432,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-048",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "reacquire",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen25-text-warm-reacquire-512",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 536870912,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-024",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "reacquire",
+      "level_mib": 512,
+      "recipe": {
+        "name": "cuda-write-warm-reacquire-512",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 536870912,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-056",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "burst",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-burst-256",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 268435456,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-026",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "hold",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen25-text-cold-hold-256",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-009",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "burst",
+      "level_mib": 512,
+      "recipe": {
+        "name": "cuda-write-cold-burst-512",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 536870912,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-020",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "burst",
+      "level_mib": 256,
+      "recipe": {
+        "name": "cuda-write-warm-burst-256",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 268435456,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-065",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "ramp",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-ramp-256",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 67108864,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 67108864,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 67108864,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 67108864,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-052",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "ramp",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-ramp-128",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 33554432,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 33554432,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 33554432,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 33554432,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-023",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "reacquire",
+      "level_mib": 256,
+      "recipe": {
+        "name": "cuda-write-warm-reacquire-256",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 268435456,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-064",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "ramp",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-ramp-128",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 33554432,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 33554432,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 33554432,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 33554432,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-025",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "hold",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen25-text-cold-hold-128",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-061",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "hold",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-hold-128",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-007",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "burst",
+      "level_mib": 128,
+      "recipe": {
+        "name": "cuda-write-cold-burst-128",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-041",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "ramp",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen25-text-warm-ramp-256",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 67108864,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 67108864,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 67108864,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 67108864,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-060",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "reacquire",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-reacquire-512",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 536870912,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-010",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "reacquire",
+      "level_mib": 128,
+      "recipe": {
+        "name": "cuda-write-cold-reacquire-128",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 134217728,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-051",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "hold",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-hold-512",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-022",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "reacquire",
+      "level_mib": 128,
+      "recipe": {
+        "name": "cuda-write-warm-reacquire-128",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 134217728,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-028",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "ramp",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen25-text-cold-ramp-128",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 33554432,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 33554432,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 33554432,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 33554432,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-011",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "reacquire",
+      "level_mib": 256,
+      "recipe": {
+        "name": "cuda-write-cold-reacquire-256",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 268435456,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-001",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "hold",
+      "level_mib": 128,
+      "recipe": {
+        "name": "cuda-write-cold-hold-128",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-067",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "burst",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-burst-128",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-038",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "hold",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen25-text-warm-hold-256",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-068",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "burst",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-burst-256",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 268435456,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-059",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "reacquire",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-reacquire-256",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 268435456,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-027",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "hold",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen25-text-cold-hold-512",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-035",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "reacquire",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen25-text-cold-reacquire-256",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 268435456,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-045",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "burst",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen25-text-warm-burst-512",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 536870912,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-042",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "ramp",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen25-text-warm-ramp-512",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 134217728,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 134217728,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-046",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "reacquire",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen25-text-warm-reacquire-128",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 134217728,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-013",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "hold",
+      "level_mib": 128,
+      "recipe": {
+        "name": "cuda-write-warm-hold-128",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-070",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "reacquire",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-reacquire-128",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 134217728,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-062",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "hold",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-hold-256",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-039",
+      "workload": "qwen25-text",
+      "preparation": "warm",
+      "pattern": "hold",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen25-text-warm-hold-512",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-033",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "burst",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen25-text-cold-burst-512",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 536870912,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-072",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "reacquire",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-reacquire-512",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 536870912,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-066",
+      "workload": "qwen3vl-text-input",
+      "preparation": "warm",
+      "pattern": "ramp",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen3vl-text-input-warm-ramp-512",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 134217728,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 134217728,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-006",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "ramp",
+      "level_mib": 512,
+      "recipe": {
+        "name": "cuda-write-cold-ramp-512",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 134217728,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 134217728,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-002",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "hold",
+      "level_mib": 256,
+      "recipe": {
+        "name": "cuda-write-cold-hold-256",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-003",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "hold",
+      "level_mib": 512,
+      "recipe": {
+        "name": "cuda-write-cold-hold-512",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-055",
+      "workload": "qwen3vl-text-input",
+      "preparation": "cold",
+      "pattern": "burst",
+      "level_mib": 128,
+      "recipe": {
+        "name": "qwen3vl-text-input-cold-burst-128",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen3-vl:2b",
+          "model_digest": "0635d9d857d497aeadba3d7d27485746c50554446f9f6ec01ef39788221adbe8",
+          "model_blob_digest": "ebabfa59b71a5b96e0281ec2994977e785284e0939807a99fc340dec3c6f10de",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-012",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "reacquire",
+      "level_mib": 512,
+      "recipe": {
+        "name": "cuda-write-cold-reacquire-512",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 536870912,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-014",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "hold",
+      "level_mib": 256,
+      "recipe": {
+        "name": "cuda-write-warm-hold-256",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 268435456,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-018",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "ramp",
+      "level_mib": 512,
+      "recipe": {
+        "name": "cuda-write-warm-ramp-512",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 134217728,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 134217728,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 134217728,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 134217728,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-029",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "ramp",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen25-text-cold-ramp-256",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 67108864,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 67108864,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 67108864,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 67108864,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-032",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "burst",
+      "level_mib": 256,
+      "recipe": {
+        "name": "qwen25-text-cold-burst-256",
+        "actions": [
+          {
+            "id": "burst",
+            "allocated_bytes": 268435456,
+            "start_ms": 250,
+            "duration_ms": 1500,
+            "touch_interval_ms": 100,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-036",
+      "workload": "qwen25-text",
+      "preparation": "cold",
+      "pattern": "reacquire",
+      "level_mib": 512,
+      "recipe": {
+        "name": "qwen25-text-cold-reacquire-512",
+        "actions": [
+          {
+            "id": "first",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 1000,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "reacquire",
+            "allocated_bytes": 536870912,
+            "start_ms": 1500,
+            "duration_ms": 10500,
+            "touch_interval_ms": 0,
+            "phase": "decode",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "model": "qwen2.5:3b-instruct",
+          "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+          "model_blob_digest": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+          "prompt": "Continue this numbered list from 1 to 200, writing every number with a short descriptive phrase. Do not summarize or skip any entries. Keep going until the list is complete.\n\n1. Begin the count\n2.\n",
+          "prompt_sha256": "1ddffaa695456749cdfaaa06ac30c4d97b27a4bbb263c85adfe7ebb1cf036de4",
+          "kind": "ollama",
+          "num_ctx": 2048,
+          "num_predict": 512,
+          "generation_seed": 0,
+          "temperature": 0.0,
+          "num_gpu": 999,
+          "warmup_prompt": "Reply with the word ready."
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 90,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-004",
+      "workload": "cuda-write",
+      "preparation": "cold",
+      "pattern": "ramp",
+      "level_mib": 128,
+      "recipe": {
+        "name": "cuda-write-cold-ramp-128",
+        "actions": [
+          {
+            "id": "ramp-0",
+            "allocated_bytes": 33554432,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-1",
+            "allocated_bytes": 33554432,
+            "start_ms": 250,
+            "duration_ms": 11750,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-2",
+            "allocated_bytes": 33554432,
+            "start_ms": 500,
+            "duration_ms": 11500,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          },
+          {
+            "id": "ramp-3",
+            "allocated_bytes": 33554432,
+            "start_ms": 750,
+            "duration_ms": 11250,
+            "touch_interval_ms": 250,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "cold",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    },
+    {
+      "id": "cell-015",
+      "workload": "cuda-write",
+      "preparation": "warm",
+      "pattern": "hold",
+      "level_mib": 512,
+      "recipe": {
+        "name": "cuda-write-warm-hold-512",
+        "actions": [
+          {
+            "id": "hold",
+            "allocated_bytes": 536870912,
+            "start_ms": 0,
+            "duration_ms": 12000,
+            "touch_interval_ms": 0,
+            "phase": "pressure",
+            "mode": "hold",
+            "compute_duty_pct": 25
+          }
+        ],
+        "workload": {
+          "kind": "cuda_probe",
+          "allocated_bytes": 67108864,
+          "iterations": 8192,
+          "warmup_ms": 1000
+        },
+        "protocol": {
+          "repeats": 6,
+          "slowdown_ratio": 2.0,
+          "recovery_ratio": 1.25,
+          "min_pressure_fraction": 0.5,
+          "min_overlap_samples": 2,
+          "sample_interval_ms": 100,
+          "lead_in_ms": 500,
+          "cooldown_ms": 1000,
+          "timeout_s": 20,
+          "max_requested_bytes": 1073741824,
+          "min_available_host_bytes": 1610612736,
+          "preparation": "warm",
+          "idle_ms": 3000,
+          "treatment_order": "paired_randomized"
+        },
+        "schema_version": 1,
+        "seed": 0
+      }
+    }
+  ],
+  "planned_cells": 72,
+  "planned_blocks": 432,
+  "required_gate": "valid application failure and reset at the declared calibrated levels",
+  "level_status": "PROVISIONAL engineering grid; these levels are not calibrated failure levels",
+  "workload_notes": {
+    "qwen3vl-text-input": "text input/output using an installed multimodal architecture; images are not tested"
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "bundles": [
+    {
+      "bundle": "traces/repro/20261016-ollama-smoke-1536mib",
+      "report_sha256": "6a1900ed17be762ac48bd4ff89c2339c3b23a4d9a3c0b3025abecd7e324fe683",
+      "origin": "live measurement",
+      "purpose": "standalone",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "1/1 concordant matched trials",
+        "slowdown": 1.0180203139510264,
+        "recovery": 1.0027574054511827
+      },
+      "primary_metric": "decode_ms_per_token",
+      "mechanism": "unverified",
+      "trials": [
+        {
+          "verdict": {
+            "outcome": "PASS",
+            "reason": "valid trial did not reach the declared slowdown threshold",
+            "slowdown": 1.0180203139510264,
+            "recovery": 1.0027574054511827
+          },
+          "stages": [
+            {
+              "stage": "baseline",
+              "completed": true,
+              "latency_ms": 1843.0,
+              "metric_value": 13.948234375,
+              "work_units": 128,
+              "errors": [],
+              "overlap_samples": 0
+            },
+            {
+              "stage": "pressure",
+              "completed": true,
+              "latency_ms": 1860.0,
+              "metric_value": 14.1995859375,
+              "work_units": 128,
+              "errors": [],
+              "overlap_samples": 14
+            },
+            {
+              "stage": "recovery",
+              "completed": true,
+              "latency_ms": 1828.0,
+              "metric_value": 13.9866953125,
+              "work_units": 128,
+              "errors": [],
+              "overlap_samples": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bundle": "traces/repro/20261016-calibration-pilot/level-128mib",
+      "report_sha256": "ac7b91e0a796bca10b1a9fb966079859afa740f4526df8c5c595e2394df0011b",
+      "origin": "live measurement",
+      "purpose": "calibration",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "1/1 concordant matched trials",
+        "slowdown": 1.0190289308578282,
+        "recovery": 1.0177086235199202
+      },
+      "primary_metric": "decode_ms_per_token",
+      "mechanism": "unverified",
+      "trials": [
+        {
+          "verdict": {
+            "outcome": "PASS",
+            "reason": "valid trial did not reach the declared slowdown threshold",
+            "slowdown": 1.0190289308578282,
+            "recovery": 1.0177086235199202
+          },
+          "stages": [
+            {
+              "stage": "baseline",
+              "completed": true,
+              "latency_ms": 9328.0,
+              "metric_value": 18.081431640625,
+              "work_units": 512,
+              "errors": [],
+              "overlap_samples": 0
+            },
+            {
+              "stage": "pressure",
+              "completed": true,
+              "latency_ms": 9484.0,
+              "metric_value": 18.425501953125,
+              "work_units": 512,
+              "errors": [],
+              "overlap_samples": 72
+            },
+            {
+              "stage": "recovery",
+              "completed": true,
+              "latency_ms": 9469.0,
+              "metric_value": 18.40162890625,
+              "work_units": 512,
+              "errors": [],
+              "overlap_samples": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bundle": "traces/repro/20261016-calibration-pilot/level-1024mib",
+      "report_sha256": "68a9f7d819c5d8aa15d9e636b458b15539832d7bdd3adce8d66b907704af093d",
+      "origin": "live measurement",
+      "purpose": "calibration",
+      "verdict": {
+        "outcome": "INCONCLUSIVE",
+        "reason": "incomplete or inconclusive fixed-size trial block",
+        "slowdown": null,
+        "recovery": null
+      },
+      "primary_metric": "decode_ms_per_token",
+      "mechanism": "unverified",
+      "trials": [
+        {
+          "verdict": {
+            "outcome": "INCONCLUSIVE",
+            "reason": "pressure: collection, workload or helper failure",
+            "slowdown": null,
+            "recovery": null
+          },
+          "stages": [
+            {
+              "stage": "baseline",
+              "completed": true,
+              "latency_ms": 9438.0,
+              "metric_value": 18.323365234375,
+              "work_units": 512,
+              "errors": [],
+              "overlap_samples": 0
+            },
+            {
+              "stage": "pressure",
+              "completed": false,
+              "latency_ms": null,
+              "metric_value": null,
+              "work_units": null,
+              "errors": [
+                "RuntimeError: host commit pressure reached or unavailable",
+                "owned helper required forced termination",
+                "helper exit code 1"
+              ],
+              "overlap_samples": null
+            },
+            {
+              "stage": "recovery",
+              "completed": true,
+              "latency_ms": 9484.0,
+              "metric_value": 18.392220703125,
+              "work_units": 512,
+              "errors": [],
+              "overlap_samples": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bundle": "traces/repro/20261016-frozen-source-cuda",
+      "report_sha256": "5bb40c2de2282385c5b1382e4e2806553fcc2c51a3900069d3797c27837620f7",
+      "origin": "live measurement",
+      "purpose": "standalone",
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "1/1 concordant matched trials",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      },
+      "primary_metric": "completion_ms",
+      "mechanism": "unverified",
+      "trials": [
+        {
+          "verdict": {
+            "outcome": "PASS",
+            "reason": "valid trial did not reach the declared slowdown threshold",
+            "slowdown": 1.0,
+            "recovery": 1.0
+          },
+          "stages": [
+            {
+              "stage": "baseline",
+              "completed": true,
+              "latency_ms": 4297.0,
+              "metric_value": null,
+              "work_units": 8192,
+              "errors": [],
+              "overlap_samples": 0
+            },
+            {
+              "stage": "pressure",
+              "completed": true,
+              "latency_ms": 4297.0,
+              "metric_value": null,
+              "work_units": 8192,
+              "errors": [],
+              "overlap_samples": 0
+            },
+            {
+              "stage": "recovery",
+              "completed": true,
+              "latency_ms": 4297.0,
+              "metric_value": null,
+              "work_units": 8192,
+              "errors": [],
+              "overlap_samples": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "overhead": {
+    "bundle": "traces/repro/20261016-overhead",
+    "ratios": [
+      0.9955555555555555,
+      1.0,
+      1.0044642857142858
+    ],
+    "limits": "single-device synthetic workload, fixed whole pairs; minimal host-sampler cost shared by both arms; no tail-latency or universal overhead claim"
+  },
+  "arithmetic_helper": {
+    "bundle": "traces/repro/20261016-arithmetic-control-r3",
+    "completed": true,
+    "scope": "helper execution only; not a matched application confounder study"
+  },
+  "campaign": {
+    "cells": 72,
+    "planned_whole_blocks": 432,
+    "executed": 0,
+    "gate": "unmet"
+  },
+  "conclusions": {
+    "application_failure": "not reproduced",
+    "reducer_empirical_benefit": "NO DATA FOUND",
+    "remedy_benefit": "not evaluable without a failure witness",
+    "direct_residency_cause": "unverified"
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "artifact": "experiment record",
+  "synthetic_workload": true,
+  "primary_metric": "completion_ms",
+  "data_origin": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+  "mechanism": "unverified",
+  "recipe_signature": "cb3392b2ca87553c03e484f7db91b00844dd974c042037b0a5b591e4f96372e2",
+  "complete": true,
+  "planned_blocks": 3,
+  "metadata": {
+    "backend": "deterministic-fixture",
+    "purpose": "search",
+    "data_origin": "SOFTWARE FIXTURE - NOT GPU MEASUREMENTS",
+    "environment_signature": "fixture-env-v1"
+  },
+  "trials": [
+    {
+      "trial": 1,
+      "stages": [
+        {
+          "stage": "baseline",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 100.0,
+          "work_units": 2048,
+          "workload_signature": "fixture-work-v1",
+          "environment_signature": "fixture-env-v1",
+          "host_pressure": false,
+          "pressure_observed": true
+        },
+        {
+          "stage": "pressure",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 100.0,
+          "work_units": 2048,
+          "workload_signature": "fixture-work-v1",
+          "environment_signature": "fixture-env-v1",
+          "host_pressure": false,
+          "pressure_observed": true
+        },
+        {
+          "stage": "recovery",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 100.0,
+          "work_units": 2048,
+          "workload_signature": "fixture-work-v1",
+          "environment_signature": "fixture-env-v1",
+          "host_pressure": false,
+          "pressure_observed": true
+        }
+      ],
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "valid trial did not reach the declared slowdown threshold",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "trial": 2,
+      "stages": [
+        {
+          "stage": "baseline",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 100.0,
+          "work_units": 2048,
+          "workload_signature": "fixture-work-v1",
+          "environment_signature": "fixture-env-v1",
+          "host_pressure": false,
+          "pressure_observed": true
+        },
+        {
+          "stage": "pressure",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 100.0,
+          "work_units": 2048,
+          "workload_signature": "fixture-work-v1",
+          "environment_signature": "fixture-env-v1",
+          "host_pressure": false,
+          "pressure_observed": true
+        },
+        {
+          "stage": "recovery",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 100.0,
+          "work_units": 2048,
+          "workload_signature": "fixture-work-v1",
+          "environment_signature": "fixture-env-v1",
+          "host_pressure": false,
+          "pressure_observed": true
+        }
+      ],
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "valid trial did not reach the declared slowdown threshold",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      }
+    },
+    {
+      "trial": 3,
+      "stages": [
+        {
+          "stage": "baseline",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 100.0,
+          "work_units": 2048,
+          "workload_signature": "fixture-work-v1",
+          "environment_signature": "fixture-env-v1",
+          "host_pressure": false,
+          "pressure_observed": true
+        },
+        {
+          "stage": "pressure",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 100.0,
+          "work_units": 2048,
+          "workload_signature": "fixture-work-v1",
+          "environment_signature": "fixture-env-v1",
+          "host_pressure": false,
+          "pressure_observed": true
+        },
+        {
+          "stage": "recovery",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 100.0,
+          "work_units": 2048,
+          "workload_signature": "fixture-work-v1",
+          "environment_signature": "fixture-env-v1",
+          "host_pressure": false,
+          "pressure_observed": true
+        }
+      ],
+      "verdict": {
+        "outcome": "PASS",
+        "reason": "valid trial did not reach the declared slowdown threshold",
+        "slowdown": 1.0,
+        "recovery": 1.0
+      }
+    }
+  ],
+  "verdict": {
+    "outcome": "PASS",
+    "reason": "3/3 concordant matched trials",
+    "slowdown": 1.0,
+    "recovery": 1.0
+  },
+  "fresh_validation": false
+}

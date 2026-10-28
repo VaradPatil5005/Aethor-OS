@@ -1,0 +1,1194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AetherOS + SpillGuard — Complete Technical Guide</title>
+<style>
+  @page { size: A4; margin: 18mm 17mm 20mm 17mm;
+    @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 8.5pt "Segoe UI", Arial, sans-serif; color: #666; }
+    @bottom-left { content: "AetherOS + SpillGuard · Technical Guide · Varad Patil (24BIT0175)"; font: 8.5pt "Segoe UI", Arial, sans-serif; color: #666; }
+  }
+  @page :first { @bottom-right { content: none; } @bottom-left { content: none; } }
+  :root { --ink:#1a1a1a; --muted:#555; --accent:#1f4e79; --accent2:#b4321e; --soft:#eef3f8; --line:#c9d3de; --warn:#fff6e0; --ok:#e9f6ec; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Cambria, Georgia, "Times New Roman", serif; font-size: 10.6pt; line-height: 1.5; color: var(--ink); margin: 0; }
+  h1, h2, h3, h4 { font-family: "Segoe UI", Arial, sans-serif; color: var(--accent); line-height: 1.25; break-after: avoid; }
+  h1 { font-size: 20pt; margin: 0 0 10pt; padding-bottom: 5pt; border-bottom: 2.5pt solid var(--accent); break-before: page; }
+  h2 { font-size: 14pt; margin: 16pt 0 6pt; }
+  h3 { font-size: 11.5pt; margin: 12pt 0 4pt; color: #24425f; }
+  h4 { font-size: 10.5pt; margin: 10pt 0 3pt; color: #333; }
+  p { margin: 0 0 7pt; text-align: justify; hyphens: auto; }
+  ul, ol { margin: 0 0 8pt; padding-left: 18pt; }
+  li { margin-bottom: 2.5pt; }
+  code, .mono { font-family: Consolas, "Courier New", monospace; font-size: 9.2pt; background: #f2f2f2; padding: 0 2pt; border-radius: 2pt; }
+  pre { font-family: Consolas, "Courier New", monospace; font-size: 8.8pt; background: #f5f7fa; border: 0.6pt solid var(--line); border-left: 3pt solid var(--accent); padding: 6pt 8pt; white-space: pre-wrap; break-inside: avoid; margin: 0 0 9pt; line-height: 1.35; }
+  table { border-collapse: collapse; width: 100%; margin: 4pt 0 10pt; font-size: 9.4pt; break-inside: avoid; }
+  th, td { border: 0.6pt solid var(--line); padding: 3.5pt 5pt; vertical-align: top; text-align: left; }
+  th { background: var(--soft); font-family: "Segoe UI", Arial, sans-serif; font-size: 8.8pt; color: #203a54; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  tr.hl td { background: #fdecea; font-weight: bold; }
+  .box { border: 0.8pt solid var(--line); background: var(--soft); padding: 7pt 9pt; margin: 6pt 0 10pt; break-inside: avoid; border-radius: 3pt; }
+  .box.say { background: var(--ok); border-color: #9cc9a6; }
+  .box.warn { background: var(--warn); border-color: #e2c27a; }
+  .box.def { background: #f6f2fb; border-color: #c8b6e2; }
+  .box > :last-child { margin-bottom: 0; }
+  .box .t { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 9.5pt; text-transform: uppercase; letter-spacing: .4pt; margin-bottom: 3pt; color: #333; }
+  figure { margin: 6pt 0 12pt; text-align: center; break-inside: avoid; }
+  figcaption { font-family: "Segoe UI", Arial, sans-serif; font-size: 8.6pt; color: var(--muted); margin-top: 3pt; }
+  svg text { font-family: "Segoe UI", Arial, sans-serif; }
+  .cover { height: 255mm; display: flex; flex-direction: column; justify-content: space-between; }
+  .cover h1 { break-before: auto; border: 0; font-size: 30pt; margin: 0; color: var(--accent); }
+  .cover .sub { font-family: "Segoe UI", Arial, sans-serif; font-size: 13pt; color: #333; margin-top: 8pt; }
+  .cover .band { background: var(--accent); color: white; padding: 14pt 16pt; font-family: "Segoe UI", Arial, sans-serif; border-radius: 4pt; }
+  .cover .band b { font-size: 12pt; }
+  .meta td { border: none; padding: 2pt 6pt 2pt 0; font-size: 10.5pt; }
+  .toc { columns: 2; column-gap: 18pt; font-family: "Segoe UI", Arial, sans-serif; font-size: 9.6pt; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc div { break-inside: avoid; margin-bottom: 2pt; }
+  .toc .l1 { font-weight: 700; margin-top: 6pt; color: var(--accent); }
+  .toc .l2 { padding-left: 12pt; }
+  .qa { break-inside: avoid; margin-bottom: 8pt; }
+  .qa .q { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; color: #24425f; font-size: 10pt; }
+  .qa .q::before { content: "Q. "; color: var(--accent2); }
+  .qa .a::before { content: "A. "; font-weight: 700; color: #2f7d3a; font-family: "Segoe UI", Arial, sans-serif; }
+  .gl dt { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; color: #203a54; margin-top: 5pt; break-after: avoid; }
+  .gl dd { margin: 0 0 3pt 12pt; }
+  .gl { columns: 1; }
+  .small { font-size: 9pt; color: var(--muted); }
+  .pill { display: inline-block; font-family: "Segoe UI", Arial, sans-serif; font-size: 8pt; font-weight: 700; padding: 0 5pt; border-radius: 6pt; color: white; }
+  .real { background: #2f7d3a; } .sim { background: #7a4fb5; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- ================= COVER ================= -->
+<section class="cover">
+  <div>
+    <div class="small" style="font-family:'Segoe UI';letter-spacing:1pt;text-transform:uppercase">Operating Systems Project · Presentation Guide</div>
+    <h1 style="margin-top:14pt">AetherOS + SpillGuard</h1>
+    <div class="sub">A teaching operating system that runs in the browser, connected to a real Windows agent that detects
+      when GPU video memory (VRAM) overflows into system RAM, and a controlled experiment that reproduces,
+      measures and fixes the slowdown this causes.</div>
+    <p style="margin-top:18pt">This document explains <b>how every part works</b>, defines <b>every technical term</b>,
+      gives the <b>measured numbers</b> with their exact meaning, and ends with a <b>question-and-answer section</b>
+      and an <b>A–Z glossary</b> for the viva.</p>
+  </div>
+  <table class="meta">
+    <tr><td><b>Student</b></td><td>Varad Patil · Reg. No. 24BIT0175</td></tr>
+    <tr><td><b>Institute</b></td><td>VIT · Operating Systems course project</td></tr>
+    <tr><td><b>Faculty</b></td><td>Prof. Harshita Patel</td></tr>
+    <tr><td><b>Test machine</b></td><td>Laptop with NVIDIA GeForce RTX 3050 6 GB Laptop GPU, AMD Ryzen 7 7840HS, 16 GB DDR5-5600, Windows 11 (build 26200), NVIDIA driver 581.83</td></tr>
+    <tr><td><b>Software</b></td><td>Front end: React 18 + TypeScript + Vite + Zustand + Tailwind CSS. Agent: Python 3.12 + FastAPI.</td></tr>
+  </table>
+  <div class="band"><b>The project in one sentence.</b><br>
+    AetherOS <i>simulates</i> the classic OS mechanisms (scheduling, paging, deadlock, file-system journaling) so they can be seen;
+    SpillGuard shows the <i>real</i> version of the same memory-management problem happening inside a real GPU, and the research
+    part proves with a controlled experiment that crossing VRAM capacity by just 256 MiB makes a local AI model about 2.4× slower.</div>
+</section>
+
+<!-- ================= TOC ================= -->
+<h1 id="toc" style="border:0">Contents</h1>
+<div class="toc">
+  <div class="l1"><a href="#s1">1. The big picture</a></div>
+  <div class="l2">1.1 What was built · 1.2 Why these two belong together · 1.3 Simulated vs real · 1.4 Technology stack</div>
+  <div class="l1"><a href="#s2">2. Running the demo</a></div>
+  <div class="l2">2.1 Starting it · 2.2 Suggested demo order · 2.3 What to say in 60 seconds</div>
+  <div class="l1"><a href="#s3">3. AetherOS architecture</a></div>
+  <div class="l2">3.1 Layers · 3.2 The kernel clock (tick) · 3.3 Window manager · 3.4 State stores</div>
+  <div class="l1"><a href="#s4">4. Processes and CPU scheduling</a></div>
+  <div class="l2">4.1 Process &amp; PCB · 4.2 States · 4.3 Six algorithms · 4.4 MLFQ in detail · 4.5 Dual-core SMP · 4.6 Metrics</div>
+  <div class="l1"><a href="#s5">5. Memory management</a></div>
+  <div class="l2">5.1 Paging · 5.2 Page faults · 5.3 FIFO, LRU, CLOCK, OPTIMAL · 5.4 Protection rings &amp; GPF</div>
+  <div class="l1"><a href="#s6">6. Deadlock</a></div>
+  <div class="l2">6.1 Coffman conditions · 6.2 Wait-for graph detection · 6.3 Recovery · 6.4 Banker's algorithm</div>
+  <div class="l1"><a href="#s7">7. File system and crash consistency</a></div>
+  <div class="l1"><a href="#s8">8. eBPF Studio, shell, tests and other apps</a></div>
+  <div class="l1"><a href="#s9">9. GPU memory fundamentals</a></div>
+  <div class="l2">9.1 GPU vs CPU · 9.2 VRAM · 9.3 PCIe · 9.4 Shared GPU memory · 9.5 WDDM &amp; VidMm · 9.6 Sysmem fallback · 9.7 Spill</div>
+  <div class="l1"><a href="#s10">10. Local AI models (why they spill)</a></div>
+  <div class="l1"><a href="#s11">11. SpillGuard: the live agent</a></div>
+  <div class="l2">11.1 Architecture · 11.2 Data sources · 11.3 Detector · 11.4 Classifier · 11.5 Culprit · 11.6 Fit estimator · 11.7 Banker's admission · 11.8 Security · 11.9 Front end</div>
+  <div class="l1"><a href="#s12">12. SpillGuard evaluation (E1–E5)</a></div>
+  <div class="l1"><a href="#s13">13. SpillGuard Repro: the research experiment</a></div>
+  <div class="l2">13.1 Question · 13.2 Matched block · 13.3 Recipe · 13.4 Verdict rules · 13.5 Safety guards · 13.6 Evidence bundles · 13.7 Reducer</div>
+  <div class="l1"><a href="#s14">14. Research results (18 Oct 2026)</a></div>
+  <div class="l2">14.1 Dose-response cliff · 14.2 Same counters, opposite outcomes · 14.3 Remedies · 14.4 Detector check · 14.5 What it does / doesn't show</div>
+  <div class="l1"><a href="#s15">15. Testing and verification</a></div>
+  <div class="l1"><a href="#s16">16. Limitations and future work</a></div>
+  <div class="l1"><a href="#s17">17. Viva questions and answers</a></div>
+  <div class="l1"><a href="#s18">18. Glossary A–Z</a></div>
+  <div class="l1"><a href="#s19">19. Numbers cheat-sheet</a></div>
+</div>
+
+<!-- ================= 1 ================= -->
+<h1 id="s1">1. The big picture</h1>
+
+<h2>1.1 What was built</h2>
+<p>The project has three connected parts:</p>
+<ol>
+  <li><b>AetherOS</b> (written "Aethor OS" on the boot screen) — a retro-style desktop operating system that runs entirely inside a web browser.
+    Behind its windows is a small <b>simulated microkernel</b> written in TypeScript. It creates processes, schedules them on two simulated
+    CPU cores, gives them memory pages, detects deadlocks, keeps a journaled file system and records kernel events. Every textbook
+    concept is visible and interactive: you can change the scheduling algorithm, change the page-replacement policy, inject a deadlock,
+    cut the power to the disk and run recovery.</li>
+  <li><b>SpillGuard</b> — a <b>real</b> monitoring agent written in Python that runs on Windows. Once per second it reads the
+    operating system's own GPU memory counters for every process and detects the moment a program's data stops fitting in
+    the graphics card's memory (VRAM) and starts being placed in ordinary system RAM. This is called a <b>spill</b>. The agent
+    serves AetherOS to the browser and streams its measurements into the SpillGuard app, so the simulated OS and the real
+    hardware are shown side by side.</li>
+  <li><b>SpillGuard Repro</b> — a research tool built on the agent. It runs <b>controlled, repeatable experiments</b>: a local AI
+    language model (Qwen2.5-3B in Ollama) is timed alone, then with a second "co-tenant" process occupying GPU memory, then alone again.
+    It saves every measurement in a tamper-evident bundle, classifies each trial as FAIL / PASS / INCONCLUSIVE with strict rules, and
+    tests which fixes remove the slowdown.</li>
+</ol>
+
+<h2>1.2 Why these two belong together</h2>
+<p>An OS course teaches <b>virtual memory</b>: when the fast memory (RAM) is full, the OS moves some pages to slower storage (disk),
+and if this happens too often the system <b>thrashes</b>. Exactly the same thing happens one level up. A GPU has its own fast memory
+(VRAM). When programs together need more VRAM than exists, Windows' video memory manager moves some GPU data to slower
+<b>system RAM</b>, reached over the PCIe bus. Nothing crashes — the program just runs much slower, silently. AetherOS teaches the
+concept with a simulation; SpillGuard measures the real thing on real hardware; the research measures how much it costs and what fixes it.</p>
+
+<table>
+  <tr><th>Textbook concept (simulated in AetherOS)</th><th>Real counterpart (measured by SpillGuard)</th></tr>
+  <tr><td>Physical RAM frames</td><td>VRAM on the graphics card (6002 MB on this laptop)</td></tr>
+  <tr><td>Swap / backing store on disk</td><td>"Shared GPU memory" = part of system RAM the GPU can use (7827 MB cap here)</td></tr>
+  <tr><td>Page fault and page replacement</td><td>Windows VidMm evicting/demoting GPU allocations to system memory</td></tr>
+  <tr><td>Thrashing</td><td>Repeated migration of GPU data across PCIe; a 2.4× slowdown measured</td></tr>
+  <tr><td>Banker's algorithm (deadlock avoidance)</td><td>Admission check: "will this new AI model fit in the VRAM that is left?"</td></tr>
+  <tr><td>Kernel tracing (eBPF)</td><td>Live SPILL_START / SPILL_END events in eBPF Studio</td></tr>
+</table>
+
+<h2>1.3 Simulated vs real — be precise about this</h2>
+<div class="box warn"><div class="t">Say this clearly if asked</div>
+<p><span class="pill sim">SIMULATED</span> The AetherOS kernel does not control your real CPU or RAM. It is a deterministic model that
+runs in the browser's JavaScript engine. "Processes", "frames" and "ticks" are data structures, chosen so each algorithm can be observed step by step.</p>
+<p><span class="pill real">REAL</span> SpillGuard's numbers come from the real Windows performance counters, the real NVIDIA driver and the real GPU.
+The research results are real measurements on the RTX 3050 laptop.</p>
+</div>
+
+<h2>1.4 Technology stack (and what each word means)</h2>
+<table>
+  <tr><th style="width:24%">Technology</th><th>What it is / why it is used</th></tr>
+  <tr><td>TypeScript</td><td>JavaScript with static types. All of the kernel and UI code is TypeScript, so errors are caught at compile time.</td></tr>
+  <tr><td>React 18</td><td>UI library: the screen is built from components (one per app window) that re-render when their data changes.</td></tr>
+  <tr><td>Zustand</td><td>A small "state store" library. Stores hold shared data (open windows, kernel stats, GPU frames) that any component can read.</td></tr>
+  <tr><td>Vite</td><td>Development server and build tool. <code>npm run build</code> type-checks and bundles everything into the <code>dist/</code> folder.</td></tr>
+  <tr><td>Tailwind CSS</td><td>Utility CSS classes; plus a custom retro design system in <code>src/index.css</code> (classes <code>rt-window</code>, <code>rt-btn</code>, …).</td></tr>
+  <tr><td>react-rnd</td><td>Makes windows draggable and resizable.</td></tr>
+  <tr><td>Vitest / pytest</td><td>Test runners for the TypeScript and the Python code.</td></tr>
+  <tr><td>Python 3.12</td><td>Language of the SpillGuard agent and research runner (in a virtual environment <code>agent/.venv</code>).</td></tr>
+  <tr><td>FastAPI + Uvicorn</td><td>Python web framework and server. Serves the built AetherOS page and a WebSocket with live data at <code>127.0.0.1:8765</code>.</td></tr>
+  <tr><td>ctypes</td><td>Python's way of calling C functions in Windows DLLs directly — used for DXGI and the CUDA driver API, so no C++ helper is needed.</td></tr>
+  <tr><td>pynvml / psutil</td><td>Python bindings for NVIDIA's NVML library; and a library for process names and system memory.</td></tr>
+  <tr><td>Ollama</td><td>A program that runs local AI language models. Its worker process is <code>llama-server.exe</code> (built on llama.cpp).</td></tr>
+</table>
+
+<!-- ================= 2 ================= -->
+<h1 id="s2">2. Running the demo</h1>
+<h2>2.1 Starting it</h2>
+<ol>
+  <li>Double-click <code>START_DEMO.bat</code> in the project folder. It builds the app if <code>dist/</code> is missing, then starts the
+    SpillGuard agent (<code>python -m spillguard serve</code>), which opens the browser at <code>http://127.0.0.1:8765</code> with a one-time token.</li>
+  <li>On the AetherOS login screen press <b>Enter</b> (it says "It's open. Just press Enter").</li>
+  <li>If the Python environment is missing, the batch file falls back to <code>npx vite preview</code> on port 4173 — every OS app and the
+    Replay mode of SpillGuard still work; only the live GPU feed needs the agent.</li>
+</ol>
+<p class="small">Developer route: <code>npm run dev</code> (port 3000) for the UI with hot reload; <code>npm test</code> runs the front-end tests.</p>
+
+<h2>2.2 Suggested demo order (≈10 minutes)</h2>
+<ol>
+  <li><b>Task Manager</b> — switch between FCFS / SJF / SRTF / Priority / Round Robin / MLFQ; point at the two CPU timelines (Gantt charts), load % and context switches.</li>
+  <li><b>Memory Map</b> — 32 frames of 4 KB; switch LRU / FIFO / CLOCK; spawn a process to cause page faults; click a frame to inspect it.</li>
+  <li><b>Deadlock Lab</b> — press "Inject Deadlock": two threads hold MUTEX_GPU and MUTEX_DISK and wait for each other; the cycle is detected; preempt to recover. Then show the Banker's table and the safe sequence P1 → P3 → P4 → P0 → P2.</li>
+  <li><b>Finder</b> — simulate a power cut, show the dirty superblock and the torn PENDING transaction, run fsck recovery.</li>
+  <li><b>Terminal</b> — <code>help</code>, <code>ps</code>, <code>memstat</code>, <code>spillguard status</code>.</li>
+  <li><b>SpillGuard</b> — live VRAM / shared / RAM bars per process; then the <b>evidence desk</b>: the headline chart (slowdown vs overflow), remedies, and a live GPU trace replay.</li>
+</ol>
+
+<h2>2.3 What to say in 60 seconds</h2>
+<div class="box say"><div class="t">Opening pitch</div>
+<p>"Operating systems hide memory pressure: when fast memory is full, data is moved to slower memory and programs slow down without any error.
+AetherOS is a browser OS that makes these mechanisms visible — scheduling on two cores, paging with LRU/FIFO/CLOCK, deadlock detection and
+Banker's algorithm, and a journaled file system that survives a power cut. SpillGuard applies the same idea to a real modern problem:
+GPU memory. On Windows, when apps need more VRAM than the card has, the driver silently places the overflow in system RAM over PCIe.
+My agent reads Windows' per-process GPU counters every second and detects this spill. Then I ran controlled experiments with a local
+AI model: crossing VRAM capacity by only 256 MiB made it 2.4 times slower, every time, and it recovered fully when the pressure was removed.
+I also found that the memory counters look identical in a harmful and a harmless case, and that the least disruptive fix is to keep the
+other program's memory but pause its activity."</p></div>
+
+<!-- ================= 3 ================= -->
+<h1 id="s3">3. AetherOS architecture</h1>
+<h2>3.1 Layers</h2>
+<figure>
+<svg width="640" height="210" viewBox="0 0 640 210">
+  <rect x="10" y="10" width="620" height="44" rx="5" fill="#eef3f8" stroke="#1f4e79"/>
+  <text x="320" y="29" text-anchor="middle" font-size="12" font-weight="700" fill="#1f4e79">Desktop &amp; apps (React components)</text>
+  <text x="320" y="45" text-anchor="middle" font-size="10" fill="#333">Task Manager · Memory Map · Deadlock Lab · Finder · Terminal · eBPF Studio · SpillGuard · Test Suite · …</text>
+  <rect x="10" y="68" width="300" height="44" rx="5" fill="#f6f2fb" stroke="#7a4fb5"/>
+  <text x="160" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#5a3590">Zustand stores</text>
+  <text x="160" y="103" text-anchor="middle" font-size="10">useWindowStore · useKernelStore · useSpillStore</text>
+  <rect x="330" y="68" width="300" height="44" rx="5" fill="#e9f6ec" stroke="#2f7d3a"/>
+  <text x="480" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#2f7d3a">Host bridge (Web Worker)</text>
+  <text x="480" y="103" text-anchor="middle" font-size="10">WebSocket from agent, or replay of a trace file</text>
+  <rect x="10" y="126" width="300" height="74" rx="5" fill="#fff" stroke="#7a4fb5"/>
+  <text x="160" y="145" text-anchor="middle" font-size="12" font-weight="700" fill="#5a3590">Simulated microkernel (TypeScript)</text>
+  <text x="160" y="162" text-anchor="middle" font-size="10">Kernel.ts (clock, processes, dual-core step)</text>
+  <text x="160" y="176" text-anchor="middle" font-size="10">Scheduler · MemoryManager · DeadlockEngine</text>
+  <text x="160" y="190" text-anchor="middle" font-size="10">BankersAlgorithm · VFS (journaled file system)</text>
+  <rect x="330" y="126" width="300" height="74" rx="5" fill="#fff" stroke="#2f7d3a"/>
+  <text x="480" y="145" text-anchor="middle" font-size="12" font-weight="700" fill="#2f7d3a">SpillGuard agent (Python, real)</text>
+  <text x="480" y="162" text-anchor="middle" font-size="10">Windows PDH counters · DXGI · NVML · psutil · Ollama</text>
+  <text x="480" y="176" text-anchor="middle" font-size="10">Detector · classifier · fit estimator · Banker's</text>
+  <text x="480" y="190" text-anchor="middle" font-size="10">FastAPI server on 127.0.0.1:8765</text>
+</svg>
+<figcaption>Figure 1. AetherOS layers. Left column is simulated in the browser; right column reads real hardware.</figcaption>
+</figure>
+
+<h2>3.2 The kernel clock: a "tick"</h2>
+<p>Time in the simulated kernel is measured in <b>ticks</b>. A JavaScript timer calls <code>Kernel.step()</code> every
+<b>800 ms</b> by default (speed is adjustable). One tick = one unit of CPU time. In each tick the kernel:</p>
+<ol>
+  <li>puts whatever ran last tick back to READY, so every tick is a fresh dispatch decision (the policy decides whether the same process continues);</li>
+  <li>synchronizes the per-core run queues with the list of ready processes;</li>
+  <li>does <b>work stealing</b> if one core's queue is empty and the other has more than one process;</li>
+  <li>under MLFQ, every 40 ticks applies <b>aging</b> (priority boost);</li>
+  <li>asks the scheduler to choose one process for Core 0 and a different one for Core 1;</li>
+  <li>counts a <b>context switch</b> whenever a core runs a different process than last tick, and emits an eBPF <code>SCHED_SWITCH</code> event;</li>
+  <li>runs each chosen process for one tick (remaining burst −1), touches its memory frames (for LRU/CLOCK), records the Gantt chart entry;</li>
+  <li>marks finished processes TERMINATED, records completion/turnaround time and frees their frames;</li>
+  <li>adds one waiting tick to every process that was READY but not chosen; updates core load percentages.</li>
+</ol>
+<p>Because the kernel uses no randomness, the same actions always produce the same result — it is <b>deterministic</b>, which makes it testable.</p>
+
+<h2>3.3 Window manager</h2>
+<p><code>useWindowStore</code> keeps one record per app: open/closed, minimized, maximized, position, size and <b>z-index</b> (stacking order).
+Clicking a window "focuses" it by giving it the highest z-index, like a real window manager. Windows are dragged/resized with react-rnd.</p>
+
+<h2>3.4 State stores</h2>
+<ul>
+  <li><b>useKernelStore</b> — wraps the single global kernel object (<code>globalKernel</code>) and copies its statistics into React state after every tick (the kernel calls <code>onUpdate</code>).</li>
+  <li><b>useSpillStore</b> — SpillGuard data: the mode (Simulated / Live / Replay), the latest frame, history, events and peak values.</li>
+  <li><b>useWindowStore</b> — windows, as above.</li>
+</ul>
+
+<!-- ================= 4 ================= -->
+<h1 id="s4">4. Processes and CPU scheduling</h1>
+<h2>4.1 Process and PCB</h2>
+<div class="box def"><div class="t">Definitions</div>
+<p><b>Process</b>: a program in execution. <b>PCB (Process Control Block)</b>: the record the OS keeps for each process.
+<b>Burst time</b>: how much CPU time the process needs. <b>Arrival time</b>: when it entered the ready queue.</p></div>
+<p>In AetherOS each process is a <code>Process</code> object (the PCB) with these fields:</p>
+<table>
+  <tr><th>Field</th><th>Meaning</th></tr>
+  <tr><td><code>pid</code></td><td>Process ID; starts at 100 and increases.</td></tr>
+  <tr><td><code>state</code></td><td>NEW, READY, RUNNING, WAITING or TERMINATED.</td></tr>
+  <tr><td><code>priority</code></td><td>1 (highest) to 5 (lowest).</td></tr>
+  <tr><td><code>queueLevel</code>, <code>quantumUsed</code></td><td>MLFQ level (0, 1, 2) and ticks used of the current time slice.</td></tr>
+  <tr><td><code>totalBurstTicks</code>, <code>remainingBurstTicks</code></td><td>CPU work needed in total, and left.</td></tr>
+  <tr><td><code>arrivalTick</code>, <code>firstRunTick</code>, <code>completionTick</code></td><td>Timestamps used for the metrics.</td></tr>
+  <tr><td><code>memorySizeKB</code>, <code>allocatedFrames</code></td><td>Memory size and which physical frames hold its pages.</td></tr>
+  <tr><td><code>locksHeld</code>, <code>waitingFor</code></td><td>Mutexes it owns and the one it is blocked on (for deadlock detection).</td></tr>
+  <tr><td><code>coreAffinity</code></td><td>Which core it may run on: 0, 1 or ANY.</td></tr>
+</table>
+<p>At boot four system processes are created: <code>kernel_daemon</code> (pinned to core 0), <code>window_manager</code>,
+<code>audio_server</code> (pinned to core 1) and <code>network_sync</code>.</p>
+
+<h2>4.2 Process states</h2>
+<figure>
+<svg width="600" height="150" viewBox="0 0 600 150">
+  <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1f4e79"/></marker></defs>
+  <g font-size="11" font-weight="700" text-anchor="middle">
+    <rect x="10" y="50" width="80" height="34" rx="16" fill="#eef3f8" stroke="#1f4e79"/><text x="50" y="71">NEW</text>
+    <rect x="150" y="50" width="90" height="34" rx="16" fill="#eef3f8" stroke="#1f4e79"/><text x="195" y="71">READY</text>
+    <rect x="320" y="50" width="100" height="34" rx="16" fill="#e9f6ec" stroke="#2f7d3a"/><text x="370" y="71">RUNNING</text>
+    <rect x="480" y="50" width="110" height="34" rx="16" fill="#fdecea" stroke="#b4321e"/><text x="535" y="71">TERMINATED</text>
+    <rect x="245" y="110" width="100" height="34" rx="16" fill="#fff6e0" stroke="#c08a00"/><text x="295" y="131">WAITING</text>
+  </g>
+  <g stroke="#1f4e79" stroke-width="1.4" fill="none" marker-end="url(#ar)">
+    <line x1="90" y1="67" x2="148" y2="67"/>
+    <path d="M240,60 Q280,30 318,60"/>
+    <path d="M320,76 Q280,100 242,76"/>
+    <line x1="420" y1="67" x2="478" y2="67"/>
+    <path d="M360,84 L330,110"/>
+    <path d="M260,110 L215,86"/>
+  </g>
+  <g font-size="9.5" fill="#333" text-anchor="middle">
+    <text x="119" y="60">admitted</text><text x="280" y="34">dispatched</text><text x="280" y="102">preempted</text>
+    <text x="449" y="60">exit</text><text x="375" y="106">waits for lock</text><text x="210" y="106">lock free</text>
+  </g>
+</svg>
+<figcaption>Figure 2. Five-state process model. In AetherOS new processes are admitted straight to READY.</figcaption>
+</figure>
+
+<h2>4.3 The six scheduling algorithms</h2>
+<p>A <b>scheduler</b> decides which READY process runs next. <b>Preemptive</b> means the OS can take the CPU away from a running process;
+<b>non-preemptive</b> means it runs until it finishes or blocks. Because AetherOS re-decides every tick, the shortest-job and priority policies
+behave preemptively.</p>
+<table>
+  <tr><th style="width:18%">Algorithm</th><th>Rule in AetherOS (exact)</th><th style="width:30%">Strength / weakness</th></tr>
+  <tr><td><b>FCFS</b><br>First-Come First-Served</td><td>Pick the candidate with the smallest <code>arrivalTick</code>.</td><td>Simple, fair in order; suffers the <i>convoy effect</i> (short jobs stuck behind a long one).</td></tr>
+  <tr><td><b>SJF</b><br>Shortest Job First</td><td>Pick the smallest <code>totalBurstTicks</code>.</td><td>Optimal average waiting time if bursts are known; long jobs can <i>starve</i>.</td></tr>
+  <tr><td><b>SRTF</b><br>Shortest Remaining Time First</td><td>Pick the smallest <code>remainingBurstTicks</code> (preemptive SJF).</td><td>Even better average waiting; needs burst prediction; starvation.</td></tr>
+  <tr><td><b>Priority</b></td><td>Pick the smallest priority number; ties broken by arrival.</td><td>Important work first; low priority can starve (fixed by aging).</td></tr>
+  <tr><td><b>Round Robin</b></td><td>Run the head of the core's queue; after <b>time quantum = 4 ticks</b> move it to the tail.</td><td>Fair, good response time; too small a quantum causes many context switches.</td></tr>
+  <tr><td><b>MLFQ</b><br>Multi-Level Feedback Queue</td><td>Three queues with quanta <b>4, 8, 16</b>; using a full quantum demotes a process one level; every <b>40 ticks</b> all are boosted to level 0.</td><td>Learns which jobs are interactive vs CPU-bound without knowing burst times. Default algorithm.</td></tr>
+</table>
+
+<h3>Worked example: Round Robin</h3>
+<p>Two processes A and B, each needing 4 ticks, quantum 2, one core: the schedule is <b>A A B B A A B B</b>. A runs 2 ticks (its quantum), is
+rotated to the tail, B runs 2 ticks, and so on. (The project's built-in test checks exactly this pattern.) With quantum 4 the same pair
+would run <b>A A A A B B B B</b>, which is FCFS — a large quantum turns RR into FCFS.</p>
+
+<h2>4.4 MLFQ in detail</h2>
+<figure>
+<svg width="640" height="124" viewBox="0 0 640 124">
+  <g font-size="11">
+    <rect x="10" y="10" width="400" height="26" fill="#e9f6ec" stroke="#2f7d3a"/><text x="18" y="28" font-weight="700">Q0 · quantum 4 ticks · highest priority (new, interactive jobs)</text>
+    <rect x="10" y="48" width="400" height="26" fill="#fff6e0" stroke="#c08a00"/><text x="18" y="66" font-weight="700">Q1 · quantum 8 ticks</text>
+    <rect x="10" y="86" width="400" height="26" fill="#fdecea" stroke="#b4321e"/><text x="18" y="104" font-weight="700">Q2 · quantum 16 ticks · lowest (long CPU-bound jobs)</text>
+  </g>
+  <g stroke="#333" fill="none" stroke-width="1.3" marker-end="url(#ar)">
+    <path d="M410,23 Q440,42 412,60"/><path d="M410,61 Q440,80 412,98"/>
+  </g>
+  <g stroke="#2f7d3a" fill="none" stroke-width="1.3" marker-end="url(#ar)"><path d="M480,99 L480,23 L414,23"/></g>
+  <text x="440" y="47" font-size="9.5">demote</text><text x="440" y="85" font-size="9.5">demote</text>
+  <text x="490" y="50" font-size="9.5">used full quantum →</text><text x="490" y="62" font-size="9.5">move down one level</text>
+  <text x="490" y="88" font-size="9.5" fill="#2f7d3a">every 40 ticks: boost</text><text x="490" y="100" font-size="9.5" fill="#2f7d3a">all ready jobs to Q0</text>
+</svg>
+<figcaption>Figure 3. MLFQ: three levels, demotion on quantum exhaustion, periodic aging boost against starvation.</figcaption>
+</figure>
+<p><b>Aging</b> is the cure for <b>starvation</b>: a process that waits a long time has its priority raised. In AetherOS, <code>applyAging()</code>
+moves every ready process back to Q0 every 40 ticks and resets its used quantum.</p>
+
+<h2>4.5 Dual-core SMP, affinity and work stealing</h2>
+<ul>
+  <li><b>SMP (Symmetric Multi-Processing)</b>: several identical CPU cores share one memory and one OS. AetherOS simulates two cores, CPU_0 and CPU_1, and steps both every tick; the same process can never run on both cores at once.</li>
+  <li><b>Run queue</b>: each core has its own queue of ready PIDs. A new process with affinity ANY is placed on the core with the shorter queue (<b>load balancing</b>).</li>
+  <li><b>Core affinity</b>: a process can be pinned to core 0 or 1 (like <code>taskset</code> on Linux).</li>
+  <li><b>Work stealing</b>: if a core's queue is empty and the other has N &gt; 1 processes, the idle core takes ⌊N/2⌋ processes from the <i>tail</i> of the other queue (only those whose affinity allows it). This is how Linux's and many runtime schedulers keep cores busy.</li>
+  <li><b>Gantt chart</b>: the two coloured timelines in Task Manager show which PID ran on each core in each of the last 30 ticks; grey = IDLE.</li>
+</ul>
+
+<h2>4.6 Scheduling metrics (formulas used in the code)</h2>
+<table>
+  <tr><th>Metric</th><th>Formula</th></tr>
+  <tr><td>Turnaround time</td><td>completion tick − arrival tick</td></tr>
+  <tr><td>Response time</td><td>first-run tick − arrival tick</td></tr>
+  <tr><td>Waiting time</td><td>number of ticks the process was READY but not chosen</td></tr>
+  <tr><td>CPU utilization</td><td>busy core-ticks ÷ (2 × elapsed ticks) × 100 %</td></tr>
+  <tr><td>Throughput</td><td>completed processes per 100 ticks</td></tr>
+  <tr><td>Context switches</td><td>count of ticks where a core ran a different PID than the previous tick</td></tr>
+</table>
+<p>A <b>context switch</b> is saving the state (registers, program counter) of one process and loading another's; it is pure overhead.</p>
+
+<!-- ================= 5 ================= -->
+<h1 id="s5">5. Memory management</h1>
+<h2>5.1 Paging</h2>
+<div class="box def"><div class="t">Definitions</div>
+<p><b>Paging</b> divides a process's memory (its <i>virtual address space</i>) into fixed-size <b>pages</b> and physical RAM into same-size <b>frames</b>.
+A <b>page table</b> maps each page to a frame, so a process's memory need not be contiguous and there is no external fragmentation.
+<b>Virtual memory</b> lets pages that are not needed now live outside RAM.</p></div>
+<p>AetherOS has <b>32 physical frames of 4 KB</b> (a 128 KB toy RAM). A process of <i>S</i> KB needs ⌈S / 4⌉ pages. The Memory Map app
+draws the 32 frames as a coloured grid ("frame bitmap"); colour = owning process. Clicking a frame shows its PID, virtual page number,
+load time and last access time.</p>
+
+<h2>5.2 Page faults</h2>
+<p>A <b>page fault</b> happens when a page is needed but not in a frame. If free frames exist, the page is loaded; if not, a <b>victim</b> frame
+must be chosen and evicted — this is <b>page replacement</b>. In AetherOS, when a new process needs more frames than are free, each missing
+frame counts as one page fault and the replacement policy chooses victims (never frames of the same process). Every access to a process's
+frames (each tick it runs) updates <code>lastAccessTick</code> and sets the reference bit.</p>
+
+<h2>5.3 Page-replacement policies</h2>
+<table>
+  <tr><th style="width:16%">Policy</th><th>How the victim is chosen in AetherOS</th><th style="width:30%">Notes</th></tr>
+  <tr><td><b>FIFO</b></td><td>Oldest <code>loadedAtTick</code> (loaded first).</td><td>Simple, but can evict heavily-used pages; suffers <b>Belady's anomaly</b> (more frames can give more faults).</td></tr>
+  <tr><td><b>LRU</b></td><td>Oldest <code>lastAccessTick</code> (least recently used).</td><td>Good approximation of optimal; costly in real hardware. Default policy.</td></tr>
+  <tr><td><b>CLOCK</b><br>(second chance)</td><td>A "hand" sweeps the frames in a circle. If the frame's reference bit is 1, clear it and move on (second chance); if 0, evict it. Two sweeps always find a victim.</td><td>What real OSes use: approximates LRU with one bit per frame.</td></tr>
+  <tr><td><b>OPTIMAL</b><br>(Bélády's MIN)</td><td>Needs the future reference string, which the kernel does not model, so it falls back to LRU (the UI labels this honestly).</td><td>Evict the page used farthest in the future; impossible online; used as a benchmark.</td></tr>
+</table>
+<h3>Worked example (3 frames, reference string 7 0 1 2 0 3 0 4)</h3>
+<table>
+  <tr><th>Policy</th><th>Frames after each reference (F = fault)</th><th class="num">Faults</th></tr>
+  <tr><td>FIFO</td><td>7F · 70F · 701F · 012F · hit · 123F · 230F · 304F</td><td class="num">7</td></tr>
+  <tr><td>LRU</td><td>7F · 70F · 701F · 012F (evict 7) · hit · 023F (evict 1) · hit · 034F (evict 2)</td><td class="num">6</td></tr>
+  <tr><td>OPTIMAL</td><td>evict the page not needed for longest: 7, then 1, then 2</td><td class="num">6</td></tr>
+</table>
+
+<h2>5.4 Protection rings and the General Protection Fault</h2>
+<p>CPUs have privilege levels called <b>rings</b>. <b>Ring 0</b> = kernel mode (full access); <b>Ring 3</b> = user mode (restricted). This is
+<b>dual-mode operation</b>: user programs cannot touch kernel memory. AetherOS's toy address space is 64 KB:
+<b>0x0000–0x3FFF</b> (16 KB) is kernel space, <b>0x4000–0xFFFF</b> is user space.</p>
+<p>The "trigger GPF" action makes a Ring-3 process read address <b>0x0020</b> (inside kernel space). The memory manager's
+<code>verifyAddressAccess</code> traps it as a <b>General Protection Fault (#GP)</b>, moves the process to WAITING
+(<code>SIGSEGV_FAULT_HANDLER</code>) and shows a <b>register dump</b>:</p>
+<table>
+  <tr><th>Register</th><th>Meaning (x86)</th></tr>
+  <tr><td>EIP</td><td>Instruction pointer — address of the faulting instruction.</td></tr>
+  <tr><td>ESP</td><td>Stack pointer — top of the process's stack.</td></tr>
+  <tr><td>CR3</td><td>Control register 3 — physical address of the current page table (the address space).</td></tr>
+  <tr><td>EAX</td><td>General-purpose accumulator register (here holds the illegal address).</td></tr>
+  <tr><td>CS</td><td>Code segment selector; 0x0073 is a user-mode (ring 3) code segment.</td></tr>
+  <tr><td>EFLAGS</td><td>Status flags (zero, carry, interrupt-enable …).</td></tr>
+</table>
+<p class="small">The values in the dump are generated for illustration; the mechanism (check ring + address range → trap) is the real concept.</p>
+
+<!-- ================= 6 ================= -->
+<h1 id="s6">6. Deadlock</h1>
+<h2>6.1 Definition and the four Coffman conditions</h2>
+<p>A <b>deadlock</b> is a set of processes each waiting for a resource held by another process in the set, so none can proceed.
+It can occur only if all four conditions hold at once:</p>
+<ol>
+  <li><b>Mutual exclusion</b> — a resource can be held by only one process (e.g. a mutex).</li>
+  <li><b>Hold and wait</b> — a process holds one resource while waiting for another.</li>
+  <li><b>No preemption</b> — resources cannot be forcibly taken away.</li>
+  <li><b>Circular wait</b> — a cycle P1 → P2 → … → P1 of "waits for".</li>
+</ol>
+<p>Strategies: <b>prevention</b> (break a condition), <b>avoidance</b> (Banker's algorithm), <b>detection and recovery</b> (find the cycle, then kill or preempt).</p>
+
+<h2>6.2 Detection with a wait-for graph</h2>
+<p>AetherOS's resources: <code>MUTEX_GPU</code>, <code>MUTEX_DISK</code>, <code>MUTEX_NET</code> (1 instance each) and <code>SEMAPHORE_IO</code> (2).
+"Inject Deadlock" creates <code>Worker_Thread_Alpha</code> (holds MUTEX_GPU, waits for MUTEX_DISK) and <code>Worker_Thread_Beta</code>
+(holds MUTEX_DISK, waits for MUTEX_GPU).</p>
+<p><code>DeadlockEngine.evaluateDeadlock</code> builds an <b>allocation matrix</b> (who holds what) and a <b>request matrix</b> (who waits for what),
+then a <b>wait-for graph</b>: an edge P → Q means "P waits for a resource Q holds". It runs a <b>depth-first search (DFS)</b> keeping a
+<i>recursion stack</i>; meeting a node already on the stack means a <b>back edge</b>, i.e. a cycle. The PIDs on the cycle are reported.
+Complexity is O(V + E).</p>
+<div class="box"><p><b>Mutex</b> = mutual-exclusion lock (one holder). <b>Semaphore</b> = counter allowing up to N holders. For single-instance resources a cycle in the
+wait-for graph is necessary <i>and sufficient</i> for deadlock; with multiple instances a cycle is necessary but not sufficient.</p></div>
+
+<h2>6.3 Recovery</h2>
+<p>The Deadlock Lab offers <b>"Preempt offending cycle processes"</b>: terminating a process on the cycle releases its locks and breaks the circular wait.</p>
+
+<h2>6.4 Banker's algorithm (deadlock avoidance)</h2>
+<p>Dijkstra's Banker's algorithm grants a request only if the system stays in a <b>safe state</b> — a state with at least one order
+(<b>safe sequence</b>) in which every process can obtain its maximum claim and finish.</p>
+<ul>
+  <li><b>Available[j]</b>: free instances of resource j. <b>Max[i][j]</b>: the most process i will ever need. <b>Allocation[i][j]</b>: what i holds now.</li>
+  <li><b>Need = Max − Allocation</b>.</li>
+  <li>Safety algorithm: Work = Available. Repeatedly find an unfinished process with Need ≤ Work; pretend it finishes and returns its allocation (Work += Allocation[i]). If all finish, the state is safe.</li>
+</ul>
+<h3>The AetherOS example (resources A, B, C; Available = [3, 3, 2])</h3>
+<table>
+  <tr><th>Process</th><th>Allocation</th><th>Max</th><th>Need = Max − Alloc</th></tr>
+  <tr><td>P0</td><td>0 1 0</td><td>7 5 3</td><td>7 4 3</td></tr>
+  <tr><td>P1</td><td>2 0 0</td><td>3 2 2</td><td>1 2 2</td></tr>
+  <tr><td>P2</td><td>3 0 2</td><td>9 0 2</td><td>6 0 0</td></tr>
+  <tr><td>P3</td><td>2 1 1</td><td>2 2 2</td><td>0 1 1</td></tr>
+  <tr><td>P4</td><td>0 0 2</td><td>4 3 3</td><td>4 3 1</td></tr>
+</table>
+<p>Trace: Work 3 3 2 → P1 runs (need 1 2 2) → Work 5 3 2 → P3 → 7 4 3 → P4 → 7 4 5 → P0 → 7 5 5 → P2 → 10 5 7.
+<b>Safe sequence: P1 → P3 → P4 → P0 → P2.</b> (This is the textbook Silberschatz example.)</p>
+<p>SpillGuard re-uses the very same <code>runBankersSafetyCheck</code> function on <b>real VRAM numbers</b> — see section 11.7.</p>
+
+<!-- ================= 7 ================= -->
+<h1 id="s7">7. File system and crash consistency</h1>
+<h2>7.1 Inodes and the superblock</h2>
+<p>An <b>inode</b> (index node) stores a file's metadata: number, name, type (file/directory), size, permissions (<code>rw-r--r--</code>) and parent.
+The <b>superblock</b> describes the whole file system: whether it is <i>clean</i>, <i>mounted</i>, inode count, block size (256 bytes here) and journal head/tail.
+AetherOS starts with <code>/</code>, <code>/user</code>, <code>/etc</code>, <code>readme.txt</code> and <code>manifest.json</code>.</p>
+
+<h2>7.2 Write-ahead logging (journaling)</h2>
+<p>A crash in the middle of an update can leave metadata half-written ("torn"). <b>Write-ahead logging (WAL)</b> fixes this: first write
+<i>what you intend to do</i> to a log (journal), then do it. Every create/delete in AetherOS goes through three states:</p>
+<figure>
+<svg width="560" height="70" viewBox="0 0 560 70">
+  <g font-size="11" font-weight="700" text-anchor="middle">
+    <rect x="10" y="15" width="140" height="40" rx="6" fill="#fff6e0" stroke="#c08a00"/><text x="80" y="32">PENDING</text>
+    <rect x="210" y="15" width="140" height="40" rx="6" fill="#eef3f8" stroke="#1f4e79"/><text x="280" y="32">COMMITTED</text>
+    <rect x="410" y="15" width="140" height="40" rx="6" fill="#e9f6ec" stroke="#2f7d3a"/><text x="480" y="32">CHECKPOINTED</text>
+  </g>
+  <g font-size="9" text-anchor="middle" fill="#333"><text x="80" y="47">intent logged</text><text x="280" y="47">transaction durable</text><text x="480" y="47">applied to inode table</text></g>
+  <g stroke="#1f4e79" stroke-width="1.4" marker-end="url(#ar)"><line x1="150" y1="35" x2="208" y2="35"/><line x1="350" y1="35" x2="408" y2="35"/></g>
+</svg>
+<figcaption>Figure 4. Journal entry life cycle (ring buffer of 25 entries).</figcaption>
+</figure>
+<h2>7.3 Power cut and fsck recovery</h2>
+<ul>
+  <li><b>Power cut</b> (<code>triggerPowerCut</code>): marks the superblock dirty, unmounts the disk and leaves a torn <code>WRITE</code> to <code>/user/dirty_buffer.tmp</code> in state PENDING. While unmounted, file operations fail.</li>
+  <li><b>fsck</b> (file-system check, <code>recoverFSCK</code>): scans the journal; <b>rolls back</b> every PENDING (never committed) entry and <b>replays</b> every COMMITTED but not checkpointed entry; then marks the superblock clean and remounts.</li>
+</ul>
+<p>This is the same idea as ext4's journal, NTFS's log file and database write-ahead logs: committed work survives a crash, uncommitted work disappears atomically.</p>
+
+<!-- ================= 8 ================= -->
+<h1 id="s8">8. eBPF Studio, shell, tests and other apps</h1>
+<h2>8.1 eBPF Studio (kernel tracing)</h2>
+<p><b>eBPF</b> (extended Berkeley Packet Filter) is a real Linux technology: small verified programs attached to kernel <i>hooks</i>
+(tracepoints) run when an event happens and store counts in <b>BPF maps</b> (key–value tables), or stream events through a <b>ring buffer</b>.
+AetherOS simulates this: three probes are attached at boot —</p>
+<ul>
+  <li><code>sched_switch_counter</code> on <b>SCHED_SWITCH</b> (every context switch, counted per PID);</li>
+  <li><code>mm_page_fault_tracer</code> on <b>PAGE_FAULT</b> (memory mapping and GPF traps);</li>
+  <li><code>vfs_syscall_latency</code> on <b>SYSCALL_ENTER</b>.</li>
+</ul>
+<p>You can attach, toggle and remove probes; each shows its map (<code>BPF_MAP_TYPE_HASH</code>) and the last 40 events. SpillGuard's
+SPILL_START / SPILL_END events also appear here. <span class="small">(The filter script text is a label; it is not compiled to real BPF bytecode.)</span></p>
+
+<h2>8.2 Terminal (aethersh)</h2>
+<p>A command-line shell that talks to the simulated kernel:</p>
+<table>
+  <tr><th style="width:30%">Command</th><th>Effect</th></tr>
+  <tr><td><code>ps</code> · <code>kill &lt;pid&gt;</code> · <code>run &lt;name&gt;</code></td><td>List processes, terminate one, spawn one.</td></tr>
+  <tr><td><code>sched &lt;algo&gt;</code> · <code>quantum &lt;n&gt;</code> · <code>affinity</code></td><td>Change the scheduling algorithm, the RR time quantum, a process's core affinity.</td></tr>
+  <tr><td><code>memstat</code> · <code>gpf</code></td><td>Memory/page-fault statistics; trigger the protection-fault demo.</td></tr>
+  <tr><td><code>powercut</code> · <code>fsck</code></td><td>Simulate the power cut; run journal recovery.</td></tr>
+  <tr><td><code>bpf</code></td><td>Show eBPF probes and counts.</td></tr>
+  <tr><td><code>pwd ls cd cat touch mkdir rm</code></td><td>File-system commands on the journaled VFS.</td></tr>
+  <tr><td><code>open &lt;app&gt;</code> · <code>neofetch</code> · <code>uname</code> · <code>uptime</code> · <code>clear</code></td><td>Desktop and system-info commands.</td></tr>
+</table>
+<p>SpillGuard commands:</p>
+<pre>spillguard status            VRAM / shared / RAM tiers and per-process state
+spillguard why &lt;pid&gt;         explain one process's spill state and its culprit
+spillguard events            recent SPILL_START / SPILL_END / OFFLOAD_SPLIT events
+spillguard fit &lt;model&gt; [ctx] [f16|q8_0|q4_0]   VRAM estimate + Banker's admission
+spillguard mode &lt;simulated|live|replay&gt;
+spillguard demo              replay the recorded RTX 3050 spill trace</pre>
+<p>For safety the browser never launches programs: <code>spillguard run</code> only prints the command to use in a real terminal.</p>
+
+<h2>8.3 Kernel Test Suite, Audit Journal, KernelQuest</h2>
+<ul>
+  <li><b>Kernel Test Suite</b> — runs unit, integration and end-to-end checks inside the OS: FCFS order, Round-Robin quantum, SRTF, MLFQ aging, LRU and FIFO eviction, an unsafe Banker's state, deadlock-cycle detection, inodes, terminal integration and state export/import.</li>
+  <li><b>Kernel Audit Journal &amp; Invariants</b> — the kernel's event log (BOOT, PROCESS_CREATE, WORK_STEAL, AGING, DEADLOCK, GPF_FAULT …, last 50).</li>
+  <li><b>KernelQuest</b> — guided scenarios ("quests") that ask the user to trigger and resolve OS situations; quest 3 ("Who is the culprit?") uses a real GPU trace and quest 4 ("Will this model fit?") asks the user to compute M = W + KV + B + O by hand.</li>
+</ul>
+<h2>8.4 Other desktop apps</h2>
+<p>Finder (file explorer), Calculator, Music player, Messages, a simulated Internet browser, Community page, Settings (wallpaper and desktop),
+Trash, About/ReadMe, and the desktop pet bird (<b>Zephyr</b>) in the corner, which gives tips and announces SpillGuard spill alerts.
+These make it feel like a real desktop; the OS concepts live in the apps described above.</p>
+
+<!-- ================= 9 ================= -->
+<h1 id="s9">9. GPU memory fundamentals</h1>
+<h2>9.1 GPU vs CPU</h2>
+<p>A <b>CPU</b> has a few powerful cores optimized for sequential, branchy code. A <b>GPU</b> (Graphics Processing Unit) has thousands of small
+cores that run the same operation on many data items at once (<b>SIMD/SIMT</b> parallelism). That is ideal for graphics and for the
+matrix multiplications inside AI models. A GPU computes fast only if it can be fed data fast — so its memory bandwidth matters most.</p>
+
+<h2>9.2 What is VRAM?</h2>
+<div class="box def"><div class="t">Definition</div>
+<p><b>VRAM (Video RAM)</b> is the GPU's own dedicated memory, physically on the graphics card (or next to the GPU chip on a laptop board).
+On this laptop it is <b>6 GB of GDDR6</b> (Windows reports 6002 MB as <code>DedicatedVideoMemory</code>). GDDR6 = Graphics Double Data Rate 6,
+memory designed for very high bandwidth.</p></div>
+<p><b>Bandwidth</b> = how many bytes per second can be moved. Measured on this GPU (experiment E1): writing to data in VRAM ran at
+<b>163.3 GB/s</b>; writing to GPU data that the driver had placed in system RAM ran at <b>13.2 GB/s</b> — <b>12.4 times slower</b>.</p>
+<p><b>Units</b>: 1 MB = 10<sup>6</sup> bytes; <b>1 MiB (mebibyte) = 2<sup>20</sup> = 1,048,576 bytes</b>; 1 GiB = 2<sup>30</sup> bytes.
+The research uses MiB; Windows counters report whole MB/MiB.</p>
+
+<h2>9.3 PCIe — the road between GPU and system RAM</h2>
+<p><b>PCIe (PCI Express)</b> is the serial bus connecting the GPU to the CPU and system RAM. The GPU can read system RAM across it, but
+far more slowly than its own VRAM. That slow road is why spilling costs so much.</p>
+<figure>
+<svg width="640" height="190" viewBox="0 0 640 190">
+  <rect x="10" y="20" width="250" height="150" rx="8" fill="#eef3f8" stroke="#1f4e79"/>
+  <text x="135" y="42" text-anchor="middle" font-size="12" font-weight="700" fill="#1f4e79">Graphics card / GPU</text>
+  <rect x="30" y="55" width="90" height="60" rx="4" fill="#fff" stroke="#333"/><text x="75" y="82" text-anchor="middle" font-size="11" font-weight="700">GPU cores</text><text x="75" y="98" text-anchor="middle" font-size="9">thousands</text>
+  <rect x="150" y="55" width="95" height="100" rx="4" fill="#e9f6ec" stroke="#2f7d3a"/><text x="197" y="85" text-anchor="middle" font-size="11" font-weight="700">VRAM</text><text x="197" y="100" text-anchor="middle" font-size="9.5">6 GB GDDR6</text><text x="197" y="114" text-anchor="middle" font-size="9.5">"Dedicated"</text>
+  <line x1="120" y1="85" x2="150" y2="85" stroke="#2f7d3a" stroke-width="6"/>
+  <text x="75" y="140" text-anchor="middle" font-size="9.5" fill="#2f7d3a" font-weight="700">163 GB/s measured</text>
+  <rect x="380" y="20" width="250" height="150" rx="8" fill="#fff6e0" stroke="#c08a00"/>
+  <text x="505" y="42" text-anchor="middle" font-size="12" font-weight="700" fill="#8a6200">Motherboard</text>
+  <rect x="395" y="55" width="125" height="100" rx="4" fill="#fdecea" stroke="#b4321e"/><text x="457" y="80" text-anchor="middle" font-size="11" font-weight="700">System RAM</text><text x="457" y="95" text-anchor="middle" font-size="9.5">16 GB DDR5</text><text x="457" y="115" text-anchor="middle" font-size="9.5">part usable by GPU =</text><text x="457" y="128" text-anchor="middle" font-size="9.5">"Shared GPU memory"</text>
+  <rect x="540" y="70" width="75" height="60" rx="4" fill="#fff" stroke="#333"/><text x="577" y="104" text-anchor="middle" font-size="11" font-weight="700">CPU</text>
+  <line x1="520" y1="100" x2="540" y2="100" stroke="#333" stroke-width="3"/>
+  <line x1="245" y1="105" x2="395" y2="105" stroke="#b4321e" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <text x="320" y="96" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b4321e">PCIe bus</text>
+  <text x="320" y="124" text-anchor="middle" font-size="9.5" fill="#b4321e">13.2 GB/s measured</text>
+  <text x="320" y="136" text-anchor="middle" font-size="9.5" fill="#b4321e">(12.4× slower)</text>
+</svg>
+<figcaption>Figure 5. Two memory tiers for GPU data. Bandwidths are this project's measurements (experiment E1).</figcaption>
+</figure>
+
+<h2>9.4 "Shared GPU memory"</h2>
+<p>Windows lets a GPU use part of system RAM as a second memory tier. Task Manager shows it as <b>Shared GPU memory</b>. Its limit is
+half of system RAM (Microsoft's documented rule): <b>7827 MB</b> on this 16 GB laptop. Data in this tier is in normal DDR5 RAM and the GPU
+reaches it over PCIe.</p>
+
+<h2>9.5 WDDM and VidMm — the "operating system" of GPU memory</h2>
+<ul>
+  <li><b>WDDM (Windows Display Driver Model)</b>: the architecture for graphics drivers on Windows. GPU memory is managed by Windows, not only by the vendor driver.</li>
+  <li><b>VidMm (Video Memory Manager)</b>: the part of the Windows graphics kernel (<code>dxgkrnl.sys</code>) that decides where every GPU allocation lives. It gives GPUs <b>virtual memory</b>: allocations get GPU virtual addresses, and VidMm can make them <b>resident</b> in VRAM or move (<b>evict / demote</b>) them to system memory when VRAM is over-committed — exactly like an OS paging RAM to disk.</li>
+  <li><b>Residency</b>: whether an allocation is currently in VRAM (fast) or not.</li>
+  <li><b>Budget</b>: the amount of VRAM Windows suggests one process should use, queried with DXGI's <code>QueryVideoMemoryInfo</code>. It is <b>per calling process</b>. On this laptop the budget was 5234 MB, yet under pressure the driver filled physical VRAM to 5954 of 6002 MB — so SpillGuard measures pressure against <b>physical</b> VRAM, not the budget.</li>
+  <li><b>DXGI (DirectX Graphics Infrastructure)</b>: the Windows API that lists graphics adapters and reports their memory.</li>
+  <li><b>LUID (Locally Unique Identifier)</b>: the ID Windows gives each adapter; counter names contain it, e.g. <code>pid_32220_luid_0x00000000_0x00018056_phys_0</code>.</li>
+</ul>
+
+<h2>9.6 NVIDIA "sysmem fallback"</h2>
+<p>Since driver version <b>536.40</b>, when a CUDA program asks for more VRAM than is free, the NVIDIA driver on Windows does not fail with
+"out of memory"; it <b>falls back to system memory</b> (setting "CUDA – Sysmem Fallback Policy" in the NVIDIA Control Panel). The program
+keeps running, but slower. Project finding: <code>cuMemGetInfo</code> (CUDA's "how much memory is free?" call) reported <b>0 MB free from
+5376 MB onward, and allocations kept succeeding</b> — CUDA itself gives no signal that it is spilling. That is why an external detector is needed.</p>
+
+<h2>9.7 So what exactly is a "spill"?</h2>
+<div class="box def"><div class="t">Definition used in this project</div>
+<p>A <b>spill</b> is when part of a process's GPU data that would normally live in VRAM is placed in system memory ("shared GPU memory")
+because VRAM is full. It shows up as the process's <b>Shared Usage</b> counter growing while the adapter's dedicated VRAM is near its physical limit.
+The program does not crash; memory accesses to the spilled part go across PCIe and the program slows down.</p></div>
+<figure>
+<svg width="640" height="120" viewBox="0 0 640 120">
+  <text x="10" y="16" font-size="11" font-weight="700">VRAM 6002 MB</text>
+  <rect x="10" y="22" width="480" height="34" fill="#fff" stroke="#333"/>
+  <rect x="10" y="22" width="20" height="34" fill="#94a3b8"/><rect x="30" y="22" width="190" height="34" fill="#3b82f6"/><rect x="220" y="22" width="270" height="34" fill="#f59e0b"/>
+  <text x="20" y="72" font-size="9">desktop</text><text x="125" y="44" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">AI model (target)</text><text x="355" y="44" text-anchor="middle" font-size="10" font-weight="700">co-tenant</text>
+  <rect x="490" y="22" width="60" height="34" fill="#e11d48"/><text x="520" y="44" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">+256</text>
+  <path d="M520,58 L520,88" stroke="#e11d48" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="470" y="90" width="160" height="24" fill="#fdecea" stroke="#e11d48"/><text x="550" y="106" text-anchor="middle" font-size="10">overflow → system RAM</text>
+  <line x1="490" y1="16" x2="490" y2="62" stroke="#111" stroke-width="2" stroke-dasharray="3 2"/><text x="440" y="14" font-size="9">physical limit</text>
+</svg>
+<figcaption>Figure 6. A spill: the sum of everyone's VRAM demand passes the physical limit; the excess is placed in system RAM.</figcaption>
+</figure>
+
+<!-- ================= 10 ================= -->
+<h1 id="s10">10. Local AI models — why they spill</h1>
+<p>The research target is a <b>large language model (LLM)</b> running locally. Key terms:</p>
+<ul>
+  <li><b>Parameters / weights</b>: the numbers learned in training. Qwen2.5-3B has about 3 billion.</li>
+  <li><b>Quantization</b>: storing weights with fewer bits (e.g. 4-bit instead of 16-bit) to save memory, with small accuracy loss. Formats: <code>f16</code> (2 bytes), <code>q8_0</code> (≈1.06 bytes), <code>q4_0</code> (≈0.56 bytes) per value.</li>
+  <li><b>GGUF</b>: the model file format of llama.cpp / Ollama; its header lists every tensor with its size and type, which SpillGuard reads to estimate memory.</li>
+  <li><b>Layers</b>: a transformer is a stack of identical blocks (36 for Qwen2.5-3B). <b>Offloading</b> = putting layers on the GPU; <code>num_gpu</code> / <code>-ngl</code> chooses how many. If not all fit, the framework splits the model between GPU and CPU ("partial offload", called type A in SpillGuard).</li>
+  <li><b>Token</b>: a piece of a word; the model generates one token at a time.</li>
+  <li><b>Prefill</b> (prompt processing) reads the whole prompt in parallel; <b>decode</b> generates output tokens one by one. Decode reads all weights for every token, so it is limited by memory bandwidth — and therefore very sensitive to spill. The research metric is <b>decode milliseconds per token</b> (lower = faster).</li>
+  <li><b>Context length</b> (<code>num_ctx</code>): how many tokens the model can attend to. The research uses 2048.</li>
+  <li><b>KV cache</b>: memory that stores the attention <i>keys</i> and <i>values</i> of past tokens so they are not recomputed. Size grows with context.</li>
+  <li><b>Temperature 0 and seed 0</b>: deterministic decoding, so the output text must be identical in every run — the research checks this with a hash.</li>
+  <li><b>Ollama</b>: a local model server; its worker is <code>llama-server.exe</code>. <b>llama.cpp</b>: the C++ inference engine underneath.</li>
+</ul>
+<h3>KV-cache formula (used in SpillGuard's fit estimator)</h3>
+<pre>KV bytes = 2 (keys and values) × layers × n_ctx × n_head_kv × head_dim × bytes_per_element
+Qwen2.5-3B, ctx 2048, f16:  2 × 36 × 2048 × 2 × 128 × 2 bytes = 75,497,472 bytes ≈ 72 MiB</pre>
+<p>Measured total GPU footprint of the target in the research setup (weights + KV + CUDA context + work buffers): about <b>2421 MiB</b>.</p>
+
+<!-- ================= 11 ================= -->
+<h1 id="s11">11. SpillGuard: the live agent</h1>
+<h2>11.1 Architecture</h2>
+<figure>
+<svg width="660" height="200" viewBox="0 0 660 200">
+  <g font-size="10">
+    <rect x="5" y="10" width="110" height="180" rx="5" fill="#fff6e0" stroke="#c08a00"/>
+    <text x="60" y="28" text-anchor="middle" font-weight="700" font-size="11">Windows sources</text>
+    <text x="60" y="52" text-anchor="middle">PDH counters</text><text x="60" y="74" text-anchor="middle">DXGI (ctypes)</text>
+    <text x="60" y="96" text-anchor="middle">NVML</text><text x="60" y="118" text-anchor="middle">psutil</text><text x="60" y="140" text-anchor="middle">Ollama /api/ps</text>
+    <rect x="140" y="65" width="90" height="60" rx="5" fill="#eef3f8" stroke="#1f4e79"/><text x="185" y="90" text-anchor="middle" font-weight="700">Collector</text><text x="185" y="106" text-anchor="middle">1 sample/s</text>
+    <rect x="250" y="55" width="100" height="80" rx="5" fill="#eef3f8" stroke="#1f4e79"/><text x="300" y="80" text-anchor="middle" font-weight="700">Analyzer</text><text x="300" y="96" text-anchor="middle">detector</text><text x="300" y="109" text-anchor="middle">classifier A/B/C</text><text x="300" y="122" text-anchor="middle">culprit</text>
+    <rect x="370" y="65" width="90" height="60" rx="5" fill="#eef3f8" stroke="#1f4e79"/><text x="415" y="90" text-anchor="middle" font-weight="700">Runtime</text><text x="415" y="106" text-anchor="middle">trace, peaks</text>
+    <rect x="480" y="65" width="80" height="60" rx="5" fill="#e9f6ec" stroke="#2f7d3a"/><text x="520" y="88" text-anchor="middle" font-weight="700">FastAPI</text><text x="520" y="102" text-anchor="middle">127.0.0.1</text><text x="520" y="115" text-anchor="middle">token</text>
+    <rect x="580" y="40" width="75" height="110" rx="5" fill="#f6f2fb" stroke="#7a4fb5"/><text x="617" y="60" text-anchor="middle" font-weight="700">Browser</text><text x="617" y="80" text-anchor="middle">Web Worker</text><text x="617" y="96" text-anchor="middle">useSpillStore</text><text x="617" y="112" text-anchor="middle">SpillGuard app</text><text x="617" y="128" text-anchor="middle">Memory Map</text>
+    <rect x="250" y="155" width="210" height="32" rx="5" fill="#fff" stroke="#999"/><text x="355" y="175" text-anchor="middle">JSONL trace file → Replay (same frames, no agent)</text>
+  </g>
+  <g stroke="#1f4e79" stroke-width="1.4" marker-end="url(#ar)">
+    <line x1="115" y1="95" x2="138" y2="95"/><line x1="230" y1="95" x2="248" y2="95"/><line x1="350" y1="95" x2="368" y2="95"/><line x1="460" y1="95" x2="478" y2="95"/><line x1="560" y1="95" x2="578" y2="95"/>
+    <line x1="415" y1="125" x2="415" y2="153"/>
+  </g>
+  <text x="568" y="88" font-size="9" text-anchor="middle">/ws</text>
+</svg>
+<figcaption>Figure 7. SpillGuard data flow. One JSON "frame" per second travels from Windows counters to the AetherOS window.</figcaption>
+</figure>
+
+<h2>11.2 Data sources (what each one is)</h2>
+<table>
+  <tr><th style="width:17%">Source</th><th>What it is</th><th style="width:35%">What SpillGuard reads</th></tr>
+  <tr><td><b>PDH</b></td><td>Performance Data Helper — the Windows API for performance counters (the same data Task Manager shows). No administrator rights needed.</td><td>Per process: <code>\GPU Process Memory(*)\Dedicated Usage</code> and <code>Shared Usage</code>. Per adapter: <code>\GPU Adapter Memory(*)\Dedicated Usage</code>, <code>Shared Usage</code>. Instance names are enumerated at run time, never hand-built.</td></tr>
+  <tr><td><b>DXGI</b></td><td>DirectX Graphics Infrastructure, called through ctypes vtables.</td><td>Adapter list, physical VRAM (<code>DedicatedVideoMemory</code>), the OS budget (<code>QueryVideoMemoryInfo</code>).</td></tr>
+  <tr><td><b>NVML</b></td><td>NVIDIA Management Library (what <code>nvidia-smi</code> uses).</td><td>Total used/free VRAM, temperature, clocks, power, utilization — a cross-check of PDH.</td></tr>
+  <tr><td><b>psutil</b></td><td>Python system library.</td><td>Process names, commit charge %, available RAM.</td></tr>
+  <tr><td><b>Ollama /api/ps</b></td><td>Ollama's HTTP endpoint listing loaded models.</td><td><code>size</code> vs <code>size_vram</code>: whether Ollama itself split the model between CPU and GPU.</td></tr>
+</table>
+<p><b>Dedicated Usage</b> = bytes of a process's GPU allocations resident in VRAM. <b>Shared Usage</b> = bytes in system memory.
+<b>Commit charge</b> = total virtual memory Windows has promised to all processes (RAM + page file); near 100 % the system is close to running out.</p>
+
+<h2>11.3 The spill detector (type B) — exact algorithm</h2>
+<p>Run once per second for every process, with <b>hysteresis</b> (different thresholds for entering and leaving a state, so it does not flicker):</p>
+<table>
+  <tr><th>Parameter</th><th class="num">Default</th><th>Meaning</th></tr>
+  <tr><td>θ<sub>hi</sub> (theta high)</td><td class="num">0.92</td><td>Adapter "under pressure" when dedicated VRAM ≥ 92 % of physical VRAM.</td></tr>
+  <tr><td>θ<sub>lo</sub> (theta low)</td><td class="num">0.85</td><td>Pressure ends below 85 %.</td></tr>
+  <tr><td>Δ (delta)</td><td class="num">128 MB</td><td>Shared-usage growth above the process's own baseline that counts as spill.</td></tr>
+  <tr><td>k</td><td class="num">2</td><td>Consecutive positive samples needed to enter SPILLING.</td></tr>
+  <tr><td>exit_k</td><td class="num">3</td><td>Consecutive clear samples needed to leave SPILLING.</td></tr>
+</table>
+<ol>
+  <li><b>Baseline</b>: for each process, the <i>minimum</i> shared usage seen while the adapter was <i>not</i> under pressure (last 60 samples). Browsers and the compositor (<code>dwm.exe</code>) always keep some shared memory; the baseline stops them from being flagged.</li>
+  <li><b>Excess</b> = current shared usage − baseline.</li>
+  <li><b>Enter SPILLING</b> when for k = 2 samples in a row: load ≥ θ<sub>hi</sub> <i>and</i> excess &gt; Δ <i>and</i> shared usage is still rising (5-sample slope window). Emit <b>SPILL_START</b>.</li>
+  <li><b>Leave</b> after 3 clear samples (load &lt; θ<sub>lo</sub> or excess ≤ Δ/2). Emit <b>SPILL_END</b> with the duration.</li>
+</ol>
+<figure>
+<svg width="600" height="90" viewBox="0 0 600 90">
+  <g font-size="11" font-weight="700" text-anchor="middle">
+    <rect x="10" y="25" width="100" height="36" rx="16" fill="#e9f6ec" stroke="#2f7d3a"/><text x="60" y="47">OK</text>
+    <rect x="240" y="25" width="120" height="36" rx="16" fill="#fff6e0" stroke="#c08a00"/><text x="300" y="47">PRESSURED</text>
+    <rect x="480" y="25" width="110" height="36" rx="16" fill="#fdecea" stroke="#b4321e"/><text x="535" y="47">SPILLING</text>
+  </g>
+  <g stroke="#1f4e79" stroke-width="1.3" fill="none" marker-end="url(#ar)"><line x1="110" y1="38" x2="238" y2="38"/><line x1="360" y1="38" x2="478" y2="38"/><path d="M480,58 Q300,95 112,58"/></g>
+  <g font-size="9" text-anchor="middle"><text x="174" y="30">load ≥ 0.92</text><text x="420" y="22">excess &gt; 128 MB, rising,</text><text x="420" y="32">k = 2 samples</text><text x="300" y="86">3 clear samples (load &lt; 0.85 or excess ≤ 64 MB)</text></g>
+</svg>
+<figcaption>Figure 8. Per-process detector state (simplified).</figcaption>
+</figure>
+<p>The analyzer is <b>pure and deterministic</b>: feeding it a recorded trace gives exactly the same events as live, which is how it is unit-tested and how thresholds were tuned.</p>
+
+<h2>11.4 Cause classifier A / B / C</h2>
+<table>
+  <tr><th>Type</th><th>Meaning</th><th>Signal</th></tr>
+  <tr><td><b>A</b> — framework split</td><td>The AI framework chose to keep some layers on the CPU (not a driver spill).</td><td>Ollama reports <code>size_vram &lt; size</code> → event OFFLOAD_SPLIT.</td></tr>
+  <tr><td><b>B</b> — driver spill</td><td>The driver/VidMm placed GPU data in system RAM.</td><td>The detector above fires.</td></tr>
+  <tr><td><b>C</b> — host RAM pressure</td><td>The whole computer is short of RAM.</td><td>Commit ≥ 90 % or available RAM &lt; 512 MB for 3 samples. B during C is reported "B+C".</td></tr>
+</table>
+
+<h2>11.5 Culprit</h2>
+<p>The process whose dedicated VRAM grew most in the <b>30 seconds before</b> the spill started. If it is the spilling process itself the spill is
+"self-inflicted"; otherwise the spiller is a <b>victim</b> of another app. Example message from a live test:
+"SPILLING: python.exe (1.50 GB, 21 %)… python.exe itself grew VRAM by 3.00 GB in the 30 s before the spill".</p>
+
+<h2>11.6 Fit estimator: will this model fit?</h2>
+<pre>M = W_gpu + KV + B + O
+W_gpu = bytes of the weight tensors of the layers placed on the GPU (llama.cpp offloads the LAST n_gpu_layers),
+        + output head (+ a GPU copy of token_embd when embeddings are tied) + vision encoder if any
+KV    = 2 · layers · n_ctx · n_head_kv · head_dim · bytes/elem   (f16 = 2, q8_0 = 34/32, q4_0 = 18/32)
+B     = logits buffer + attention scratch (only without flash attention) + calibrated terms
+O     = fixed overhead (CUDA context etc.)</pre>
+<p>Calibrated on this laptop: <b>O = 235 MB, +6.1 MB per 1 k context, +535 MB image-encoder buffer for vision models</b>.
+Accuracy (E3): leave-one-out mean absolute error <b>46 MB</b> (max 93 MB) over 9 configurations; Ollama's own estimate was off by <b>902 MB</b> on average because it leaves out the CUDA context and buffers.</p>
+
+<h2>11.7 Banker's algorithm as GPU admission control</h2>
+<p>Before launching a new model, SpillGuard asks the Banker's question with <b>VRAM (and commit) as the resources</b>:
+Allocation = each running process's measured VRAM; Max = its observed peak × 1.1; the new launch has Max = its estimated need;
+Available = physical VRAM − 256 MB margin − total allocation.</p>
+<p>Important twist: <b>real applications are long-lived</b> — a game or a browser never "finishes" and returns its memory, which the textbook algorithm assumes.
+So SpillGuard computes two verdicts and shows both in the Deadlock Lab: the <b>classic</b> safe-sequence result and the <b>long-lived</b> result, which
+reserves every running process's remaining need up front. Verdicts: <b>SAFE</b>, <b>FIXABLE</b> (it searches context length, KV-cache type,
+flash attention and GPU layers for the best configuration that fits) or <b>UNSAFE</b> with a plain reason ("needs 6.5 GB VRAM, 5.4 GB free; chrome.exe holds 1.4 GB").
+<code>spillguard run -- &lt;command&gt;</code> can rewrite llama.cpp flags (<code>-c -ngl -fa -ctk -ctv</code>) or derive an Ollama model with
+<code>num_ctx</code>/<code>num_gpu</code>, and always asks before starting.</p>
+
+<h2>11.8 Security model</h2>
+<ul>
+  <li>Binds to <b>127.0.0.1</b> only (loopback) — not reachable from the network.</li>
+  <li>A random <b>session token</b> per run is required for <code>/ws</code> and <code>/api/*</code>. It travels in the URL <b>fragment</b> (<code>#sg=…</code>), which browsers never send to servers, and the page removes it from the address bar.</li>
+  <li><b>Host</b> and <b>Origin</b> headers are checked, blocking other websites and <b>DNS rebinding</b> (an attack where a malicious domain is re-pointed to 127.0.0.1). Verified: no token → 401, foreign Origin → 403, rebinding Host → 403.</li>
+  <li>The HTTP API is <b>read-only</b>. Launching programs is CLI-only behind a confirmation. Driver settings are never changed automatically.</li>
+</ul>
+
+<h2>11.9 Front end: three modes</h2>
+<ul>
+  <li><b>Simulated</b> — synthetic data, no agent needed.</li>
+  <li><b>Live</b> — a <b>Web Worker</b> (a background browser thread) holds the WebSocket and parses frames off the UI thread.</li>
+  <li><b>Replay</b> — plays a saved <b>JSONL</b> trace (one JSON object per line: a header with machine facts and detector parameters, then one frame per second). Replay uses exactly the same frames as live, so the demo works on any computer.</li>
+</ul>
+<p>Views: stacked tier bars (VRAM / shared / RAM), per-process table with state OK / PRESSURED / SPILLING, event list, the admission panel
+(slider for a new launch's VRAM claim), the fit form (model, context, KV type), the <b>VRAM twin view</b> inside the Memory Map, and the research
+<b>evidence desk</b> (section 14).</p>
+
+<!-- ================= 12 ================= -->
+<h1 id="s12">12. SpillGuard evaluation (E1–E5)</h1>
+<p><b>Ground truth</b> must not come from the detector's own input. The workload <code>bench/spillstress.py</code> (called W1) allocates GPU
+memory in 256 MB blocks through the CUDA <i>driver</i> API (<code>nvcuda.dll</code>), warms the GPU out of its idle power state, then measures the
+write bandwidth of each block. Blocks the driver placed in system RAM are an order of magnitude slower — that marks the true spill onset.</p>
+<table>
+  <tr><th style="width:15%">Experiment</th><th>Setup</th><th>Result</th></tr>
+  <tr><td><b>E1</b> cost of spill</td><td>W1, 3 runs, per-block write bandwidth</td><td>Resident <b>163.3 ± 0.1 GB/s</b>, spilled <b>13.2 ± 0.0 GB/s</b> → <b>12.4× slower</b>. Spill always began at the 23rd 256 MB block (5.75 GB allocated).</td></tr>
+  <tr><td><b>E1b</b> type A</td><td>qwen3-vl:2b, 32 k context</td><td>Ollama split the model itself (3.6 of 5.5 GB on GPU): <b>71 vs 113 tokens/s</b>.</td></tr>
+  <tr><td><b>E2</b> detection</td><td>3 spill runs + 2 runs reaching ~98 % VRAM <i>without</i> spilling</td><td>Recall <b>3/3</b>, <b>0</b> false positives, latency <b>0.95 ± 0.03 s</b> after true onset.</td></tr>
+  <tr><td><b>E3</b> fit estimator</td><td>2 models × 5 contexts in Ollama</td><td>Leave-one-out MAE <b>46 MB</b> (max 93); Ollama's own estimate off by <b>902 MB</b>.</td></tr>
+  <tr><td><b>E5</b> overhead</td><td>agent self-measurement at 1 Hz</td><td><b>2.3 ± 0.3 %</b> of one core ≈ 0.14 % of the 16-thread CPU; <b>52 MB</b> RAM.</td></tr>
+</table>
+<div class="box"><p><b>Recall</b> = detected spills ÷ real spills. <b>Precision</b> = real spills ÷ all alarms. <b>False positive</b> = an alarm with no real spill.
+<b>Latency</b> = time from true onset to the alarm. <b>MAE</b> (mean absolute error) = average |estimate − measured|. <b>Leave-one-out</b> = each configuration
+is predicted by a model fitted without it (an honest test of prediction). <b>± value</b> = standard deviation over repeated runs.</p></div>
+
+<!-- ================= 13 ================= -->
+<h1 id="s13">13. SpillGuard Repro: the research experiment</h1>
+<h2>13.1 Research question</h2>
+<p>Title of the research direction: <i>"SpillGuard Repro: Reproducing and Minimizing Cross-Process GPU-Memory Performance Failures on Windows."</i>
+The questions: <b>(RQ1)</b> can a severe slowdown of a <i>real</i> application, caused by <i>another</i> process's GPU memory use, be reproduced
+repeatably and recover when the pressure is removed? <b>(RQ2)</b> can the pressure be reduced to a minimal cause? <b>(RQ3)</b> which remedy
+fixes it with the least disruption? A failure caused by a neighbour process is called a <b>cross-process</b> failure; the neighbour is the
+<b>co-tenant</b>.</p>
+
+<h2>13.2 The matched block (baseline → pressure → recovery)</h2>
+<figure>
+<svg width="640" height="120" viewBox="0 0 640 120">
+  <g font-size="10.5">
+    <rect x="10" y="20" width="190" height="40" rx="4" fill="#e9f6ec" stroke="#2f7d3a"/><text x="105" y="38" text-anchor="middle" font-weight="700">1. Baseline</text><text x="105" y="52" text-anchor="middle">model alone + empty helper context</text>
+    <rect x="225" y="20" width="190" height="40" rx="4" fill="#fdecea" stroke="#b4321e"/><text x="320" y="38" text-anchor="middle" font-weight="700">2. Pressure</text><text x="320" y="52" text-anchor="middle">same work + co-tenant holding VRAM</text>
+    <rect x="440" y="20" width="190" height="40" rx="4" fill="#e9f6ec" stroke="#2f7d3a"/><text x="535" y="38" text-anchor="middle" font-weight="700">3. Recovery</text><text x="535" y="52" text-anchor="middle">co-tenant gone, same work again</text>
+  </g>
+  <g font-size="10" text-anchor="middle"><text x="215" y="90">slowdown = pressure ÷ baseline</text><text x="450" y="90">recovery = recovery ÷ baseline</text>
+  <text x="320" y="110" fill="#555">every stage: fresh private Ollama server, same prompt, same 128 tokens, temperature 0</text></g>
+</svg>
+<figcaption>Figure 9. One matched trial. Comparing the target against itself under identical conditions isolates the effect of the co-tenant.</figcaption>
+</figure>
+<p>Why this design: comparing the same work, on the same machine, minutes apart, with only one thing changed is a <b>controlled experiment</b>.
+The recovery stage proves the slowdown was <i>caused</i> by the pressure (it goes away when the pressure goes away) and not by heat, a
+background update, or a broken run. All three stages contain an empty helper CUDA context, so the extra context itself is not the difference.</p>
+
+<h2>13.3 The recipe (experiment specification)</h2>
+<p>Every experiment is a JSON <b>recipe</b> validated before running (unknown keys, non-finite numbers, duplicate IDs and out-of-bound sizes are rejected).</p>
+<table>
+  <tr><th>Item</th><th>Value in the 18 Oct study</th></tr>
+  <tr><td>Target workload</td><td>Ollama 0.34.4, model <code>qwen2.5:3b-instruct</code> (digest pinned), fixed prompt (SHA-256 pinned), <code>num_predict</code> 128, <code>num_ctx</code> 2048, temperature 0, seed 0, <code>num_gpu</code> 999 (all layers on GPU)</td></tr>
+  <tr><td>Primary metric</td><td>Server-reported <b>decode ms per token</b></td></tr>
+  <tr><td>Co-tenant ("holder")</td><td>An owned Python process allocating CUDA memory via <code>nvcuda.dll</code>; size = <b>physical VRAM − desktop residency − target footprint (2421 MiB) + planned overflow</b></td></tr>
+  <tr><td>Activity</td><td>Touches (rewrites) all its memory every <b>250 ms</b> ("active"), or once ("idle", touch interval 0)</td></tr>
+  <tr><td>Preparation</td><td><b>cold</b>: the co-tenant becomes resident <i>before</i> the model loads (pressure-phase anchor, 4 s lead-in)</td></tr>
+  <tr><td>Telemetry</td><td>PDH sampling every 100 ms during each stage</td></tr>
+  <tr><td>Repeats</td><td>2 matched trials per level</td></tr>
+</table>
+
+<h2>13.4 Verdict rules (the classifier in <code>evidence.py</code>)</h2>
+<p>Each trial gets exactly one of three verdicts:</p>
+<ul>
+  <li><b>FAIL</b> = slowdown reproduced: pressure ÷ baseline ≥ <b>2.0</b> <i>and</i> recovery ÷ baseline ≤ <b>1.25</b>.</li>
+  <li><b>PASS</b> = valid non-reproduction: a clean trial whose slowdown stayed below 2.0.</li>
+  <li><b>INCONCLUSIVE</b> = anything doubtful, never silently counted as PASS or FAIL. Including: a stage failed or timed out; the requested work, prompt,
+    model identity, realized context or <b>generated output</b> changed; host-memory guard tripped; Ollama reported partial CPU offload (that would be type A, not
+    a cross-process spill); the pressure was not observed during the target (fewer than 2 overlapping samples); recovery did not return to baseline.</li>
+</ul>
+<p>A whole block of repeats is FAIL or PASS only if all its trials agree; mixed outcomes are INCONCLUSIVE. The 2× threshold is an <b>operational
+definition</b> chosen before the experiment, not a hardware constant. "FAIL" names the <i>application's</i> failure to keep its performance, not a failure of the experiment.</p>
+
+<h2>13.5 Safety guards</h2>
+<ul>
+  <li>Abort the stage if available host RAM falls below the floor (<b>1.5 GiB</b> in this recipe) or <b>commit ≥ 90 %</b> — a trial run while the whole PC is short of RAM would measure host pressure, not GPU spill (type C). Such trials are kept and marked INCONCLUSIVE. These guards were <b>never relaxed</b> to get results; memory was freed by closing apps.</li>
+  <li>Only processes the runner itself started can be stopped; no third-party process is killed, no driver setting is changed.</li>
+  <li>Requested pressure is capped (default 1 GiB, max 8 GiB explicitly declared).</li>
+</ul>
+
+<h2>13.6 Evidence bundles</h2>
+<p>Each run is saved as a <b>bundle</b>: <code>recipe.json</code>, <code>report.json</code>, readable <code>report.md</code>, per-stage helper logs,
+observations and <code>trace.jsonl</code> files (replayable in AetherOS), plus a <b>SHA-256 manifest</b>. SHA-256 is a cryptographic hash: changing even
+one byte of a file changes its hash, so <code>verify</code> detects any modification. Invalid trials stay in the record and in the denominator — nothing is
+cherry-picked. The 19 files shown in AetherOS's evidence desk were copied with the hostname removed and unrelated process names replaced by "other app".</p>
+
+<h2>13.7 The reducer (delta debugging)</h2>
+<p><b>ddmin</b> (delta debugging minimization, Zeller &amp; Hildebrandt, 2002) shrinks a failing input by deleting parts and re-testing, keeping a deletion
+only if the failure still reproduces. Its result is <b>1-minimal</b>: removing any single remaining part makes the failure disappear. SpillGuard Repro
+implements plain ddmin over pressure <i>actions</i>, with a test budget and a fresh final validation. It is validated on a labelled software fixture
+(4 actions reduced to 2). Applying a phase/residency-aware reducer to the real witness is <b>future work (RQ2)</b>.</p>
+
+<!-- ================= 14 ================= -->
+<h1 id="s14">14. Research results (18 October 2026)</h1>
+<h2>14.1 Result 1 — a performance cliff at the capacity boundary</h2>
+<p>"Planned overflow" = how much the co-tenant plus the model plus the desktop exceed physical VRAM. Negative = fits.</p>
+<table>
+  <tr><th>Planned overflow</th><th class="num">Co-tenant holds</th><th class="num">Baseline ms/tok</th><th class="num">Pressure ms/tok</th><th class="num">Slowdown</th><th>Verdict</th></tr>
+  <tr><td>−512 MiB (fits)</td><td class="num">2,941 MiB</td><td class="num">14.4 / 14.3</td><td class="num">16.6 / 16.7</td><td class="num">1.15× / 1.17×</td><td>PASS / PASS</td></tr>
+  <tr><td>0 MiB (at capacity)</td><td class="num">3,453 MiB</td><td class="num">14.2 / 14.0</td><td class="num">17.1 / 17.1</td><td class="num">1.20× / 1.22×</td><td>PASS / PASS</td></tr>
+  <tr class="hl"><td>+256 MiB</td><td class="num">3,709 MiB</td><td class="num">14.0 / 14.1</td><td class="num">33.3 / 33.1</td><td class="num">2.37× / 2.35×</td><td>FAIL / FAIL</td></tr>
+  <tr class="hl"><td>+512 MiB</td><td class="num">3,965 MiB</td><td class="num">14.1 / 14.1</td><td class="num">33.6 / 32.2</td><td class="num">2.38× / 2.28×</td><td>FAIL / FAIL</td></tr>
+</table>
+<figure>
+<svg width="600" height="270" viewBox="0 0 600 270">
+  <line x1="70" y1="20" x2="70" y2="225" stroke="#333"/><line x1="70" y1="225" x2="570" y2="225" stroke="#333"/>
+  <g font-size="10" text-anchor="end" fill="#333">
+    <text x="64" y="229">1.0×</text><text x="64" y="179">1.5×</text><text x="64" y="129">2.0×</text><text x="64" y="79">2.5×</text>
+  </g>
+  <g stroke="#e5e7eb"><line x1="70" y1="175" x2="570" y2="175"/><line x1="70" y1="75" x2="570" y2="75"/></g>
+  <line x1="70" y1="125" x2="570" y2="125" stroke="#b4321e" stroke-dasharray="6 4"/><text x="568" y="119" font-size="9.5" text-anchor="end" fill="#b4321e">FAIL threshold 2×</text>
+  <line x1="290" y1="20" x2="290" y2="225" stroke="#111" stroke-dasharray="3 3"/><text x="294" y="32" font-size="9.5">VRAM full (0 MiB)</text>
+  <g font-size="10" text-anchor="middle"><text x="125" y="242">−512</text><text x="290" y="242">0</text><text x="400" y="242">+256</text><text x="510" y="242">+512</text>
+  <text x="320" y="262">Planned overflow (MiB)</text></g>
+  <text x="18" y="125" font-size="10" transform="rotate(-90 18 125)" text-anchor="middle">Decode slowdown (pressure ÷ baseline)</text>
+  <g fill="#111"><circle cx="125" cy="210" r="5"/><circle cx="125" cy="208" r="5"/><circle cx="290" cy="205" r="5"/><circle cx="290" cy="203" r="5"/></g>
+  <g fill="#e11d48"><circle cx="400" cy="88" r="5"/><circle cx="400" cy="90" r="5"/><circle cx="510" cy="87" r="5"/><circle cx="510" cy="97" r="5"/></g>
+  <g fill="#fff" stroke="#111"><rect x="395" y="217" width="10" height="10"/></g>
+  <path d="M125,209 L290,204 L400,89 L510,92" fill="none" stroke="#999" stroke-width="1"/>
+  <g font-size="9.5"><circle cx="90" cy="40" r="4" fill="#111"/><text x="98" y="44">PASS (active co-tenant)</text><circle cx="90" cy="56" r="4" fill="#e11d48"/><text x="98" y="60">FAIL (active co-tenant)</text>
+  <rect x="86" y="68" width="8" height="8" fill="#fff" stroke="#111"/><text x="98" y="76">idle co-tenant at +256 (1.03×)</text></g>
+</svg>
+<figcaption>Figure 10. Dose-response: slowdown stays ~1.2× up to capacity, then jumps to ~2.35× just 256 MiB past it, and does not get worse at +512 MiB.</figcaption>
+</figure>
+<ul>
+  <li><b>Dose-response</b> means measuring the effect at several doses (here: amounts of overflow) — like testing a medicine at several strengths.</li>
+  <li>The response is a <b>cliff with a plateau</b>: +256 MiB more than doubles per-token time; +512 MiB is no worse.</li>
+  <li>The −512 MiB control (the co-tenant rewrites ~2.9 GiB every 250 ms but everything fits) gives only 1.16×: the co-tenant's own bandwidth use explains a small slowdown, not 2.36×.</li>
+  <li>Every FAIL recovered on release (recovery 0.996–1.010×) with byte-identical output and no partial CPU offload.</li>
+</ul>
+
+<h2>14.2 Result 2 — identical memory counters, opposite outcomes</h2>
+<table>
+  <tr><th>Co-tenant at +256 MiB</th><th>Runner VRAM / shared (PDH)</th><th>Co-tenant VRAM</th><th>Adapter VRAM</th><th>Slowdown</th></tr>
+  <tr><td>active (touch every 250 ms)</td><td>2,033 / 388 MiB</td><td>3,790 MiB</td><td>5,952 MiB (ceiling)</td><td><b>2.37× (FAIL)</b></td></tr>
+  <tr><td>idle (touch once)</td><td>2,033 / 388 MiB</td><td>3,790 MiB</td><td>5,952 MiB (ceiling)</td><td><b>1.03× (PASS)</b></td></tr>
+</table>
+<p>The memory counters are <b>the same</b> in both cases, yet one is a severe slowdown and the other is not. So <b>counters alone cannot tell harmful
+from benign pressure</b>; an <b>intervention</b> (changing one thing and re-measuring) can. In this run the idle case had one valid trial (two were stopped by the
+commit guard); the "pause activity" remedy below adds two more valid idle trials (1.01×, 1.01×).</p>
+<div class="box warn"><p><b>Working hypothesis, not verified:</b> an <i>active</i> co-tenant makes VidMm keep migrating pages between VRAM and system RAM
+("churn"), which 100 ms counter snapshots cannot see. Proving it needs PIX / ETW residency event traces (future work). Say "hypothesis" — not "proved".</p></div>
+
+<h2>14.3 Result 3 — the witness re-validates and every remedy works</h2>
+<p>A <b>witness</b> is a saved recipe that reproduces the failure. The +256 MiB witness was re-run from scratch, then each remedy as its own matched block (2 trials each).</p>
+<table>
+  <tr><th>Remedy</th><th class="num">Co-tenant still holds</th><th class="num">Slowdown per trial</th><th>Verdict</th></tr>
+  <tr><td>none (fresh re-validation)</td><td class="num">3,709 MiB</td><td class="num">2.35×, 2.34×</td><td>FAIL (reproduced again)</td></tr>
+  <tr><td>release the whole co-tenant</td><td class="num">0 MiB</td><td class="num">1.02×, 1.00×</td><td>PASS</td></tr>
+  <tr><td>run the co-tenant after the target (serialize)</td><td class="num">0 MiB</td><td class="num">1.00×, 1.00×</td><td>PASS</td></tr>
+  <tr><td>release half of its bytes</td><td class="num">1,854 MiB</td><td class="num">1.10×, 1.10×</td><td>PASS</td></tr>
+  <tr><td>release one eighth of its bytes</td><td class="num">3,245 MiB</td><td class="num">1.19×, 1.20×</td><td>PASS</td></tr>
+  <tr class="hl"><td>keep every byte, stop touching it (pause)</td><td class="num">3,709 MiB</td><td class="num">1.01×, 1.01×</td><td>PASS — least disruptive</td></tr>
+</table>
+<ul>
+  <li>The witness reproduced in <b>6/6 matched trials across two independent runs</b> (2.28–2.38×).</li>
+  <li>Releasing only one eighth (~460 MiB, just enough to fall below capacity) is enough; the residual 1.19× equals the at-capacity level of Result 1.</li>
+  <li><b>Pausing activity while keeping all memory</b> is both the most effective and the least disruptive fix. Across the study, idle/paused co-tenant: 3 valid trials at 1.01–1.03×; active: 6 trials at 2.28–2.38×, same memory held.</li>
+</ul>
+
+<h2>14.4 Detector check — does the original SpillGuard detector predict harm?</h2>
+<p>On the 9 valid research trials the counter-based detector raised SPILL_START on all 4 real failures (<b>recall 4/4</b>) but also on 3 of the 5
+non-failures (the two at-capacity trials and the idle trial): <b>precision 4/7</b>. Confusion matrix: TP 4, FP 3, FN 0, TN 2. This is the measured reason
+the project moves from "watch counters" to "diagnose by intervention".</p>
+
+<h2>14.5 What this does and does not show</h2>
+<div class="two">
+<div class="box say"><div class="t">Shows</div><ul>
+<li>A repeatable, matched, recovered severe slowdown of a real local LLM caused by a controlled co-tenant crossing VRAM capacity (6/6 trials, two runs).</li>
+<li>A measured dose-response cliff.</li>
+<li>A case where counters cannot separate harmful from benign pressure.</li>
+<li>Five owned remedies that restore performance.</li></ul></div>
+<div class="box warn"><div class="t">Does not show</div><ul>
+<li>The residency mechanism (unverified hypothesis).</li>
+<li>Other GPUs, vendors, drivers, models or engines.</li>
+<li>Behaviour of third-party co-tenants (games, browsers).</li>
+<li>Statistical significance (2 trials per level). It is a <b>pilot</b> on one machine.</li></ul></div>
+</div>
+
+<!-- ================= 15 ================= -->
+<h1 id="s15">15. Testing and verification</h1>
+<ul>
+  <li><b>Front end (Vitest)</b>: 66 tests in 12 files pass — scheduler, kernel dispatch (Round-Robin quantum), memory manager (FIFO/LRU/CLOCK), Banker's, deadlock engine, VFS, advanced subsystems, SpillGuard admission, report parsing, and a test that every built-in research file parses.</li>
+  <li><b>Agent (pytest)</b>: 149 tests pass — collector parsing, analyzer/detector on recorded traces, fit estimator, Banker's, server security (token/Origin/Host), recipe validation, evidence classifier, bundle integrity, reducer and remedy workflows.</li>
+  <li><b>Type checking</b>: <code>tsc</code> with no errors; production build with Vite.</li>
+  <li><b>In-app</b>: the Kernel Test Suite window runs its checks live.</li>
+  <li><b>Bug fixed during the project</b>: in the dual-core step, a process left in RUNNING was skipped by the scheduler forever, so each process ran one tick and the Round-Robin quantum never applied. Fix: at the start of every tick every RUNNING process returns to READY and competes again; the policy (queue order) keeps it on the CPU until its quantum ends. A test now checks the pattern "A A B B".</li>
+</ul>
+
+<!-- ================= 16 ================= -->
+<h1 id="s16">16. Limitations and future work</h1>
+<h3>Limitations (state them honestly)</h3>
+<ol>
+  <li>The AetherOS kernel is a <b>simulation</b> in the browser, not a bootable OS; OPTIMAL replacement falls back to LRU; eBPF scripts are not compiled.</li>
+  <li>One machine, one GPU vendor (NVIDIA), one driver, one target model; small samples (2 trials per level, 9 valid trials for the detector check).</li>
+  <li>The residency/churn mechanism is a hypothesis; PIX/ETW traces are needed.</li>
+  <li>The co-tenant is a synthetic CUDA process, not a real game or browser.</li>
+  <li>The live detector's thresholds were perfect on the synthetic W1 ramp, so W1 does not discriminate between threshold choices; real-world negatives are needed.</li>
+  <li>Windows per-process GPU counters can drift after an app is hidden/restored (a known Microsoft issue); SpillGuard cross-checks with NVML but does not yet flag disagreements.</li>
+  <li>Banker's needs maximum claims; for unknown apps "peak × 1.1" is a heuristic.</li>
+</ol>
+<h3>Future work</h3>
+<ul>
+  <li>Run the phase/residency-aware reducer on the real witness (RQ2) and compare with plain ddmin.</li>
+  <li>Verify the mechanism with PIX / ETW residency events; add GPU clock/temperature controls.</li>
+  <li>Larger samples, randomized order, a second target (another model or engine), real co-tenants, AMD/Intel GPUs.</li>
+  <li>Turn "pause the co-tenant" into an automatic, consent-based remedy in SpillGuard.</li>
+  <li>Move the AetherOS kernel into a Web Worker; package the agent as an <code>.exe</code>.</li>
+</ul>
+
+<!-- ================= 17 ================= -->
+<h1 id="s17">17. Viva questions and answers</h1>
+
+<h2>A. About AetherOS</h2>
+<div class="qa"><div class="q">Is AetherOS a real operating system?</div><div class="a">No. It is a web application that simulates an OS kernel to teach its mechanisms. It runs inside the browser on top of Windows. The scheduling, paging, deadlock and journaling algorithms are real implementations operating on simulated processes, frames and files. The GPU part (SpillGuard) reads the real hardware.</div></div>
+<div class="qa"><div class="q">What is a tick?</div><div class="a">The simulated kernel's unit of time: one call of <code>Kernel.step()</code>, every 800 ms by default. One tick = one unit of CPU time for each core.</div></div>
+<div class="qa"><div class="q">Why is the kernel deterministic, and why does that matter?</div><div class="a">It uses no random numbers; the same inputs always give the same schedule. This makes behaviour explainable and lets tests assert exact outputs (e.g. Round Robin gives "A A B B").</div></div>
+<div class="qa"><div class="q">Which scheduling algorithm is the default and why?</div><div class="a">MLFQ, because it approximates SJF without knowing burst times: new/interactive jobs stay in the high-priority short-quantum queue, CPU-bound jobs sink, and aging every 40 ticks prevents starvation.</div></div>
+<div class="qa"><div class="q">What is the time quantum and what happens if it is too small or too large?</div><div class="a">The maximum CPU time a process gets before preemption in Round Robin (4 ticks here; MLFQ uses 4/8/16). Too small: many context switches (overhead). Too large: RR degenerates into FCFS with poor response time.</div></div>
+<div class="qa"><div class="q">What is starvation and how do you prevent it?</div><div class="a">A ready process never gets the CPU because others always win (e.g. long jobs under SJF, low priority under Priority). Prevention: aging — raising the priority of waiting processes; MLFQ's periodic boost.</div></div>
+<div class="qa"><div class="q">What is the convoy effect?</div><div class="a">In FCFS, many short processes wait behind one long CPU-bound process, increasing average waiting time.</div></div>
+<div class="qa"><div class="q">Difference between SJF and SRTF?</div><div class="a">SJF picks the shortest total burst; SRTF picks the shortest remaining time and preempts if a shorter job arrives. SRTF is the preemptive version.</div></div>
+<div class="qa"><div class="q">How do you use two cores?</div><div class="a">Each core has its own run queue. New processes go to the shorter queue (load balancing) unless pinned by affinity. Every tick each core picks its own process; the same process cannot be on both. If one queue is empty and the other has more than one process, the idle core steals half of them from the tail (work stealing).</div></div>
+<div class="qa"><div class="q">What is a context switch and how do you count it?</div><div class="a">Saving one process's CPU state and loading another's. AetherOS counts one whenever a core runs a different PID than in the previous tick, and emits a SCHED_SWITCH eBPF event.</div></div>
+<div class="qa"><div class="q">Define turnaround, waiting and response time.</div><div class="a">Turnaround = completion − arrival. Waiting = time spent ready but not running. Response = first time on CPU − arrival.</div></div>
+<div class="qa"><div class="q">How big is AetherOS's memory and how are pages mapped?</div><div class="a">32 frames × 4 KB. A process of S KB needs ⌈S/4⌉ pages; free frames are taken first; if there are not enough, the missing ones are page faults and the replacement policy picks victims from other processes.</div></div>
+<div class="qa"><div class="q">Explain the CLOCK algorithm.</div><div class="a">Frames form a circle with a hand. Each frame has a reference bit set on access. To find a victim the hand moves: if the bit is 1 it is cleared (second chance) and the hand moves on; the first frame with bit 0 is evicted. It approximates LRU cheaply; two sweeps always find a victim.</div></div>
+<div class="qa"><div class="q">Why doesn't OPTIMAL really work in your OS?</div><div class="a">Optimal needs the future sequence of page references, which no online system knows. The kernel does not model a future reference string, so it falls back to LRU and the UI says so. Optimal is used as a theoretical benchmark.</div></div>
+<div class="qa"><div class="q">What is Belady's anomaly?</div><div class="a">With FIFO, giving a process more frames can sometimes cause more page faults. LRU and Optimal are stack algorithms and do not have it.</div></div>
+<div class="qa"><div class="q">What is thrashing?</div><div class="a">When processes spend more time moving pages between memory tiers than doing work, because their working sets do not fit. The GPU spill in this project is the same phenomenon one level up: VRAM is too small for the combined working sets.</div></div>
+<div class="qa"><div class="q">What happens in your GPF demo?</div><div class="a">A user-mode (Ring 3) process tries to access address 0x0020 inside kernel space (0x0000–0x3FFF). The memory manager checks ring and address range, traps a General Protection Fault, records a register dump (EIP, ESP, CR3, …) and blocks the process.</div></div>
+<div class="qa"><div class="q">How do you detect a deadlock?</div><div class="a">Build a wait-for graph (edge P → Q if P waits for a lock Q holds) and run DFS with a recursion stack; a back edge means a cycle. With single-instance mutexes a cycle means deadlock.</div></div>
+<div class="qa"><div class="q">Difference between deadlock prevention, avoidance and detection?</div><div class="a">Prevention makes one Coffman condition impossible (e.g. ordered lock acquisition removes circular wait). Avoidance checks each request and only grants it if the state stays safe (Banker's). Detection lets deadlocks happen, finds cycles and recovers (kill/preempt).</div></div>
+<div class="qa"><div class="q">Is an unsafe state a deadlock?</div><div class="a">No. Unsafe means no safe sequence is guaranteed, so a deadlock <i>may</i> happen; a safe state guarantees none will.</div></div>
+<div class="qa"><div class="q">Walk through your Banker's example.</div><div class="a">Available 3 3 2. Need = Max − Allocation. P1 (needs 1 2 2) can run → Work 5 3 2; P3 → 7 4 3; P4 → 7 4 5; P0 → 7 5 5; P2 → 10 5 7. Safe sequence P1, P3, P4, P0, P2.</div></div>
+<div class="qa"><div class="q">What is write-ahead logging?</div><div class="a">Recording an operation in a journal before applying it. After a crash, committed journal entries are replayed and uncommitted ones are discarded, so metadata is never left half-updated.</div></div>
+<div class="qa"><div class="q">What does fsck do in your OS?</div><div class="a">After the simulated power cut it scans the journal, rolls back the PENDING (torn) transaction, replays COMMITTED but not yet checkpointed ones, marks the superblock clean and remounts the disk.</div></div>
+<div class="qa"><div class="q">What is an inode? A superblock?</div><div class="a">An inode is the per-file metadata record (type, size, permissions, parent). The superblock is the file-system-wide record (clean/dirty, mounted, counts, block size, journal pointers).</div></div>
+<div class="qa"><div class="q">What is eBPF?</div><div class="a">A Linux technology that runs small verified programs at kernel hooks to count or trace events safely without changing kernel code. AetherOS simulates probes on context switches, page faults and syscalls, with hash maps and an event ring buffer.</div></div>
+
+<h2>B. GPU memory and SpillGuard</h2>
+<div class="qa"><div class="q">What is VRAM?</div><div class="a">The GPU's own dedicated, very high-bandwidth memory on the graphics card — here 6 GB of GDDR6 (6002 MB reported). Measured write bandwidth to it: 163 GB/s.</div></div>
+<div class="qa"><div class="q">What is shared GPU memory?</div><div class="a">System RAM that Windows lets the GPU use as a second tier, up to half of RAM (7827 MB here). The GPU reaches it across PCIe, measured at 13.2 GB/s — 12.4× slower than VRAM.</div></div>
+<div class="qa"><div class="q">What is a spill?</div><div class="a">When GPU data that should be in VRAM is placed in shared system memory because VRAM is full. Programs keep running but slow down, without any error message.</div></div>
+<div class="qa"><div class="q">Who moves the data — the app, the driver or Windows?</div><div class="a">On Windows, the video memory manager VidMm (part of the WDDM graphics kernel) manages residency, and the NVIDIA driver's sysmem fallback lets CUDA allocations succeed in system memory instead of failing. The application is not told.</div></div>
+<div class="qa"><div class="q">Why can't the program just ask CUDA how much memory is free?</div><div class="a">We measured it: <code>cuMemGetInfo</code> reported 0 MB free from 5376 MB onward while allocations kept succeeding in system memory. CUDA gives no spill signal, so an external observer is needed.</div></div>
+<div class="qa"><div class="q">Where do your numbers come from?</div><div class="a">Windows PDH performance counters ("GPU Process Memory" Dedicated and Shared Usage per process; "GPU Adapter Memory" per adapter), DXGI for physical VRAM and budget, NVML as a cross-check, psutil for RAM/commit, and Ollama's /api/ps for model placement. No admin rights are needed.</div></div>
+<div class="qa"><div class="q">Why compare against physical VRAM instead of the DXGI budget?</div><div class="a">We observed that under pressure the driver fills VRAM up to 5954 of 6002 MB, far past the 5234 MB budget; and the budget is per calling process. Physical capacity is the real limit.</div></div>
+<div class="qa"><div class="q">Explain your detector's thresholds.</div><div class="a">The adapter must be at ≥ 92 % of VRAM, the process's shared usage must exceed its own unpressured baseline by &gt; 128 MB and still be rising, for 2 consecutive 1-second samples. It ends after 3 clear samples (below 85 % or excess ≤ 64 MB). Hysteresis prevents flicker; the baseline prevents false alarms on browsers that always use shared memory. In the pilot, spill raised shared usage 74 → 266 MB in the first second, so 128 MB with k = 2 detects within about 2 s.</div></div>
+<div class="qa"><div class="q">How accurate is the detector?</div><div class="a">On synthetic spill runs: recall 3/3, zero false positives, 0.95 s latency. But on the research trials it flagged 3 harmless cases (precision 4/7) — because counters look identical for harmful and harmless pressure. That limitation motivated the intervention-based approach.</div></div>
+<div class="qa"><div class="q">How did you get ground truth for the detector?</div><div class="a">Independently of the counters: the stress tool measures the write bandwidth of every 256 MB block after warming the GPU; blocks in system memory are about 12× slower, which marks the true onset.</div></div>
+<div class="qa"><div class="q">How does Banker's algorithm relate to GPUs?</div><div class="a">VRAM is the resource. Running processes have Allocation = measured VRAM and Max = peak × 1.1; a new model launch has Max = its estimated need. If no safe state exists, launching it would push someone into spill. Because real apps never "finish", SpillGuard also computes a long-lived variant that reserves their remaining need.</div></div>
+<div class="qa"><div class="q">How do you estimate how much VRAM a model needs?</div><div class="a">M = weights on GPU + KV cache + buffers + overhead, read from the GGUF file header and calibrated on this laptop (overhead 235 MB, +6.1 MB per 1 k context). Error 46 MB on average, versus 902 MB for Ollama's own estimate.</div></div>
+<div class="qa"><div class="q">Is the agent secure?</div><div class="a">It listens only on 127.0.0.1, needs a per-session token sent in the URL fragment, checks Host and Origin against DNS rebinding and other sites, and its API is read-only. It never launches programs from the browser and never changes driver settings.</div></div>
+<div class="qa"><div class="q">How much overhead does SpillGuard add?</div><div class="a">About 2.3 % of one CPU core (≈ 0.14 % of the 16-thread CPU) and 52 MB of RAM at one sample per second.</div></div>
+
+<h2>C. About the research</h2>
+<div class="qa"><div class="q">What exactly did you prove?</div><div class="a">That on this laptop, a real local LLM (Qwen2.5-3B in Ollama) decodes about 2.35× slower when a co-tenant process pushes total GPU memory demand 256 MiB past physical VRAM; that it reproduced in 6 of 6 matched trials in two independent runs and fully recovered when the pressure was removed; that the slowdown is a cliff at capacity; and that pausing the co-tenant's activity fixes it while keeping its memory.</div></div>
+<div class="qa"><div class="q">Why baseline, pressure and recovery?</div><div class="a">It is a matched controlled experiment: the same work measured with and without the single change. Recovery confirms causation — if performance returns when pressure is removed, the slowdown was due to the pressure, not heat, background updates or a broken run.</div></div>
+<div class="qa"><div class="q">Why is the threshold 2×?</div><div class="a">It was declared before running, as an operational definition of "severe". It is not a hardware constant. Our results are far from the boundary on both sides (≤ 1.22× vs ≥ 2.28×), so the conclusion does not depend on the exact choice.</div></div>
+<div class="qa"><div class="q">Couldn't the slowdown just be the co-tenant using memory bandwidth?</div><div class="a">The −512 MiB control has the same kind of active co-tenant rewriting ~2.9 GiB every 250 ms, but everything fits: only 1.16×. And the idle co-tenant at +256 MiB holding the same bytes gave 1.03×. Only the combination over-capacity + active produces 2.3×.</div></div>
+<div class="qa"><div class="q">Why is the output required to be identical?</div><div class="a">To prove the work was the same. With temperature 0 and a fixed seed the model produces the same tokens; if the output changed, the trial would measure different work and is marked INCONCLUSIVE.</div></div>
+<div class="qa"><div class="q">What does INCONCLUSIVE mean? Did you delete those trials?</div><div class="a">It means the trial could not answer the question validly (e.g. host RAM guard tripped, model partly offloaded to CPU, pressure not observed, output changed). They are never deleted: they stay in the bundle and the denominator, and are reported.</div></div>
+<div class="qa"><div class="q">Why did some trials stop with the commit guard?</div><div class="a">The laptop has 16 GB of RAM and the co-tenant plus the model plus the browser pushed Windows' commit charge to 90 %. A trial under host-RAM pressure would mix a different cause (type C) into the result, so the runner stops and marks it INCONCLUSIVE. The guard was never relaxed; memory was freed by closing apps.</div></div>
+<div class="qa"><div class="q">Why is the slowdown about 2.35× and not 12× like the bandwidth test?</div><div class="a">The bandwidth test measured blocks that were completely in system memory. In the LLM case only a part of the working data is affected and the GPU still does most of its work from VRAM, so the end-to-end per-token time rises less than the raw bandwidth ratio.</div></div>
+<div class="qa"><div class="q">Why does +512 MiB not make it worse than +256 MiB?</div><div class="a">Observed, not yet explained — a plateau. A plausible explanation is that once over capacity, the manager settles into the same pattern of moving data regardless of the exact excess; verifying it needs residency tracing (future work).</div></div>
+<div class="qa"><div class="q">Is two trials per level enough?</div><div class="a">For a pilot, it shows repeatability (6/6 FAIL trials across two runs, all very consistent: 2.28–2.38×), but not statistical significance. Larger samples are listed as future work.</div></div>
+<div class="qa"><div class="q">What is a SHA-256 manifest for?</div><div class="a">It stores the hash of every file in a bundle, so any later change to the data is detected by <code>verify</code>. It proves integrity, not scientific correctness.</div></div>
+<div class="qa"><div class="q">What is ddmin and 1-minimal?</div><div class="a">Delta debugging minimization repeatedly deletes parts of a failing input and keeps deletions that still fail. 1-minimal means removing any single remaining part makes the failure disappear. It is implemented and tested on a fixture; applying it to the real witness is next.</div></div>
+<div class="qa"><div class="q">What is new compared to existing tools?</div><div class="a">Existing tools (Task Manager, nvidia-smi, other spill trackers) show counters. This project (1) detects spill per process with a baseline and culprit, (2) shows with a measured example that counters cannot separate harmful from harmless pressure, and (3) diagnoses by controlled intervention with matched, recovered, tamper-evident trials and compares remedies.</div></div>
+<div class="qa"><div class="q">What would you do next?</div><div class="a">Run the reducer on the real witness, verify the mechanism with ETW/PIX residency events, add more trials, a second model or engine, real co-tenants and other GPUs, and make "pause the co-tenant" an automatic, consent-based remedy.</div></div>
+
+<!-- ================= 18 ================= -->
+<h1 id="s18">18. Glossary A–Z</h1>
+<dl class="gl">
+<dt>Adapter</dt><dd>Windows' name for a graphics device (GPU). Identified by a LUID.</dd>
+<dt>Affinity (core affinity)</dt><dd>A restriction on which CPU core a process may run on.</dd>
+<dt>Aging</dt><dd>Gradually raising the priority of waiting processes to prevent starvation (MLFQ boost every 40 ticks).</dd>
+<dt>Allocation matrix</dt><dd>Table of how many instances of each resource each process currently holds.</dd>
+<dt>Back edge</dt><dd>In DFS, an edge to a node still on the recursion stack; indicates a cycle.</dd>
+<dt>Bandwidth</dt><dd>Data moved per second (GB/s).</dd>
+<dt>Banker's algorithm</dt><dd>Dijkstra's deadlock-avoidance algorithm: grant requests only if a safe sequence still exists.</dd>
+<dt>Baseline (detector)</dt><dd>A process's minimum shared GPU usage while the adapter was not under pressure.</dd>
+<dt>Baseline (experiment)</dt><dd>The first stage of a matched trial: the target alone.</dd>
+<dt>Belady's anomaly</dt><dd>FIFO's property that more frames can cause more faults.</dd>
+<dt>Budget (DXGI)</dt><dd>VRAM amount Windows suggests the calling process use; per process.</dd>
+<dt>Burst time</dt><dd>CPU time a process needs.</dd>
+<dt>Bundle</dt><dd>Folder of one experiment's recipe, reports, logs and traces with a SHA-256 manifest.</dd>
+<dt>Checkpoint</dt><dd>Applying a committed journal entry to the main data structures.</dd>
+<dt>CLOCK</dt><dd>Second-chance page replacement using a circular hand and reference bits.</dd>
+<dt>Co-tenant</dt><dd>Another process sharing the same GPU; in the research, an owned CUDA program holding VRAM.</dd>
+<dt>Coffman conditions</dt><dd>Mutual exclusion, hold and wait, no preemption, circular wait — all needed for deadlock.</dd>
+<dt>Cold preparation</dt><dd>The co-tenant becomes resident before the model loads.</dd>
+<dt>Commit charge</dt><dd>Total virtual memory Windows has promised (RAM + page file). Guard trips at 90 %.</dd>
+<dt>Context length (num_ctx)</dt><dd>Number of tokens an LLM can attend to; drives KV-cache size.</dd>
+<dt>Context switch</dt><dd>Saving one process's CPU state and loading another's.</dd>
+<dt>CR3 / EIP / ESP / EAX / CS / EFLAGS</dt><dd>x86 registers: page-table base, instruction pointer, stack pointer, accumulator, code segment, status flags.</dd>
+<dt>CUDA</dt><dd>NVIDIA's platform for general computing on GPUs. The driver API lives in <code>nvcuda.dll</code>.</dd>
+<dt>cuMemGetInfo</dt><dd>CUDA call returning free/total GPU memory; reports 0 free during spill, gives no spill signal.</dd>
+<dt>Culprit</dt><dd>The process whose VRAM grew most in the 30 s before a spill.</dd>
+<dt>ddmin</dt><dd>Delta-debugging minimization; produces a 1-minimal failing input.</dd>
+<dt>Deadlock</dt><dd>Processes waiting on each other in a cycle, none able to proceed.</dd>
+<dt>Decode / prefill</dt><dd>Generating output tokens one by one / processing the prompt.</dd>
+<dt>Dedicated Usage</dt><dd>PDH counter: a process's GPU bytes resident in VRAM.</dd>
+<dt>DFS</dt><dd>Depth-first search graph traversal.</dd>
+<dt>Dose-response</dt><dd>Measuring an effect at several strengths of a cause (here: overflow amounts).</dd>
+<dt>DNS rebinding</dt><dd>Attack where a website's domain is re-pointed to 127.0.0.1 to reach local services; blocked by Host checks.</dd>
+<dt>DXGI</dt><dd>DirectX Graphics Infrastructure; Windows API for adapters and video memory info.</dd>
+<dt>dwm.exe</dt><dd>Desktop Window Manager, Windows' compositor; always uses some GPU memory.</dd>
+<dt>eBPF</dt><dd>Extended Berkeley Packet Filter; safe programs attached to kernel hooks.</dd>
+<dt>Evict / demote</dt><dd>Move data from the fast tier (VRAM) to the slow tier (system memory).</dd>
+<dt>FAIL / PASS / INCONCLUSIVE</dt><dd>Trial verdicts: slowdown ≥ 2× with recovery / valid trial below 2× / not valid to decide.</dd>
+<dt>FastAPI</dt><dd>Python web framework used for the agent's server.</dd>
+<dt>FCFS</dt><dd>First-Come First-Served scheduling.</dd>
+<dt>FIFO</dt><dd>First-In First-Out page replacement.</dd>
+<dt>Flash attention</dt><dd>A memory-efficient attention algorithm that avoids a large scratch buffer.</dd>
+<dt>Frame / page</dt><dd>Fixed-size unit of physical / virtual memory (4 KB in AetherOS).</dd>
+<dt>fsck</dt><dd>File-system check and repair.</dd>
+<dt>Gantt chart</dt><dd>Timeline showing which process ran on which core at each tick.</dd>
+<dt>GDDR6</dt><dd>Graphics DDR 6, high-bandwidth memory used as VRAM.</dd>
+<dt>GGUF</dt><dd>llama.cpp's model file format with a tensor header.</dd>
+<dt>GPF (#GP)</dt><dd>General Protection Fault: CPU trap on an illegal memory access or privilege violation.</dd>
+<dt>GPU</dt><dd>Graphics Processing Unit; massively parallel processor.</dd>
+<dt>Hysteresis</dt><dd>Different thresholds for entering and leaving a state to avoid flickering.</dd>
+<dt>Inode</dt><dd>Per-file metadata record.</dd>
+<dt>Intervention</dt><dd>Changing one factor on purpose and re-measuring, to establish cause.</dd>
+<dt>JSONL</dt><dd>JSON Lines: one JSON object per line; format of traces.</dd>
+<dt>KV cache</dt><dd>Stored attention keys and values of earlier tokens in an LLM.</dd>
+<dt>Latency (detector)</dt><dd>Time from real spill onset to the alarm (0.95 s).</dd>
+<dt>LLM</dt><dd>Large language model.</dd>
+<dt>Long-lived Banker's</dt><dd>Variant that reserves running processes' remaining need because they never finish.</dd>
+<dt>LRU</dt><dd>Least Recently Used page replacement.</dd>
+<dt>LUID</dt><dd>Locally Unique Identifier of a graphics adapter.</dd>
+<dt>MAE</dt><dd>Mean absolute error.</dd>
+<dt>Matched trial / block</dt><dd>Baseline, pressure and recovery of identical work; a block is a fixed number of such trials.</dd>
+<dt>MiB / MB</dt><dd>2<sup>20</sup> bytes / 10<sup>6</sup> bytes.</dd>
+<dt>MLFQ</dt><dd>Multi-Level Feedback Queue scheduling (quanta 4/8/16 here).</dd>
+<dt>Mutex / semaphore</dt><dd>Lock with one holder / counter allowing N holders.</dd>
+<dt>Need matrix</dt><dd>Max − Allocation in Banker's algorithm.</dd>
+<dt>NVML</dt><dd>NVIDIA Management Library (used by nvidia-smi).</dd>
+<dt>Ollama / llama-server.exe / llama.cpp</dt><dd>Local LLM server / its worker process / the C++ engine it uses.</dd>
+<dt>Offload (GPU layers)</dt><dd>Putting model layers on the GPU; partial offload = some stay on CPU (type A).</dd>
+<dt>OPTIMAL</dt><dd>Bélády's replacement: evict the page used farthest in the future.</dd>
+<dt>Origin header</dt><dd>Browser header naming the site that made a request; checked by the agent.</dd>
+<dt>PCB</dt><dd>Process Control Block.</dd>
+<dt>PCIe</dt><dd>PCI Express bus between GPU and CPU/RAM; the slow path during spill.</dd>
+<dt>PDH</dt><dd>Performance Data Helper, the Windows performance-counter API.</dd>
+<dt>Precision / recall</dt><dd>Correct alarms ÷ all alarms / detected cases ÷ all real cases.</dd>
+<dt>Preemption</dt><dd>Taking the CPU (or a resource) away from a process.</dd>
+<dt>Quantization</dt><dd>Storing model numbers with fewer bits (f16, q8_0, q4_0).</dd>
+<dt>Quantum</dt><dd>Time slice in Round Robin / MLFQ.</dd>
+<dt>Recipe</dt><dd>Validated JSON specification of an experiment.</dd>
+<dt>Recovery ratio</dt><dd>Recovery ÷ baseline; must be ≤ 1.25 for a valid FAIL.</dd>
+<dt>Replay mode</dt><dd>Playing a saved trace through the same UI without the agent.</dd>
+<dt>Residency</dt><dd>Whether a GPU allocation currently lives in VRAM.</dd>
+<dt>Ring 0 / Ring 3</dt><dd>Kernel mode / user mode privilege levels.</dd>
+<dt>Round Robin</dt><dd>Time-sliced cyclic scheduling.</dd>
+<dt>Safe state / safe sequence</dt><dd>A state with an order in which all processes can finish / that order.</dd>
+<dt>SHA-256</dt><dd>Cryptographic hash function used for integrity manifests.</dd>
+<dt>Shared Usage / Shared GPU memory</dt><dd>GPU data held in system RAM / the system-RAM tier (max half of RAM).</dd>
+<dt>SJF / SRTF</dt><dd>Shortest Job First / Shortest Remaining Time First.</dd>
+<dt>Slowdown</dt><dd>Pressure decode ms/token ÷ baseline decode ms/token.</dd>
+<dt>SMP</dt><dd>Symmetric Multi-Processing (multiple identical cores).</dd>
+<dt>Spill</dt><dd>GPU data placed in system memory because VRAM is full.</dd>
+<dt>SPILL_START / SPILL_END / OFFLOAD_SPLIT</dt><dd>SpillGuard events: spill began / ended / Ollama split model to CPU.</dd>
+<dt>Starvation</dt><dd>A ready process never being scheduled.</dd>
+<dt>Superblock</dt><dd>File-system-wide metadata (clean, mounted, counts, journal pointers).</dd>
+<dt>Sysmem fallback</dt><dd>NVIDIA driver (536.40+) behaviour: use system memory instead of failing when VRAM is full.</dd>
+<dt>Thrashing</dt><dd>Excessive paging that makes useful work collapse.</dd>
+<dt>Tick</dt><dd>One step of the simulated kernel clock (800 ms default).</dd>
+<dt>Token (LLM)</dt><dd>A unit of text generated by the model.</dd>
+<dt>Token (security)</dt><dd>Random secret proving the browser was opened by the agent.</dd>
+<dt>Turnaround / waiting / response time</dt><dd>Completion − arrival / time ready but not running / first run − arrival.</dd>
+<dt>Type A / B / C</dt><dd>Framework split / driver spill / host RAM pressure.</dd>
+<dt>VidMm</dt><dd>Windows Video Memory Manager inside the WDDM graphics kernel.</dd>
+<dt>Virtual memory</dt><dd>Abstraction letting processes use more memory than is physically present, by moving pages between tiers.</dd>
+<dt>VRAM</dt><dd>The GPU's dedicated memory (6 GB GDDR6 here).</dd>
+<dt>WAL</dt><dd>Write-ahead logging (journaling).</dd>
+<dt>Wait-for graph</dt><dd>Graph with an edge P → Q when P waits for a resource held by Q.</dd>
+<dt>WDDM</dt><dd>Windows Display Driver Model.</dd>
+<dt>Web Worker</dt><dd>A background JavaScript thread in the browser.</dd>
+<dt>WebSocket</dt><dd>A persistent two-way connection between browser and server (<code>/ws</code>).</dd>
+<dt>Witness</dt><dd>A saved recipe that reproduces the failure.</dd>
+<dt>Work stealing</dt><dd>An idle core taking queued tasks from a busy core.</dd>
+<dt>Working set</dt><dd>The set of pages a process actively uses.</dd>
+<dt>Zustand</dt><dd>React state-management library used for the stores.</dd>
+</dl>
+
+<!-- ================= 19 ================= -->
+<h1 id="s19">19. Numbers cheat-sheet</h1>
+<table>
+  <tr><th>Item</th><th>Value</th></tr>
+  <tr><td>Kernel tick</td><td>800 ms default</td></tr>
+  <tr><td>RR quantum · MLFQ quanta · aging</td><td>4 ticks · 4 / 8 / 16 · every 40 ticks</td></tr>
+  <tr><td>Simulated RAM</td><td>32 frames × 4 KB; kernel space 0x0000–0x3FFF, user 0x4000–0xFFFF</td></tr>
+  <tr><td>Banker's demo safe sequence</td><td>P1 → P3 → P4 → P0 → P2 (Available 3 3 2)</td></tr>
+  <tr><td>Journal</td><td>25-entry ring buffer; PENDING → COMMITTED → CHECKPOINTED</td></tr>
+  <tr><td>Physical VRAM · DXGI budget · shared cap</td><td>6002 MB · 5234 MB · 7827 MB</td></tr>
+  <tr><td>VRAM vs spilled bandwidth (E1)</td><td>163.3 vs 13.2 GB/s → 12.4× slower; spill from the 23rd 256 MB block</td></tr>
+  <tr><td>cuMemGetInfo</td><td>0 MB free from 5376 MB onward, allocations still succeed</td></tr>
+  <tr><td>Detector</td><td>θhi 0.92, θlo 0.85, Δ 128 MB, k 2, exit 3; recall 3/3, 0 FP, 0.95 s latency (W1)</td></tr>
+  <tr><td>Fit estimator</td><td>O = 235 MB, +6.1 MB / 1 k ctx; MAE 46 MB vs Ollama 902 MB</td></tr>
+  <tr><td>Agent overhead</td><td>2.3 % of one core, 52 MB RAM</td></tr>
+  <tr><td>Target</td><td>qwen2.5:3b-instruct, ctx 2048, 128 tokens, temp 0; footprint ≈ 2421 MiB; baseline ≈ 14 ms/token</td></tr>
+  <tr><td>Verdict rule</td><td>FAIL if slowdown ≥ 2.0 and recovery ≤ 1.25; guards: RAM floor 1.5 GiB, commit 90 %</td></tr>
+  <tr><td>Dose-response</td><td>−512: 1.16× · 0: 1.21× · +256: 2.36× · +512: 2.33×</td></tr>
+  <tr><td>Witness</td><td>+256 MiB reproduced 6/6 (2.28–2.38×); recovery 0.996–1.010×</td></tr>
+  <tr><td>Idle co-tenant</td><td>1.01–1.03× (3 valid trials) with identical counters</td></tr>
+  <tr><td>Remedies</td><td>release all 1.01× · serialize 1.00× · half 1.10× · eighth 1.19× · pause 1.01×</td></tr>
+  <tr><td>Detector on research trials</td><td>TP 4, FP 3, FN 0, TN 2 → recall 4/4, precision 4/7</td></tr>
+  <tr><td>Tests</td><td>66 front-end (Vitest) + 149 agent (pytest), all passing</td></tr>
+</table>
+<p class="small" style="margin-top:14pt;text-align:left">All measurements: one laptop (RTX 3050 6 GB Laptop GPU, NVIDIA 581.83, Windows 11 26200, AC power), October 2026. Sources in the repository:
+<code>docs/SPILLGUARD.md</code>, <code>docs/SPILLGUARD_REPRO.md</code>, <code>docs/SPILLGUARD_REPRO_RESULTS_20261018.md</code>, and the evidence bundles under <code>traces/repro/</code>.</p>
+
+</body>
+</html>

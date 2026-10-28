@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AetherOS + SpillGuard — 20-Minute Presentation Speech</title>
+<style>
+  @page { size: A4; margin: 16mm 16mm 18mm 16mm;
+    @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 8.5pt "Segoe UI", Arial, sans-serif; color: #666; }
+    @bottom-left { content: "20-minute speech · Varad Patil (24BIT0175)"; font: 8.5pt "Segoe UI", Arial, sans-serif; color: #666; } }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Cambria, Georgia, serif; font-size: 11.5pt; line-height: 1.55; color: #1a1a1a; margin: 0; }
+  h1 { font-family: "Segoe UI", Arial, sans-serif; color: #14213D; font-size: 24pt; margin: 0 0 4pt; }
+  .sub { font-family: "Segoe UI", Arial, sans-serif; color: #444; font-size: 11pt; margin-bottom: 10pt; }
+  .tips { border: 0.8pt solid #9cc9a6; background: #e9f6ec; border-radius: 4pt; padding: 8pt 11pt; margin: 8pt 0 12pt; font-size: 10.5pt; break-inside: avoid; }
+  .tips b { font-family: "Segoe UI", Arial, sans-serif; }
+  table { border-collapse: collapse; width: 100%; font-size: 9.6pt; margin: 4pt 0 12pt; font-family: "Segoe UI", Arial, sans-serif; break-inside: avoid; }
+  th, td { border: 0.6pt solid #c9d3de; padding: 2.5pt 6pt; text-align: left; }
+  th { background: #eef3f8; }
+  td.r, th.r { text-align: right; }
+  .slide { border-left: 4pt solid #2F5DBA; padding: 2pt 0 2pt 12pt; margin: 0 0 14pt; break-inside: avoid-page; }
+  .head { font-family: "Segoe UI", Arial, sans-serif; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 0.8pt solid #d9d3c4; padding-bottom: 2pt; margin-bottom: 5pt; }
+  .head .t { font-weight: 800; color: #14213D; font-size: 12.5pt; }
+  .head .n { color: #A8490F; font-weight: 800; margin-right: 6pt; }
+  .head .time { font-size: 9.5pt; color: #fff; background: #14213D; padding: 1pt 7pt; border-radius: 8pt; white-space: nowrap; }
+  .cue { font-family: "Segoe UI", Arial, sans-serif; font-size: 9.5pt; color: #8A3A0B; background: #FBE3D2; border-radius: 3pt; padding: 1.5pt 6pt; display: inline-block; margin: 2pt 0 5pt; }
+  p { margin: 0 0 6pt; }
+  .say { color: #14213D; }
+  .pause { font-family: "Segoe UI", Arial, sans-serif; font-size: 9pt; color: #2F5DBA; font-weight: 700; }
+  b.k { color: #A8490F; }
+  .end { border: 0.8pt solid #c9d3de; background: #eef3f8; border-radius: 4pt; padding: 8pt 11pt; margin-top: 10pt; break-inside: avoid; font-size: 10.5pt; }
+</style>
+</head>
+<body>
+
+<h1>20-Minute Presentation Speech</h1>
+<div class="sub">AetherOS + SpillGuard · Varad Patil (24BIT0175) · to Prof. Harshita Patel · follows the 17-slide deck in order</div>
+
+<div class="tips"><b>How to use this.</b> Read the words in normal type out loud, in your own voice — you don't have to memorise them word for word.
+Orange boxes tell you what to <b>point at</b>. <span class="pause">[pause]</span> means stop for one breath so Ma'am can look at the slide.
+Speak slowly: about 130 words a minute. If Ma'am asks a question in the middle, answer it, then say <i>"Coming back to the slide…"</i> and continue.
+The live demo comes <b>after</b> slide 17 — use the click-by-click script for that.</div>
+
+<table>
+  <tr><th>#</th><th>Slide</th><th class="r">Time</th><th class="r">Clock</th><th>#</th><th>Slide</th><th class="r">Time</th><th class="r">Clock</th></tr>
+  <tr><td>1</td><td>Cover</td><td class="r">0:30</td><td class="r">0:30</td><td>10</td><td>Detecting a spill</td><td class="r">1:25</td><td class="r">11:45</td></tr>
+  <tr><td>2</td><td>The problem</td><td class="r">1:30</td><td class="r">2:00</td><td>11</td><td>What a spill looks like</td><td class="r">0:55</td><td class="r">12:40</td></tr>
+  <tr><td>3</td><td>What I built</td><td class="r">0:50</td><td class="r">2:50</td><td>12</td><td>Will this model fit?</td><td class="r">1:25</td><td class="r">14:05</td></tr>
+  <tr><td>4</td><td>Architecture</td><td class="r">1:10</td><td class="r">4:00</td><td>13</td><td>Research method</td><td class="r">1:25</td><td class="r">15:30</td></tr>
+  <tr><td>5</td><td>CPU scheduling</td><td class="r">1:45</td><td class="r">5:45</td><td>14</td><td>Result 1 · cliff</td><td class="r">1:25</td><td class="r">16:55</td></tr>
+  <tr><td>6</td><td>Memory / paging</td><td class="r">1:25</td><td class="r">7:10</td><td>15</td><td>Result 2 · counters</td><td class="r">1:25</td><td class="r">18:20</td></tr>
+  <tr><td>7</td><td>Deadlock</td><td class="r">1:40</td><td class="r">8:50</td><td>16</td><td>Result 3 · remedies</td><td class="r">1:10</td><td class="r">19:30</td></tr>
+  <tr><td>8</td><td>Journaling</td><td class="r">0:55</td><td class="r">9:45</td><td>17</td><td>Conclusion</td><td class="r">0:50</td><td class="r">20:20</td></tr>
+  <tr><td>9</td><td>The link</td><td class="r">0:35</td><td class="r">10:20</td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+<!-- 1 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">1</span>Cover — AetherOS + SpillGuard</span><span class="time">0:00 – 0:30</span></div>
+<p class="say">Good morning, Ma'am. I am Varad Patil, registration number 24BIT0175. My project is <b>AetherOS plus SpillGuard</b>.</p>
+<p class="say">In one line: AetherOS is an operating-system simulator I built that runs in the browser, so we can actually <i>see</i> how a kernel works. SpillGuard is a real tool that watches the GPU memory of this laptop and catches the moment it overflows into normal RAM. Let me start with the problem.</p>
+</div>
+
+<!-- 2 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">2</span>The problem — out of VRAM, nothing crashes</span><span class="time">0:30 – 2:00</span></div>
+<span class="cue">Point at the blue box on the left</span>
+<p class="say">Ma'am, every graphics card has its own memory, called <b>VRAM</b>. On this laptop it is 6 GB. It is very fast — I measured about <b>163 gigabytes per second</b>.</p>
+<p class="say">Now, what happens when programs need more than 6 GB? We would expect an error, like "out of memory". But on Windows, nothing crashes. Windows' video memory manager and the NVIDIA driver quietly move the extra data into normal system RAM —</p>
+<span class="cue">Point at the orange box on the right</span>
+<p class="say">— and the GPU has to reach it over the PCIe bus. I measured that at <b>13.2 gigabytes per second</b>. That is <b class="k">12.4 times slower</b>. <span class="pause">[pause]</span></p>
+<p class="say">So the program keeps running, just much slower, and the user has no idea why. This is called a <b>spill</b>. Even the programmer cannot see it: I asked CUDA how much memory was free, and it said zero MB — while it kept giving out more memory.</p>
+<p class="say">So my questions were: can we detect this from outside, measure how bad it really is, and fix it?</p>
+</div>
+
+<!-- 3 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">3</span>What I built — three layers</span><span class="time">2:00 – 2:50</span></div>
+<span class="cue">Point at each card left to right</span>
+<p class="say">I built it in three layers. First, <b>AetherOS</b> — this one is simulated, for teaching: two CPU cores with six scheduling algorithms, paging with LRU, FIFO and CLOCK, deadlock detection with Banker's algorithm, and a journaled file system.</p>
+<p class="say">Second, <b>SpillGuard</b> — this is real. For every app it shows how much is in VRAM and how much has spilled, it detects spills, and it checks whether a new program will fit.</p>
+<p class="say">Third, <b>SpillGuard Repro</b> — real experiments with an actual AI model, to prove how much a spill hurts and what fixes it. I want to be clear, Ma'am: the kernel is a simulation; everything about the GPU is measured on this laptop.</p>
+</div>
+
+<!-- 4 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">4</span>Architecture</span><span class="time">2:50 – 4:00</span></div>
+<span class="cue">Left box, then the arrow, then right box</span>
+<p class="say">This is how it fits together. On the left is the browser. The desktop and apps are built in React and TypeScript, and underneath is my simulated microkernel — the scheduler, memory manager, deadlock engine and file system. It runs on a clock: every 800 milliseconds is one tick, one unit of CPU time.</p>
+<p class="say">On the right is the SpillGuard agent, written in Python. Once every second it reads Windows' own performance counters — the same data Task Manager uses — through PDH, DXGI and NVIDIA's NVML library. It analyses them and sends one small JSON message per second to the browser over a WebSocket.</p>
+<p class="say">For security, it only listens on this computer, 127.0.0.1, it needs a secret token, and it is read-only. And if the agent isn't running, I can replay a saved recording, so the demo works on any computer.</p>
+</div>
+
+<!-- 5 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">5</span>CPU scheduling — Round Robin</span><span class="time">4:00 – 5:45</span></div>
+<span class="cue">Point at the Core 0 row</span>
+<p class="say">Now the OS part. This chart is the real output from my Task Manager. I created three processes, A, B and C, each needing 8 ticks, and selected Round Robin with a time quantum of 4.</p>
+<p class="say">Look at Core 0: A runs exactly 4 ticks, then it is preempted and C gets the CPU, then A comes back. That is Round Robin — everyone gets a fair turn. <span class="pause">[pause]</span></p>
+<span class="cue">Point at the B row, then the dashed C boxes</span>
+<p class="say">B was put on Core 1 because that queue was shorter — that is load balancing. And these dashed boxes: when B finished, Core 1 had nothing to do, so it <b>stole</b> C from Core 0's queue. That is work stealing, which real multi-core schedulers use.</p>
+<span class="cue">Point at the MLFQ row</span>
+<p class="say">The default algorithm is <b>MLFQ</b>, multi-level feedback queue: three queues with time slices 4, 8 and 16. A new job starts at the top; if it uses its whole slice, it is CPU-heavy, so it moves down. Interactive jobs stay on top. And every 40 ticks everything is boosted back up, so no process starves — that is aging. I also implemented FCFS, SJF, SRTF and Priority.</p>
+</div>
+
+<!-- 6 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">6</span>Memory — paging and page replacement</span><span class="time">5:45 – 7:10</span></div>
+<span class="cue">Point at the coloured grid</span>
+<p class="say">Memory. The simulated RAM has 32 frames of 4 KB. Each process I create needs 16 KB, which is 4 pages. So 8 processes fill the memory completely, and the ninth causes <b>page faults</b> — there is no free frame, so the OS must evict someone. These dashed frames are the victims.</p>
+<span class="cue">Point at the table</span>
+<p class="say">Which page to evict depends on the policy. FIFO throws out the page that came in first. LRU throws out the one used least recently. CLOCK, which real operating systems use, gives every page a second chance using a reference bit. And Optimal throws out the page needed farthest in the future — the best possible, but no real system knows the future, so in my app it falls back to LRU, and I label that honestly. On the textbook reference string with three frames, FIFO makes 7 faults and the others make 6.</p>
+<span class="cue">Point at the orange box</span>
+<p class="say">I also show memory protection: if a user program in ring 3 tries to read kernel address 0x0020, it is trapped as a General Protection Fault and the process is stopped.</p>
+</div>
+
+<!-- 7 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">7</span>Deadlock — detection and Banker's</span><span class="time">7:10 – 8:50</span></div>
+<span class="cue">Trace the cycle with your finger, clockwise</span>
+<p class="say">Deadlock. A deadlock needs four conditions together: mutual exclusion, hold and wait, no preemption, and circular wait. In my app, "Inject Deadlock" creates exactly this picture: Thread Alpha holds the GPU mutex and waits for the disk mutex; Thread Beta holds the disk mutex and waits for the GPU mutex. Each waits for the other — forever. <span class="pause">[pause]</span></p>
+<p class="say">To detect it, the engine builds a <b>wait-for graph</b> and runs a depth-first search. If the search comes back to a node that is still on its current path, that is a cycle — a deadlock. To recover, we preempt one thread; its lock is released and the other continues.</p>
+<span class="cue">Point at the P1 … P2 list</span>
+<p class="say">On the right is <b>avoidance</b>: Banker's algorithm. Each process declares its maximum need; need is maximum minus what it already holds. With 3, 3, 2 available, P1 can finish and return what it holds, so the work vector becomes 5, 3, 2. Then P3, P4, P0 and P2 can finish. Because everyone can finish in some order, the state is <b>safe</b> — and a safe state can never deadlock.</p>
+</div>
+
+<!-- 8 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">8</span>File system — journaling</span><span class="time">8:50 – 9:45</span></div>
+<span class="cue">Point at the three boxes, then the power-cut box</span>
+<p class="say">The file system. A power cut in the middle of a write can leave files half-written. So I use <b>write-ahead logging</b>: every change is first written to a journal as pending, then committed, then checkpointed into the inode table.</p>
+<p class="say">When I simulate a power cut, the disk is marked dirty and unmounted, with one torn write still pending. Then <b>fsck</b> reads the journal: anything that never committed is rolled back, anything committed but not applied is replayed. The disk is clean again and never half-written — the same idea as ext4 and NTFS journaling.</p>
+</div>
+
+<!-- 9 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">9</span>The link — same problem, one level up</span><span class="time">9:45 – 10:20</span></div>
+<span class="cue">Read across the table rows</span>
+<p class="say">And this is why the two halves belong together, Ma'am. Everything AetherOS teaches exists inside a real GPU. VRAM is like physical frames. Shared GPU memory in system RAM is like swap space. Windows' video memory manager evicting allocations is page replacement. And a spill is basically <b>thrashing on the GPU</b>. So SpillGuard is the real-world version of the same memory-management problem.</p>
+</div>
+
+<!-- 10 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">10</span>SpillGuard — detecting a spill</span><span class="time">10:20 – 11:45</span></div>
+<span class="cue">Point at OK → PRESSURED → SPILLING</span>
+<p class="say">So how do I detect a spill? Once a second, for every process, the agent checks three things. First, is the GPU at least 92 percent full? That is "pressured". Second, has this process's shared memory grown more than 128 MB above its own normal baseline? And third, is it still rising? If all three hold for two seconds in a row, it is "spilling". It goes back to OK only after three clear seconds, so it doesn't flicker.</p>
+<p class="say">The baseline matters because browsers always keep some shared memory; without it, they would be flagged all the time. It also names the <b>culprit</b> — the process whose memory grew most in the last 30 seconds.</p>
+<span class="cue">Point at the four numbers</span>
+<p class="say">I tested it against independent ground truth, by measuring the speed of every memory block. It caught <b>all 3</b> real spills, gave <b>zero</b> false alarms on runs that came close at 98 percent, detected in about <b>one second</b>, and uses only <b>2.3 percent</b> of one CPU core.</p>
+</div>
+
+<!-- 11 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">11</span>What a spill looks like</span><span class="time">11:45 – 12:40</span></div>
+<span class="cue">Point at the red banner, then the python.exe bar</span>
+<p class="say">This is what it looks like, redrawn from a recording on this laptop. A test program kept allocating GPU memory. VRAM reached 5.81 of 5.86 GB — completely full — and then 960 MB of that program's data ended up in system RAM; that is the orange part of the bar.</p>
+<p class="say">The banner turns red and names the process, and the culprit line says python.exe grew its memory by 3.3 GB just before. In the live demo I will replay this exact recording.</p>
+</div>
+
+<!-- 12 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">12</span>Will this model fit? Banker's on real VRAM</span><span class="time">12:40 – 14:05</span></div>
+<span class="cue">Point at M = W + KV + B + O</span>
+<p class="say">Detection is good, but prevention is better. Before launching an AI model, SpillGuard estimates its GPU memory from the model file: the weights, the KV cache — which stores past tokens and grows with the context length — the buffers, and the CUDA context. For this model it is 2.64 GB. I calibrated it on this laptop, and the error is only <b>46 MB</b>, while Ollama's own estimate was off by about <b>900 MB</b>.</p>
+<span class="cue">Point at SAFE, then DENY</span>
+<p class="say">Then I use Banker's algorithm with VRAM as the resource. Here is the interesting part: for a new program claiming 5.5 GB, the textbook Banker's says <b>SAFE</b>, because it assumes every process eventually finishes and gives its memory back. But a browser or a game never finishes. So my version reserves their remaining need and says <b class="k">DENY</b> — launching it would cause a spill. So the textbook algorithm is too optimistic for long-running programs.</p>
+</div>
+
+<!-- 13 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">13</span>Research method — a controlled experiment</span><span class="time">14:05 – 15:30</span></div>
+<span class="cue">Point at Baseline → Pressure → Recovery</span>
+<p class="say">Now the research. I wanted to prove how much a spill actually hurts a real application. I used a real local AI model, Qwen 2.5 with 3 billion parameters, running in Ollama. Every trial has three stages: <b>baseline</b> — the model alone; <b>pressure</b> — the same work while a second program, which I call the co-tenant, holds GPU memory; and <b>recovery</b> — alone again. Same prompt, 128 tokens, temperature zero, so the output must be exactly the same every time. I measure milliseconds per generated token.</p>
+<span class="cue">Point at the three verdict cards</span>
+<p class="say">A trial counts as <b>FAIL</b> only if it is at least twice as slow <i>and</i> fully recovers afterwards — that proves the pressure caused it. <b>PASS</b> is a clean trial that stayed under 2×. And anything doubtful — for example the laptop ran short of RAM, or the output changed — is <b>INCONCLUSIVE</b>, and it stays in the results, never hidden. Every run is saved with SHA-256 hashes, so the data cannot be changed later without it showing.</p>
+</div>
+
+<!-- 14 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">14</span>Result 1 — a cliff at the VRAM boundary</span><span class="time">15:30 – 16:55</span></div>
+<span class="cue">Move your finger left to right along the chart</span>
+<p class="say">Result one. On the x-axis is how far total memory demand goes past the 6 GB. At minus 512 — everything fits — the model is only 1.16 times slower, just from sharing the GPU. Exactly at capacity, 1.21. <span class="pause">[pause]</span></p>
+<p class="say">But just 256 MB over, it jumps to <b class="k">2.36 times slower</b> — from 14 milliseconds per token to 33. And 512 over is no worse. So it is not a gradual slope; it is a <b>cliff</b> right at the VRAM boundary. Every failure recovered fully once the co-tenant left, with the same output.</p>
+<span class="cue">Point at the small square</span>
+<p class="say">And this little square is an idle co-tenant holding the same memory — almost no slowdown. That is the next slide.</p>
+</div>
+
+<!-- 15 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">15</span>Result 2 — same counters, opposite outcomes</span><span class="time">16:55 – 18:20</span></div>
+<span class="cue">Point at the two columns of the table</span>
+<p class="say">This is my most interesting finding, Ma'am. At plus 256 MB, I compared an <b>active</b> co-tenant, which touches its memory every quarter of a second, with an <b>idle</b> one holding exactly the same memory. Look at the Windows counters: identical. Same memory for the model, same for the co-tenant, GPU full in both cases.</p>
+<span class="cue">Point at 2.37× and 1.03×</span>
+<p class="say">But the active one makes the model <b class="k">2.37 times slower</b>, and the idle one only <b>1.03</b>. <span class="pause">[pause]</span> So memory counters alone cannot tell harmful pressure from harmless pressure. Even my own detector, which uses counters, caught all 4 real slowdowns but raised 3 alarms on harmless runs. What does separate them is an <b>intervention</b> — changing one thing and measuring again.</p>
+<p class="say">My guess is that an active co-tenant makes Windows keep moving pages back and forth, which is called churn — but that is a hypothesis; proving it needs ETW tracing.</p>
+</div>
+
+<!-- 16 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">16</span>Result 3 — which fix works?</span><span class="time">18:20 – 19:30</span></div>
+<span class="cue">Go down the bars top to bottom</span>
+<p class="say">Result three: what fixes it? First I re-ran the failing case from scratch — it failed again, so overall <b>6 out of 6</b> trials failed across two separate runs. Then I tested each fix as its own experiment.</p>
+<p class="say">Releasing all of the co-tenant's memory: fixed. Running it after the AI model: fixed. Releasing half, or even just one eighth: fixed, because that brings us back under capacity.</p>
+<span class="cue">Point at the highlighted last row</span>
+<p class="say">But the best one is the last: the co-tenant keeps every byte and just <b>pauses its activity</b> — and the model is back to full speed, 1.01. That is the least disruptive fix.</p>
+</div>
+
+<!-- 17 -->
+<div class="slide"><div class="head"><span class="t"><span class="n">17</span>Conclusion</span><span class="time">19:30 – 20:20</span></div>
+<span class="cue">Point at Built, Found, Limits · next</span>
+<p class="say">To conclude, Ma'am. I built AetherOS, which makes scheduling, paging, deadlock and journaling visible and testable, and SpillGuard, which detects real GPU memory spills and does admission control with Banker's algorithm.</p>
+<p class="say">I found that crossing VRAM by just 256 MB makes a real AI model 2.36 times slower, that memory counters cannot tell harmful pressure apart, and that pausing the other program fixes it.</p>
+<p class="say">The limits, honestly: one laptop, two trials per level, and the churn mechanism is not proven yet. Next, I want to verify it with ETW tracing and test more GPUs and models. Everything is tested — 66 front-end tests and 149 agent tests pass.</p>
+<p class="say">Thank you, Ma'am. <b>If you'd like, I can show you the live demo now.</b></p>
+</div>
+
+<div class="end"><b>After the speech:</b> switch to the browser tab opened by <code>START_DEMO.bat</code> and follow <b>AetherOS_Demo_Script.pdf</b> (Task Manager → Memory Map → Deadlock → Terminal → Finder → SpillGuard → spill replay → evidence desk).
+For questions, keep <b>AetherOS_SpillGuard_Complete_Guide.pdf</b> open at section 17 (viva Q&amp;A) and section 19 (numbers cheat-sheet).</div>
+
+</body>
+</html>

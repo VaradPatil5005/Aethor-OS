@@ -1,0 +1,11 @@
+model,ctx,measured_mb,runner,ollama_size_mb,ollama_size_vram_mb,tok_s,load_s,is_vision,full_offload,pred_fa0,pred_fa1
+qwen2.5:3b-instruct,2048,2421,llama-server.exe,1985,1985,69.7,6.1,0,1,2268,2204
+qwen2.5:3b-instruct,4096,2497,llama-server.exe,2059,2059,70.3,6.0,0,1,2404,2276
+qwen2.5:3b-instruct,8192,2749,llama-server.exe,2291,2291,70.5,6.0,0,1,2676,2420
+qwen2.5:3b-instruct,16384,3069,llama-server.exe,2595,2595,70.3,6.0,0,1,3220,2708
+qwen2.5:3b-instruct,32768,3709,llama-server.exe,3203,3203,70.4,6.0,0,1,4308,3284
+qwen3-vl:2b,2048,3097,llama-server.exe,1658,1658,112.9,7.4,1,1,2380,2316
+qwen3-vl:2b,4096,3325,llama-server.exe,1884,1884,114.0,6.3,1,1,2668,2540
+qwen3-vl:2b,8192,3877,llama-server.exe,2404,2404,114.4,6.4,1,1,3244,2988
+qwen3-vl:2b,16384,4693,llama-server.exe,3240,3240,113.6,6.6,1,1,4396,3884
+qwen3-vl:2b,32768,5399,llama-server.exe,5531,3641,71.0,8.1,1,0,6700,5676

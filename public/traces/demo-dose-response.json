@@ -1,0 +1,575 @@
+{
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "physical_vram_mib": 6002,
+ "desktop_resident_mib_at_start": 128,
+ "target_estimate_mib": 2421,
+ "touch_interval_ms": 250,
+ "ctx": 2048,
+ "num_predict": 128,
+ "repeats": 2,
+ "levels": [
+  {
+   "planned_overflow_mib": -512,
+   "holder_mib": 2941,
+   "bundle": "traces\\repro\\20261018-dose-response\\dose-minus512mib",
+   "complete": true,
+   "stopped_reason": null,
+   "trials": [
+    {
+     "trial": 1,
+     "verdict": {
+      "outcome": "PASS",
+      "reason": "valid trial did not reach the declared slowdown threshold",
+      "slowdown": 1.15306009661752,
+      "recovery": 0.9804922768835324
+     },
+     "baseline": {
+      "ms_per_token": 14.41896875,
+      "load_ms": 2171.0265,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "pressure": {
+      "ms_per_token": 16.6259375,
+      "load_ms": 1882.2828,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "recovery": {
+      "ms_per_token": 14.1376875,
+      "load_ms": 1856.6361,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     }
+    },
+    {
+     "trial": 2,
+     "verdict": {
+      "outcome": "PASS",
+      "reason": "valid trial did not reach the declared slowdown threshold",
+      "slowdown": 1.167307797507686,
+      "recovery": 1.008795855625212
+     },
+     "baseline": {
+      "ms_per_token": 14.28140625,
+      "load_ms": 1867.6049,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "pressure": {
+      "ms_per_token": 16.670796875,
+      "load_ms": 1848.9438,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "recovery": {
+      "ms_per_token": 14.4070234375,
+      "load_ms": 1851.0673,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     }
+    }
+   ]
+  },
+  {
+   "planned_overflow_mib": 0,
+   "holder_mib": 3453,
+   "bundle": "traces\\repro\\20261018-dose-response\\dose-plus0mib",
+   "complete": true,
+   "stopped_reason": null,
+   "trials": [
+    {
+     "trial": 1,
+     "verdict": {
+      "outcome": "PASS",
+      "reason": "valid trial did not reach the declared slowdown threshold",
+      "slowdown": 1.2043928869420681,
+      "recovery": 0.9964342307250177
+     },
+     "baseline": {
+      "ms_per_token": 14.2040703125,
+      "load_ms": 2125.298,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "pressure": {
+      "ms_per_token": 17.10728125,
+      "load_ms": 1849.2702,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "recovery": {
+      "ms_per_token": 14.153421875,
+      "load_ms": 1856.4214,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     }
+    },
+    {
+     "trial": 2,
+     "verdict": {
+      "outcome": "PASS",
+      "reason": "valid trial did not reach the declared slowdown threshold",
+      "slowdown": 1.2227301031806788,
+      "recovery": 1.0077151159806181
+     },
+     "baseline": {
+      "ms_per_token": 14.00153125,
+      "load_ms": 1847.0171,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "pressure": {
+      "ms_per_token": 17.12009375,
+      "load_ms": 1869.6278,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "recovery": {
+      "ms_per_token": 14.1095546875,
+      "load_ms": 1870.6416,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     }
+    }
+   ]
+  },
+  {
+   "planned_overflow_mib": 256,
+   "holder_mib": 3709,
+   "bundle": "traces\\repro\\20261018-dose-response\\dose-plus256mib",
+   "complete": true,
+   "stopped_reason": null,
+   "trials": [
+    {
+     "trial": 1,
+     "verdict": {
+      "outcome": "FAIL",
+      "reason": "completed slowdown with recovery; mechanism remains unverified",
+      "slowdown": 2.3730667151953084,
+      "recovery": 1.009785310847654
+     },
+     "baseline": {
+      "ms_per_token": 14.0381015625,
+      "load_ms": 1826.1662,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "pressure": {
+      "ms_per_token": 33.3133515625,
+      "load_ms": 2105.5818,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "recovery": {
+      "ms_per_token": 14.17546875,
+      "load_ms": 1828.6254,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     }
+    },
+    {
+     "trial": 2,
+     "verdict": {
+      "outcome": "FAIL",
+      "reason": "completed slowdown with recovery; mechanism remains unverified",
+      "slowdown": 2.3522229031844026,
+      "recovery": 0.9957382756741109
+     },
+     "baseline": {
+      "ms_per_token": 14.0604765625,
+      "load_ms": 1849.696,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "pressure": {
+      "ms_per_token": 33.073375,
+      "load_ms": 1843.1073,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "recovery": {
+      "ms_per_token": 14.0005546875,
+      "load_ms": 1861.0505,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     }
+    }
+   ]
+  },
+  {
+   "planned_overflow_mib": 512,
+   "holder_mib": 3965,
+   "bundle": "traces\\repro\\20261018-dose-response\\dose-plus512mib",
+   "complete": true,
+   "stopped_reason": null,
+   "trials": [
+    {
+     "trial": 1,
+     "verdict": {
+      "outcome": "FAIL",
+      "reason": "completed slowdown with recovery; mechanism remains unverified",
+      "slowdown": 2.3751728288718086,
+      "recovery": 1.0043781473628413
+     },
+     "baseline": {
+      "ms_per_token": 14.14875,
+      "load_ms": 1846.7124,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "pressure": {
+      "ms_per_token": 33.6057265625,
+      "load_ms": 3615.0974,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "recovery": {
+      "ms_per_token": 14.2106953125,
+      "load_ms": 1846.5969,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     }
+    },
+    {
+     "trial": 2,
+     "verdict": {
+      "outcome": "FAIL",
+      "reason": "completed slowdown with recovery; mechanism remains unverified",
+      "slowdown": 2.2832809109577084,
+      "recovery": 0.9996779834336055
+     },
+     "baseline": {
+      "ms_per_token": 14.0957421875,
+      "load_ms": 1842.7404,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "pressure": {
+      "ms_per_token": 32.1845390625,
+      "load_ms": 3367.9394,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     },
+     "recovery": {
+      "ms_per_token": 14.091203125,
+      "load_ms": 1848.0801,
+      "size_mib": 1985,
+      "size_vram_mib": 1985,
+      "errors": []
+     }
+    }
+   ]
+  }
+ ],
+ "idle": {
+  "touch_interval_ms": 0,
+  "levels": [
+   {
+    "planned_overflow_mib": 256,
+    "holder_mib": 3709,
+    "bundle": "traces\\repro\\20261018-idle-cotenant\\dose-plus256mib",
+    "complete": false,
+    "stopped_reason": "host resource guard; remaining planned blocks unexecuted",
+    "trials": [
+     {
+      "trial": 1,
+      "verdict": {
+       "outcome": "PASS",
+       "reason": "valid trial did not reach the declared slowdown threshold",
+       "slowdown": 1.0336033490456191,
+       "recovery": 1.031355308718328
+      },
+      "baseline": {
+       "ms_per_token": 14.3249765625,
+       "load_ms": 1836.9492,
+       "size_mib": 1985,
+       "size_vram_mib": 1985,
+       "errors": []
+      },
+      "pressure": {
+       "ms_per_token": 14.80634375,
+       "load_ms": 2163.0001,
+       "size_mib": 1985,
+       "size_vram_mib": 1985,
+       "errors": []
+      },
+      "recovery": {
+       "ms_per_token": 14.774140625,
+       "load_ms": 2172.0527,
+       "size_mib": 1985,
+       "size_vram_mib": 1985,
+       "errors": []
+      }
+     },
+     {
+      "trial": 2,
+      "verdict": {
+       "outcome": "INCONCLUSIVE",
+       "reason": "pressure: collection, workload or helper failure",
+       "slowdown": null,
+       "recovery": null
+      },
+      "baseline": {
+       "ms_per_token": 14.357546875,
+       "load_ms": 2185.2441,
+       "size_mib": 1985,
+       "size_vram_mib": 1985,
+       "errors": []
+      },
+      "pressure": {
+       "ms_per_token": null,
+       "load_ms": null,
+       "size_mib": null,
+       "size_vram_mib": null,
+       "errors": [
+        "RuntimeError: host commit pressure reached or unavailable"
+       ]
+      },
+      "recovery": {
+       "ms_per_token": 14.62509375,
+       "load_ms": 2217.39,
+       "size_mib": 1985,
+       "size_vram_mib": 1985,
+       "errors": []
+      }
+     }
+    ]
+   },
+   {
+    "planned_overflow_mib": 512,
+    "holder_mib": 3965,
+    "bundle": "traces\\repro\\20261018-idle-cotenant\\dose-plus512mib",
+    "complete": false,
+    "stopped_reason": "host resource guard; remaining planned blocks unexecuted",
+    "trials": [
+     {
+      "trial": 1,
+      "verdict": {
+       "outcome": "INCONCLUSIVE",
+       "reason": "pressure: collection, workload or helper failure",
+       "slowdown": null,
+       "recovery": null
+      },
+      "baseline": {
+       "ms_per_token": 14.47140625,
+       "load_ms": 1865.3758,
+       "size_mib": 1985,
+       "size_vram_mib": 1985,
+       "errors": []
+      },
+      "pressure": {
+       "ms_per_token": null,
+       "load_ms": null,
+       "size_mib": null,
+       "size_vram_mib": null,
+       "errors": [
+        "RuntimeError: host commit pressure reached or unavailable"
+       ]
+      },
+      "recovery": {
+       "ms_per_token": 14.293140625,
+       "load_ms": 1844.603,
+       "size_mib": 1985,
+       "size_vram_mib": 1985,
+       "errors": []
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "detector": {
+  "name": "SpillGuard counter detector (PDH, hysteresis)",
+  "rows": [
+   {
+    "level": "dose-minus512mib",
+    "touch_interval_ms": 250,
+    "trial": 1,
+    "outcome": "PASS",
+    "slowdown": 1.15306009661752,
+    "detector_alarm": false
+   },
+   {
+    "level": "dose-minus512mib",
+    "touch_interval_ms": 250,
+    "trial": 2,
+    "outcome": "PASS",
+    "slowdown": 1.167307797507686,
+    "detector_alarm": false
+   },
+   {
+    "level": "dose-plus0mib",
+    "touch_interval_ms": 250,
+    "trial": 1,
+    "outcome": "PASS",
+    "slowdown": 1.2043928869420681,
+    "detector_alarm": true
+   },
+   {
+    "level": "dose-plus0mib",
+    "touch_interval_ms": 250,
+    "trial": 2,
+    "outcome": "PASS",
+    "slowdown": 1.2227301031806788,
+    "detector_alarm": true
+   },
+   {
+    "level": "dose-plus256mib",
+    "touch_interval_ms": 250,
+    "trial": 1,
+    "outcome": "FAIL",
+    "slowdown": 2.3730667151953084,
+    "detector_alarm": true
+   },
+   {
+    "level": "dose-plus256mib",
+    "touch_interval_ms": 250,
+    "trial": 2,
+    "outcome": "FAIL",
+    "slowdown": 2.3522229031844026,
+    "detector_alarm": true
+   },
+   {
+    "level": "dose-plus512mib",
+    "touch_interval_ms": 250,
+    "trial": 1,
+    "outcome": "FAIL",
+    "slowdown": 2.3751728288718086,
+    "detector_alarm": true
+   },
+   {
+    "level": "dose-plus512mib",
+    "touch_interval_ms": 250,
+    "trial": 2,
+    "outcome": "FAIL",
+    "slowdown": 2.2832809109577084,
+    "detector_alarm": true
+   },
+   {
+    "level": "dose-plus256mib",
+    "touch_interval_ms": 0,
+    "trial": 1,
+    "outcome": "PASS",
+    "slowdown": 1.0336033490456191,
+    "detector_alarm": true
+   },
+   {
+    "level": "dose-plus256mib",
+    "touch_interval_ms": 0,
+    "trial": 2,
+    "outcome": "INCONCLUSIVE",
+    "slowdown": null,
+    "detector_alarm": false
+   },
+   {
+    "level": "dose-plus512mib",
+    "touch_interval_ms": 0,
+    "trial": 1,
+    "outcome": "INCONCLUSIVE",
+    "slowdown": null,
+    "detector_alarm": false
+   }
+  ],
+  "true_positive": 4,
+  "false_positive": 3,
+  "false_negative": 0,
+  "true_negative": 2,
+  "valid_trials": 9
+ },
+ "remedy": {
+  "status": "evaluated",
+  "rows": [
+   {
+    "intervention": "original",
+    "outcome": "FAIL",
+    "slowdown": 2.343646494812293,
+    "trial_ratios": [
+     2.350061519888849,
+     2.3372314697357366
+    ],
+    "cotenant_mib": 3709,
+    "operation": "fresh re-validation of the original witness"
+   },
+   {
+    "intervention": "release-owned-holder",
+    "outcome": "PASS",
+    "slowdown": 1.0097984690101158,
+    "trial_ratios": [
+     1.0202153724254241,
+     0.9993815655948074
+    ],
+    "cotenant_mib": 0,
+    "operation": "owned holder removed before target"
+   },
+   {
+    "intervention": "serialize-owned-background",
+    "outcome": "PASS",
+    "slowdown": 0.9984992292452047,
+    "trial_ratios": [
+     0.9983393915517176,
+     0.9986590669386919
+    ],
+    "cotenant_mib": 0,
+    "operation": "owned holder removed before target"
+   },
+   {
+    "intervention": "release-half-owned-bytes",
+    "outcome": "PASS",
+    "slowdown": 1.1010365778599,
+    "trial_ratios": [
+     1.1006951963458433,
+     1.1013779593739565
+    ],
+    "cotenant_mib": 1854,
+    "operation": "owned allocation reduced"
+   },
+   {
+    "intervention": "release-eighth-owned-bytes",
+    "outcome": "PASS",
+    "slowdown": 1.1934333552764143,
+    "trial_ratios": [
+     1.1857939884771045,
+     1.201072722075724
+    ],
+    "cotenant_mib": 3245,
+    "operation": "owned allocation reduced"
+   },
+   {
+    "intervention": "pause-owned-activity",
+    "outcome": "PASS",
+    "slowdown": 1.0104610820735627,
+    "trial_ratios": [
+     1.014653521041535,
+     1.0062686431055903
+    ],
+    "cotenant_mib": 3709,
+    "operation": "owned holder kept, accesses stopped"
+   }
+  ]
+ },
+ "data_origin": "live measurement, one laptop, pilot sample sizes"
+}

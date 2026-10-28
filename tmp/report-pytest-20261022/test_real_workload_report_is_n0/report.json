@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "artifact": "experimental witness",
+  "synthetic_workload": false,
+  "primary_metric": "decode_ms_per_token",
+  "data_origin": "HTTP fixture; not a measurement",
+  "mechanism": "unverified",
+  "recipe_signature": "041dd57c42cb347d8a7eaa92bb77d0dc2ef08d9cd5f61881b10509f2f0de03e6",
+  "complete": true,
+  "planned_blocks": 1,
+  "metadata": {
+    "data_origin": "HTTP fixture; not a measurement"
+  },
+  "trials": [
+    {
+      "verdict": {
+        "outcome": "FAIL",
+        "reason": "completed slowdown with recovery; mechanism remains unverified",
+        "slowdown": 3.0,
+        "recovery": 1.1
+      },
+      "stages": [
+        {
+          "stage": "baseline",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 1000,
+          "work_units": 32,
+          "workload_signature": "work",
+          "environment_signature": "env",
+          "pressure_observed": true,
+          "host_pressure": false,
+          "metric": "decode_ms_per_token",
+          "metric_value": 10,
+          "server_statistics": {
+            "prompt_eval_count": 20
+          },
+          "output_sha256": "output",
+          "thinking_sha256": "thought",
+          "prompt_sha256": "4bd49a6bcbf9d73613457c0643b9ea5389a43851b1e4496a69a8fa78ef55fc7c",
+          "model_before": {
+            "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "context_length": 2048,
+            "size": 1000,
+            "size_vram": 1000
+          },
+          "model_after": {
+            "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "context_length": 2048,
+            "size": 1000,
+            "size_vram": 1000
+          }
+        },
+        {
+          "stage": "pressure",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 1000,
+          "work_units": 32,
+          "workload_signature": "work",
+          "environment_signature": "env",
+          "pressure_observed": true,
+          "host_pressure": false,
+          "metric": "decode_ms_per_token",
+          "metric_value": 30,
+          "server_statistics": {
+            "prompt_eval_count": 20
+          },
+          "output_sha256": "output",
+          "thinking_sha256": "thought",
+          "prompt_sha256": "4bd49a6bcbf9d73613457c0643b9ea5389a43851b1e4496a69a8fa78ef55fc7c",
+          "model_before": {
+            "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "context_length": 2048,
+            "size": 1000,
+            "size_vram": 1000
+          },
+          "model_after": {
+            "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "context_length": 2048,
+            "size": 1000,
+            "size_vram": 1000
+          }
+        },
+        {
+          "stage": "recovery",
+          "completed": true,
+          "errors": [],
+          "latency_ms": 1000,
+          "work_units": 32,
+          "workload_signature": "work",
+          "environment_signature": "env",
+          "pressure_observed": true,
+          "host_pressure": false,
+          "metric": "decode_ms_per_token",
+          "metric_value": 11,
+          "server_statistics": {
+            "prompt_eval_count": 20
+          },
+          "output_sha256": "output",
+          "thinking_sha256": "thought",
+          "prompt_sha256": "4bd49a6bcbf9d73613457c0643b9ea5389a43851b1e4496a69a8fa78ef55fc7c",
+          "model_before": {
+            "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "context_length": 2048,
+            "size": 1000,
+            "size_vram": 1000
+          },
+          "model_after": {
+            "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "context_length": 2048,
+            "size": 1000,
+            "size_vram": 1000
+          }
+        }
+      ]
+    }
+  ],
+  "verdict": {
+    "outcome": "FAIL",
+    "reason": "1/1 concordant matched trials",
+    "slowdown": 3.0,
+    "recovery": 1.1
+  },
+  "fresh_validation": false
+}

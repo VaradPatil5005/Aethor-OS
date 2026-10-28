@@ -45,6 +45,8 @@ export interface MemoryFrame {
   lastAccessTick: number;
   loadedAtTick: number;
   isDirty: boolean;
+  /** CLOCK reference bit: set on load and on every access, cleared as the hand sweeps past. */
+  referenced?: boolean;
   color: string;
 }
 

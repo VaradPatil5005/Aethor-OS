@@ -50,16 +50,16 @@ export const CalculatorApp: React.FC = () => {
   ];
 
   return (
-    <div className="h-full w-full bg-[#cecece] text-black flex flex-col p-3 select-none font-pixel min-h-0 min-w-0 overflow-hidden">
+    <div className="h-full w-full text-black flex flex-col p-3 select-none font-pixel min-h-0 min-w-0 overflow-hidden bg-white">
       {/* Display Screen */}
-      <div className="mb-3 bg-white border-2 border-t-black border-l-black border-r-white border-b-white p-2 text-right">
+      <div className="mb-3 bg-white p-2 text-right rt-sunken">
         <div className="font-terminal text-2xl font-bold tracking-wider text-black truncate">
           {display}
         </div>
       </div>
 
       {secretUnlocked && (
-        <div className="mb-2 p-1.5 bg-emerald-100 border border-emerald-700 text-emerald-900 text-[11px] rounded animate-pulse">
+        <div className="mb-2 p-1.5 bg-emerald-100 border border-emerald-700 text-emerald-900 rounded animate-pulse text-[12.5px]">
           <strong>★ SECRET BACKDOOR UNLOCKED (1976) ★</strong>
           <p>Father's Master Safeguard active. Memory and admin keys restored.</p>
         </div>
@@ -77,10 +77,10 @@ export const CalculatorApp: React.FC = () => {
             }}
             className={`py-2 text-sm font-bold border-2 rounded-sm active:translate-y-0.5 shadow-sm ${
               btn === '=' 
-                ? 'bg-indigo-600 text-white border-t-indigo-400 border-l-indigo-400 border-r-black border-b-black hover:bg-indigo-700'
+                ? 'bg-black text-white border-t-indigo-400 border-l-indigo-400 border-r-black border-b-black hover:bg-[#333]'
                 : btn === 'AC'
                 ? 'bg-rose-600 text-white border-t-rose-400 border-l-rose-400 border-r-black border-b-black hover:bg-rose-700'
-                : 'bg-[#dedede] text-black border-t-white border-l-white border-r-black border-b-black hover:bg-white'
+                : 'text-black hover:bg-white bg-[var(--rt-panel)] rt-raised-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
             }`}
           >
             {btn}
@@ -88,7 +88,7 @@ export const CalculatorApp: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-2 text-[10px] text-slate-600 text-center">
+      <div className="mt-2 text-slate-600 text-center text-[12px]">
         AetherOS Calculator Standard Edition
       </div>
     </div>

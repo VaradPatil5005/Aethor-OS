@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "F:\os\AetherOS-Complete-Project\aetheros\agent\spillguard\repro\runner.py", line 224, in run_stage
+    target_ready = target.ready(deadline, heartbeat=sample) if server else target.ready(deadline)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\os\AetherOS-Complete-Project\aetheros\agent\tests\test_repro_ollama.py", line 276, in ready
+    raise RuntimeError("fixture startup failure")
+RuntimeError: fixture startup failure

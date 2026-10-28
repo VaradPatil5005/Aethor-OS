@@ -1,0 +1,19 @@
+{
+  "tools": {
+    "ollama": "C:\\Users\\varad\\AppData\\Local\\Programs\\Ollama\\ollama.EXE",
+    "wpr": "C:\\windows\\system32\\wpr.EXE",
+    "wpa": null,
+    "PIXWin": null,
+    "hypomnesis": null,
+    "cargo": null
+  },
+  "python_modules": {
+    "win32pdh": true,
+    "pynvml": true,
+    "psutil": true,
+    "httpx": true,
+    "win32job": true
+  },
+  "direct_residency_validation": "not established by tool presence",
+  "hypomnesis_comparator": "not matched/validated"
+}

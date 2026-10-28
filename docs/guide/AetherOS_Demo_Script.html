@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AetherOS + SpillGuard — Click-by-Click Presentation Script</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 18mm 15mm;
+    @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 8.5pt "Segoe UI", Arial, sans-serif; color: #666; }
+    @bottom-left { content: "Presentation script · Varad Patil (24BIT0175)"; font: 8.5pt "Segoe UI", Arial, sans-serif; color: #666; } }
+  @page :first { @bottom-right { content: none; } @bottom-left { content: none; } }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Cambria, Georgia, serif; font-size: 10.5pt; line-height: 1.45; color: #1a1a1a; margin: 0; }
+  h1, h2, h3 { font-family: "Segoe UI", Arial, sans-serif; color: #1f4e79; break-after: avoid; }
+  h1 { font-size: 19pt; border-bottom: 2.5pt solid #1f4e79; padding-bottom: 4pt; margin: 0 0 8pt; break-before: page; }
+  h1.first { break-before: auto; font-size: 26pt; border: 0; }
+  h2 { font-size: 13pt; margin: 14pt 0 5pt; }
+  h3 { font-size: 11pt; margin: 10pt 0 4pt; color: #24425f; }
+  p { margin: 0 0 6pt; }
+  ul, ol { margin: 0 0 7pt; padding-left: 17pt; } li { margin-bottom: 2pt; }
+  code { font-family: Consolas, monospace; font-size: 9.3pt; background: #f0f0f0; padding: 0 2pt; border-radius: 2pt; }
+  .step { border: 0.8pt solid #c9d3de; border-left: 4pt solid #1f4e79; border-radius: 3pt; margin: 0 0 8pt; padding: 5pt 8pt 6pt; break-inside: avoid; background: #fff; }
+  .step .n { font-family: "Segoe UI", Arial, sans-serif; font-weight: 800; color: #1f4e79; font-size: 9.5pt; }
+  .row { display: grid; grid-template-columns: 62pt 1fr; gap: 6pt; margin-top: 2.5pt; }
+  .lab { font-family: "Segoe UI", Arial, sans-serif; font-weight: 800; font-size: 8pt; letter-spacing: .4pt; padding: 1.5pt 4pt; border-radius: 2pt; text-align: center; height: fit-content; color: #fff; }
+  .click { background: #1f4e79; } .see { background: #6b7280; } .say { background: #2f7d3a; } .ask { background: #b4321e; } .tip { background: #c08a00; }
+  .sayt { font-style: italic; color: #14361b; }
+  .box { border: 0.8pt solid #e2c27a; background: #fff6e0; padding: 7pt 9pt; border-radius: 3pt; margin: 6pt 0 10pt; break-inside: avoid; }
+  .box.g { border-color: #9cc9a6; background: #e9f6ec; }
+  .box.b { border-color: #c9d3de; background: #eef3f8; }
+  table { border-collapse: collapse; width: 100%; font-size: 9.3pt; margin: 4pt 0 9pt; break-inside: avoid; }
+  th, td { border: 0.6pt solid #c9d3de; padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #eef3f8; font-family: "Segoe UI", Arial, sans-serif; font-size: 8.6pt; }
+  .k { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; background: #eee; border: 0.6pt solid #999; border-radius: 2pt; padding: 0 3pt; font-size: 8.8pt; white-space: nowrap; }
+  .small { font-size: 9pt; color: #555; }
+</style>
+</head>
+<body>
+
+<h1 class="first">Presentation Script — Click by Click</h1>
+<p style="font-family:'Segoe UI';font-size:12pt;color:#333;margin-top:-4pt">AetherOS + SpillGuard · Varad Patil (24BIT0175) · for Prof. Harshita Patel</p>
+<p>Every button name and screen below was checked by clicking through the real app on this laptop. Each step tells you exactly
+what to <b>click</b>, what you will <b>see</b>, what to <b>say</b> to Ma'am, and what she might <b>ask</b>.</p>
+<table>
+  <tr><th style="width:12%">Label</th><th>Meaning</th></tr>
+  <tr><td><span class="lab click">CLICK</span></td><td>Exactly what to press or type. Button names are in <span class="k">boxes</span>.</td></tr>
+  <tr><td><span class="lab see">SEE</span></td><td>What appears on the screen, so you know it worked.</td></tr>
+  <tr><td><span class="lab say">SAY</span></td><td>What to explain, in your own voice. Speak slowly; point at the screen.</td></tr>
+  <tr><td><span class="lab ask">IF ASKED</span></td><td>Likely follow-up questions and short answers.</td></tr>
+  <tr><td><span class="lab tip">TIP</span></td><td>Practical advice so nothing goes wrong.</td></tr>
+</table>
+
+<h2>Running order and timing (about 20 minutes)</h2>
+<table>
+  <tr><th>Part</th><th>What you show</th><th>Time</th></tr>
+  <tr><td>0</td><td>Preparation (before Ma'am arrives)</td><td>10 min before</td></tr>
+  <tr><td>1</td><td>Boot, login, desktop tour</td><td>1.5 min</td></tr>
+  <tr><td>2</td><td>CPU scheduling — Task Manager (Round Robin, MLFQ, two cores, work stealing)</td><td>4 min</td></tr>
+  <tr><td>3</td><td>Memory — paging, page faults, LRU / FIFO / CLOCK</td><td>2.5 min</td></tr>
+  <tr><td>4</td><td>Deadlock — detection, recovery, Banker's algorithm (textbook and on real VRAM)</td><td>3 min</td></tr>
+  <tr><td>5</td><td>Terminal — commands and the protection fault (#GP)</td><td>1.5 min</td></tr>
+  <tr><td>6</td><td>File system — power cut and fsck recovery</td><td>1.5 min</td></tr>
+  <tr><td>7</td><td>eBPF Studio, Test Suite (quick)</td><td>1 min</td></tr>
+  <tr><td>8</td><td>SpillGuard live — real GPU memory of this laptop</td><td>2 min</td></tr>
+  <tr><td>9</td><td>Spill demonstration — replay of a real spill</td><td>2 min</td></tr>
+  <tr><td>10</td><td>Research results — the evidence desk</td><td>3 min</td></tr>
+  <tr><td>11</td><td>Conclusion</td><td>0.5 min</td></tr>
+</table>
+
+<!-- ============ PART 0 ============ -->
+<h1>Part 0 — Preparation (do this before Ma'am comes)</h1>
+<div class="step"><div class="n">PREP 1 — Charge and free memory</div>
+<div class="row"><span class="lab click">DO</span><div>Plug in the charger. Close Chrome/Edge tabs you don't need, WhatsApp, games, Epic Games Launcher, and anything heavy.</div></div>
+<div class="row"><span class="lab tip">WHY</span><div>Your laptop has 16 GB RAM. When I tested, Windows' memory commit was at 90 %, so SpillGuard showed a <b>RAM_PRESSURE</b> event and the "Will it fit?" check said UNSAFE because of RAM. With apps closed it shows the normal healthy picture.</div></div></div>
+<div class="step"><div class="n">PREP 2 — Start the project</div>
+<div class="row"><span class="lab click">DO</span><div>Open the project folder <code>aetheros</code> and double-click <code>START_DEMO.bat</code>. A black window opens and stays open — <b>do not close it</b> during the presentation.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>The browser opens by itself at <code>http://127.0.0.1:8765/…</code> with the AetherOS boot screen.</div></div>
+<div class="row"><span class="lab tip">TIP</span><div>Always use the browser tab that <code>START_DEMO.bat</code> opens. That link carries a secret one-time token; if you type the address yourself, the Live GPU data will not connect (SpillGuard will say "Waiting for the agent…"). If that happens, close the black window and double-click <code>START_DEMO.bat</code> again.</div></div>
+<div class="row"><span class="lab tip">TIP</span><div>Press <span class="k">F11</span> in the browser for full screen — it looks much better on a projector.</div></div></div>
+<div class="step"><div class="n">PREP 3 — Do one practice run, then refresh</div>
+<div class="row"><span class="lab do click">DO</span><div>Go through Parts 1–4 quickly once. Then press <span class="k">F5</span> to reload so Ma'am sees a fresh boot. (Reloading resets the simulated kernel to tick 0.)</div></div></div>
+<div class="box"><b>Window buttons</b> (top-right of every AetherOS window, left to right): <b>green = minimize</b>, <b>yellow = maximize</b>, <b>red = close</b>.
+Maximize each app when you present it, and close it with red when you move on — otherwise windows pile up on top of each other. Closing a window does <b>not</b> stop the kernel: processes keep running in the background.</div>
+
+<!-- ============ PART 1 ============ -->
+<h1>Part 1 — Boot, login and desktop tour</h1>
+<div class="step"><div class="n">STEP 1 — Boot screen</div>
+<div class="row"><span class="lab see">SEE</span><div>"AetherOS System 7 — Deterministic Microkernel" with a progress bar: <i>Initializing AetherOS Microkernel… Mounting Inode Virtual File System… Initializing Dual-Core Schedulers (MLFQ/RR)… Allocating 32-Frame Virtual Memory Matrix… Ready.</i></div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Ma'am, my project has two parts. AetherOS is an operating-system simulator I built that runs in the browser — you can see it booting: it mounts a file system, starts two CPU schedulers and allocates 32 memory frames. The second part, SpillGuard, is a real monitoring agent for the GPU memory of this laptop. The kernel here is a simulation for teaching; SpillGuard measures real hardware."</div></div></div>
+
+<div class="step"><div class="n">STEP 2 — Login ("password")</div>
+<div class="row"><span class="lab click">CLICK</span><div>Click the <span class="k">Enter Password</span> box, type <code>Varad</code>, press <span class="k">Enter</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>The name above the box changes to "Varad" as you type. The hint bubble says "It's open. Just press Enter." After Enter, the desktop appears with a welcome popup.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"The login is open for the demo — whatever name I type personalises the session; there is no real password check."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"Is there authentication?" — <i>"Not for the simulator. For the real SpillGuard agent there is security: it only listens on 127.0.0.1, needs a random session token, and checks the Host and Origin headers."</i></div></div></div>
+
+<div class="step"><div class="n">STEP 3 — Welcome popup</div>
+<div class="row"><span class="lab see">SEE</span><div>"Aethor OS is an interactive desktop inspired by classic Mac OS… New: SpillGuard shows your real GPU memory live, and catches the moment it spills into system RAM. Built by Varad."</div></div>
+<div class="row"><span class="lab click">CLICK</span><div>The small red <span class="k">x</span> at the popup's top-right corner.</div></div></div>
+
+<div class="step"><div class="n">STEP 4 — Desktop tour (just point, don't open yet)</div>
+<div class="row"><span class="lab see">SEE</span><div>
+<b>Left icons:</b> ReadMe.txt, Calculator, <b>Dash's Journal</b> (= the Task Manager / CPU scheduler), <b>archive</b> (= Finder, the file system), <b>eBPF Studio</b>, <b>SpillGuard</b>.<br>
+<b>Right:</b> My Socials, Community. <b>Bottom dock:</b> Finder, Internet, Music, Messages, <b>Terminal</b> (the <code>&gt;_</code> icon), Trash.<br>
+<b>Top menu bar:</b> logo menu, File, Edit, View, <b>Kernel</b>, <b>Diagnostic</b>. Bottom-right: the bird <b>Zephyr</b>, which gives tips.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"This is the desktop. The OS features are in these apps and menus: the Kernel menu controls the CPU clock and scheduler, the Diagnostic menu opens the test suite, deadlock engine, memory map and challenges, and the Edit menu can inject faults — a deadlock, a power cut or a protection fault. The bird in the corner gives tips and warns when GPU memory spills."</div></div>
+<div class="row"><span class="lab click">CLICK</span><div>(Optional) Click <span class="k">Kernel</span> in the menu bar to show: <i>Pause Clock, Step Single Tick, Scheduler: MLFQ ✓, ROUND_ROBIN, SRTF, FCFS, PRIORITY</i>. Press <span class="k">Esc</span> to close it.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"The kernel runs on a clock: every 800 milliseconds is one tick, one unit of CPU time. I can pause it or step one tick at a time to explain exactly what happens."</div></div></div>
+
+<!-- ============ PART 2 ============ -->
+<h1>Part 2 — CPU scheduling (Task Manager)</h1>
+<div class="step"><div class="n">STEP 5 — Open the Task Manager</div>
+<div class="row"><span class="lab click">CLICK</span><div>Desktop icon <span class="k">Dash's Journal</span>. Then the <b>yellow</b> button at the window's top-right to maximize.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>Title "Task Manager - Dual-Core SMP Scheduler". Top bar: <span class="k">Pause Clock</span>, "Tick: #…", "Policy: MLFQ (Multi-Level Feedback)", Speed slider. Two boxes "CPU Core 0 (Primary)" and "CPU Core 1 (Secondary)" each with <i>Load %, CURRENT, RUNQUEUE, STOLEN</i>. Two coloured timelines. "Spawn Process" form. At the bottom the "Process Control Block (PCB) Multi-Core Register Table".</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"This is the scheduler on two simulated CPU cores. The table at the bottom is the Process Control Block: for each process its PID, state, core affinity, the last core it ran on, remaining burst over total burst, waiting time, and its MLFQ queue level. At boot four system processes were created — kernel_daemon, window_manager, audio_server, network_sync — and you can see they are already TERMINATED because they finished their CPU bursts. The timelines are Gantt charts of the last 30 ticks, one row per core; grey means idle."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"What is a PCB?" — <i>"The record the OS keeps per process: ID, state, priority, CPU-time used and remaining, memory frames, locks held and so on."</i></div></div></div>
+
+<div class="step"><div class="n">STEP 6 — Set up a Round Robin experiment</div>
+<div class="row"><span class="lab click">CLICK</span><div>
+1. <span class="k">Pause Clock</span> (it changes to "Resume Clock").<br>
+2. Policy dropdown → <span class="k">Round Robin (Preemptive)</span>.<br>
+3. In Spawn Process: click the name box, delete the text, type <code>A</code>. Click the <b>Burst</b> box, type <code>8</code>. Click <span class="k">+ Dispatch Process</span>.<br>
+4. Name box → type <code>B</code> → <span class="k">+ Dispatch Process</span>. Name box → <code>C</code> → <span class="k">+ Dispatch Process</span>.</div></div>
+<div class="row"><span class="lab tip">TIP</span><div>After each dispatch the name box changes to something like "task_716" — type the new name every time. Burst stays 8. Burst can be at most 50.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"I paused the clock and created three processes A, B and C, each needing 8 ticks of CPU. In Round Robin each process gets a time quantum of 4 ticks, then goes to the back of the queue. New processes are placed on the core with the shorter run queue — that is load balancing."</div></div></div>
+
+<div class="step"><div class="n">STEP 7 — Run it and read the Gantt chart</div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Resume Clock</span>. Wait about 15–20 seconds, pointing at the two timelines.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>(Real result from my test, PIDs will differ:) <b>CPU 0</b>: A's PID four times, then C's PID four times, then A again. <b>CPU 1</b>: B runs alone. When B finishes, CPU 1's <b>STOLEN</b> becomes <b>+1</b> and C's PID appears on CPU 1.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Look at Core 0: A ran exactly 4 ticks — its quantum — then it was preempted and C ran for 4 ticks, then A came back. That is Round Robin. B was alone on Core 1. And when Core 1 became empty it stole work from Core 0's queue: the STOLEN counter became plus one. That is work stealing — an idle core takes half of the other core's waiting tasks from the tail of its queue, which is how real multi-core schedulers keep all cores busy."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"What if the quantum is very large?" — <i>"Round Robin becomes FCFS; too small and we waste time on context switches."</i> &nbsp;"How do you count context switches?" — <i>"Every tick where a core runs a different PID than in the previous tick."</i> &nbsp;"What is affinity?" — <i>"Pinning a process to one core. In the PCB table I can click the AFFINITY cell to toggle it, or choose Core 0 Only / Core 1 Only when spawning."</i></div></div></div>
+
+<div class="step"><div class="n">STEP 8 — MLFQ (the default algorithm)</div>
+<div class="row"><span class="lab click">CLICK</span><div>Policy → <span class="k">MLFQ (Multi-Level Feedback)</span>. Name <code>longjob</code>, Burst <code>50</code>, <span class="k">+ Dispatch Process</span>. Scroll the PCB table down to the new row and watch its <b>LEVEL</b> column for ~20 seconds.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>LEVEL goes <b>Q0 → Q1 → Q2</b> as the job keeps using its full time slice.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"MLFQ has three queues with quanta 4, 8 and 16 ticks. A new job starts in Q0, the highest priority. If it uses its whole quantum, it is CPU-bound, so it is demoted to Q1, then Q2. Short interactive jobs stay on top. To prevent starvation, every 40 ticks all jobs are boosted back to Q0 — that is aging. MLFQ approximates Shortest-Job-First without knowing burst times in advance."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"Other algorithms?" — <i>"FCFS picks the earliest arrival, SJF the shortest total burst, SRTF the shortest remaining time, Priority the smallest priority number. All six are in this dropdown and in the Kernel menu."</i></div></div></div>
+
+<!-- ============ PART 3 ============ -->
+<h1>Part 3 — Memory: paging and page replacement</h1>
+<div class="step"><div class="n">STEP 9 — Fill the memory (still in Task Manager)</div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Pause Clock</span>. Burst box → <code>50</code>. Click <span class="k">+ Dispatch Process</span> <b>9 times</b> (any names are fine). Then <span class="k">Resume Clock</span>. Close the Task Manager with the <b>red</b> button.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Each process I create needs 16 KB, which is 4 pages of 4 KB. The machine has only 32 frames, so 8 processes fill the memory and the 9th must cause page faults."</div></div></div>
+
+<div class="step"><div class="n">STEP 10 — Open the Memory Map</div>
+<div class="row"><span class="lab click">CLICK</span><div>Menu bar <span class="k">Diagnostic</span> → <span class="k">Virtual Memory Map</span>. Maximize (yellow).</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"Virtual Memory &amp; Paging Unit", Eviction Policy dropdown (LRU), four boxes: <i>Total Physical RAM 128 KB (32 Frames)</i>, <i>Allocated Frames 32 Used / 0 Free</i>, <i>Memory Load 100%</i>, <i>Total Page Faults</i> (a number above 0 — I got 6). Below: a 4×8 grid of frames F0–F31, coloured by owner process with its PID.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"This is the physical frame map — 32 frames of 4 KB. Every colour is one process. Memory is now 100% full, so when the last process arrived there was no free frame: those were page faults, and the replacement policy chose victim frames from other processes. The policy is LRU, Least Recently Used: it evicts the frame whose last access is oldest."</div></div></div>
+
+<div class="step"><div class="n">STEP 11 — Inspect a frame</div>
+<div class="row"><span class="lab click">CLICK</span><div>Click frame <span class="k">F0</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"Frame #0 Inspector — Status: Allocated, Owning PID: …, Virtual Page: 0, Last Access Tick: #…"</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Each frame records which process and which virtual page it holds, and the last tick it was accessed. Every tick a process runs, its frames are touched — that timestamp is what LRU uses, and the reference bit is what CLOCK uses."</div></div></div>
+
+<div class="step"><div class="n">STEP 12 — Change the policy</div>
+<div class="row"><span class="lab click">CLICK</span><div>Eviction Policy dropdown → show the four options: <i>LRU, FIFO, Clock (Second Chance), Optimal (needs future refs: runs LRU)</i>. Choose <span class="k">Clock (Second Chance)</span>.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"FIFO evicts the page loaded first; it can suffer Belady's anomaly. CLOCK is what real operating systems use: a hand sweeps the frames in a circle; if a frame's reference bit is 1 it gets a second chance — the bit is cleared — and if it is 0 it is evicted. Optimal would evict the page used farthest in the future, but no real system knows the future, so I label it honestly: it falls back to LRU."</div></div>
+<div class="row"><span class="lab tip">TIP</span><div>The new policy applies to the <i>next</i> eviction. To show it, open Task Manager and dispatch one more process, then come back — Total Page Faults increases by 4.</div></div></div>
+
+<div class="step"><div class="n">STEP 13 — The real-GPU "twin view"</div>
+<div class="row"><span class="lab click">CLICK</span><div>Scroll down inside the Memory Map.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"Twin view · real GPU memory (live)": a bar "VRAM = physical frames · 5.86 GB on NVIDIA GeForce RTX 3050 6GB Laptop GPU" and below it "Shared system RAM = backing store · spilled pages live here", then per-process bars.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"This is the bridge to my second part. On a real GPU the same idea exists: the VRAM on the graphics card is like physical frames, and system RAM acts as the backing store. When VRAM is full, Windows moves GPU data into system RAM — exactly like paging. These bars are the real memory of this laptop's GPU right now."</div></div>
+<div class="row"><span class="lab click">CLICK</span><div>Close the Memory Map (red).</div></div></div>
+
+<!-- ============ PART 4 ============ -->
+<h1>Part 4 — Deadlock and Banker's algorithm</h1>
+<div class="step"><div class="n">STEP 14 — Open the Deadlock Engine</div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Diagnostic</span> → <span class="k">Open Deadlock Engine</span>. Maximize (yellow).</div></div>
+<div class="row"><span class="lab see">SEE</span><div>Green bar "SYSTEM HEALTHY (No Circular Wait) — All process resource allocation matrices verified acyclic", a red <span class="k">Inject Deadlock</span> button, the Banker's table, and "Banker's algorithm on real VRAM (live)" below.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"A deadlock needs four conditions at once: mutual exclusion, hold-and-wait, no preemption and circular wait. The engine checks continuously for a circular wait."</div></div></div>
+
+<div class="step"><div class="n">STEP 15 — Inject a deadlock</div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Inject Deadlock</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>Red bar "DEADLOCK DETECTED (Tarjan SCC Cycle) — Cyclic dependency found among PIDs: [x, y]" and "PREEMPT OFFENDING CYCLE PROCESSES:" with buttons <span class="k">Preempt PID #x</span> <span class="k">Preempt PID #y</span>.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"I created two threads. Alpha holds the GPU mutex and waits for the disk mutex; Beta holds the disk mutex and waits for the GPU mutex. The engine builds a wait-for graph — an arrow from a process to the process holding what it waits for — and runs a depth-first search. If the search reaches a node that is still on its recursion stack, there is a cycle: deadlock. It found the cycle between these two PIDs."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"It says Tarjan — is that what you implemented?" — <i>"The detection is DFS-based cycle detection with a recursion stack (back edge = cycle). Tarjan's strongly-connected-components algorithm is also DFS-based; my implementation uses the simpler back-edge method, which is O(V+E)."</i> &nbsp;"How did you create the deadlock?" — <i>"Edit menu → Simulate Deadlock does the same thing."</i></div></div></div>
+
+<div class="step"><div class="n">STEP 16 — Recover</div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Preempt PID #x</span> (the first one).</div></div>
+<div class="row"><span class="lab see">SEE</span><div>The bar turns green again: "SYSTEM HEALTHY (No Circular Wait)".</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Recovery by preemption: terminating one process on the cycle releases its lock, the circular wait is broken, and the other can continue."</div></div></div>
+
+<div class="step"><div class="n">STEP 17 — Banker's algorithm (avoidance)</div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Compute Safe Sequence</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"Safe State Discovered! Safe Execution Sequence: P1 → P3 → P4 → P0 → P2".</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Detection finds a deadlock after it happens; Banker's algorithm avoids it. Each process declares its maximum need. Need equals Max minus Allocation. Available is 3, 3, 2. P1 needs 1, 2, 2, which fits, so it can finish and return what it holds — work becomes 5, 3, 2. Then P3, P4, P0 and P2 can finish. Because an order exists in which everyone finishes, the state is safe."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"Is unsafe the same as deadlock?" — <i>"No. Unsafe means a deadlock may happen; safe guarantees it cannot."</i></div></div></div>
+
+<div class="step"><div class="n">STEP 18 — Banker's on REAL GPU memory</div>
+<div class="row"><span class="lab click">CLICK</span><div>Scroll down to "Banker's algorithm on real VRAM (live)". Drag the slider "Run Safety Check for a new launch claiming … GB" to the right, to about <b>5.5 GB</b>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>A table of real processes with Allocation / Max / Need in MB, "NEW LAUNCH" at the bottom, and two boxes: <b>Textbook Banker's: SAFE</b> and <b>Long-lived processes (SpillGuard): DENY</b> — e.g. "needs 5.5 GB VRAM, 4.1 GB free; pythonw.exe holds 1.2 GB".</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Here I use the same Banker's code on the real VRAM of this laptop. Allocation is what each real process holds now, Max is its peak times 1.1, and the new program — say an AI model — claims 5.5 GB. The textbook algorithm says SAFE because it assumes every process eventually finishes and returns its memory. But real apps like a browser or a game never finish, so SpillGuard reserves their remaining need and says DENY — launching this would push memory into overflow. That disagreement is one of my findings: textbook Banker's is too optimistic for long-running programs."</div></div>
+<div class="row"><span class="lab tip">TIP</span><div>Process names depend on what is running on the laptop. Move the slider left to about 3 GB to show both boxes say SAFE / ADMIT. Close the Deadlock window (red) when done.</div></div></div>
+
+<!-- ============ PART 5 ============ -->
+<h1>Part 5 — Terminal and the protection fault</h1>
+<div class="step"><div class="n">STEP 19 — Open the terminal</div>
+<div class="row"><span class="lab click">CLICK</span><div>Dock icon <span class="k">&gt;_</span> (Terminal). Click inside the input line.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"aethersh v2.4 - Aether Shell CLI", prompt <code>varad@aether:/user$</code>.</div></div></div>
+
+<div class="step"><div class="n">STEP 20 — Process list</div>
+<div class="row"><span class="lab click">CLICK</span><div>Type <code>ps</code> and press Enter.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>Table: PID, NAME, STATE, PRIO, CORE, BURST, REMAIN, MEM, and "[SMP LOAD] Core 0: …% (… stolen) | Core 1: …%".</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Like ps on Linux — every process with its state, priority, core affinity, burst and memory. The shell talks directly to the same kernel the windows show."</div></div></div>
+
+<div class="step"><div class="n">STEP 21 — General Protection Fault</div>
+<div class="row"><span class="lab click">CLICK</span><div>Type <code>gpf</code> and press Enter.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"[GENERAL PROTECTION FAULT] Trapped invalid memory access! PID: … Illegal Address: 0x0020 (Access Ring: RING_3) EIP … ESP … CR3 … EAX … CS 0x0073 EFLAGS … Process halted and placed in WAITING state."</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"CPUs have privilege rings: ring 0 is the kernel, ring 3 is user programs. In my address space 0x0000 to 0x3FFF is kernel memory. A user process tried to read address 0x0020, which is inside the kernel, so the memory manager trapped it as a General Protection Fault, stopped the process and printed a register dump: EIP is the faulting instruction, ESP the stack pointer, CR3 the page-table base, and CS 0x73 shows it was user-mode code."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"Are those register values real?" — <i>"They are generated for illustration; the mechanism — check the ring and the address range, then trap — is the real concept."</i></div></div></div>
+
+<div class="step"><div class="n">STEP 22 — Other commands (pick 2–3)</div>
+<div class="row"><span class="lab click">CLICK</span><div><code>memstat</code> (RAM and page faults) · <code>sched SRTF</code> (switch scheduler) · <code>bpf</code> (probe maps) · <code>spillguard status</code> (real GPU table) · <code>help</code> (full list). Type <code>clear</code> to clean the screen. Close the terminal (red).</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"spillguard status prints the real VRAM, shared memory and RAM of this laptop per process — the same data as the SpillGuard window, inside my OS shell."</div></div></div>
+
+<!-- ============ PART 6 ============ -->
+<h1>Part 6 — File system: power cut and recovery</h1>
+<div class="step"><div class="n">STEP 23 — Open Finder</div>
+<div class="row"><span class="lab click">CLICK</span><div>Desktop icon <span class="k">archive</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"Finder - Crash-Consistent WAL Inodes". Left: Root (/), User space, Config (etc); a <b>Superblock</b> box: <i>CLEAN, Mount: online, Inodes: 5 / 64, WAL entries: 0</i>, <span class="k">View WAL ring</span>; "Crash consistency": <span class="k">Power cut</span>, <span class="k">Run fsck</span>. Files readme.txt and manifest.json.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Each file is an inode — a record with its name, size, permissions and parent folder. The superblock describes the whole disk: clean or dirty, mounted or not."</div></div></div>
+
+<div class="step"><div class="n">STEP 24 — Create a file (journaled)</div>
+<div class="row"><span class="lab click">CLICK</span><div>Click the box "new_file.txt", type <code>notes.txt</code>, click <span class="k">+ Create</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>notes.txt appears; Inodes 6 / 64; WAL entries 1.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Every change is first written to a journal — write-ahead logging. The entry goes PENDING, then COMMITTED, then CHECKPOINTED when it is applied to the inode table."</div></div></div>
+
+<div class="step"><div class="n">STEP 25 — Power cut</div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Power cut</span>, then <span class="k">View WAL ring</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>Red bar "Crash detected: dirty WAL blocks", "Disk unmounted after a power cut", Superblock <b>DIRTY</b>, Mount: unmounted. The WAL table shows #100 CREATE /user/notes.txt <b>CHECKPOINTED</b> and #101 WRITE /user/dirty_buffer.tmp <b>PENDING</b>.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"I simulated a sudden power failure in the middle of a write. The disk is now dirty and unmounted, and the journal has one torn write that never committed."</div></div></div>
+
+<div class="step"><div class="n">STEP 26 — fsck recovery</div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Run fsck recovery</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>Dialog "fsck: crash-consistency recovery — Journal replayed": Phase 1 scanning… "Found uncommitted torn Txn #101 (/user/dirty_buffer.tmp). Rolling back dirty transaction." Phase 2 "1 torn txn rolled back, 0 replayed… Superblock marked CLEAN. Remounted VFS."</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"fsck reads the journal: anything committed but not yet applied is replayed; anything still pending is rolled back. So the file system is never left half-written — notes.txt survived, the torn write disappeared. This is how ext4 and NTFS journaling work."</div></div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Done (remount)</span>, then close Finder (red).</div></div></div>
+
+<!-- ============ PART 7 ============ -->
+<h1>Part 7 — eBPF Studio and the Test Suite (quick)</h1>
+<div class="step"><div class="n">STEP 27 — eBPF Studio</div>
+<div class="row"><span class="lab click">CLICK</span><div>Desktop icon <span class="k">eBPF Studio</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>Left: "Compile &amp; attach a probe" form; "Attached probes (3)": sched_switch_counter (SCHED_SWITCH), mm_page_fault_tracer (PAGE_FAULT), vfs probe — each with an ON switch. Right: "Map: sched_switch_counter BPF_MAP_TYPE_HASH" with hits per PID, "Ring buffer stream" of events, and "Real host events · SpillGuard (live)".</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"On Linux, eBPF lets small safe programs attach to kernel events and count them in maps. I simulate that: one probe counts context switches per process, one counts page faults. And the bottom box shows real events from SpillGuard on this laptop — spills and RAM pressure — in the same tracing view."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"Does it really compile bytecode?" — <i>"No, the probe engine is simulated: the script is a label and the kernel dispatches events to matching probes. The real-host events panel is real."</i></div></div></div>
+
+<div class="step"><div class="n">STEP 28 — Kernel Test Suite</div>
+<div class="row"><span class="lab click">CLICK</span><div>Close eBPF Studio. <span class="k">Diagnostic</span> → <span class="k">Run Kernel Test Suite</span>. Click <span class="k">Run all tests</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"Kernel verification suite — 13 / 13 all passing": FCFS, Round Robin ("Core 0 ran A A B B…"), SRTF, MLFQ aging, LRU, FIFO, Banker's unsafe state, cycle detection, inodes, terminal integration, state export/import. Tabs: Event journal, Disk snapshot.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"The kernel tests itself inside the app. Outside, I also have 66 automated front-end tests and 149 Python tests for the agent, all passing. While building it I found and fixed a real scheduler bug: a running process was skipped forever, so the quantum never applied; this test now proves Round Robin works."</div></div>
+<div class="row"><span class="lab click">CLICK</span><div>Close it (red).</div></div></div>
+
+<!-- ============ PART 8 ============ -->
+<h1>Part 8 — SpillGuard live: the real GPU</h1>
+<div class="step"><div class="n">STEP 29 — Explain the problem first (no click)</div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Now the real part. A GPU has its own fast memory, VRAM — this laptop has 6 GB. If programs together need more than that, Windows and the NVIDIA driver don't show an error; they silently put the extra data in normal system RAM, reached over the PCIe bus. I measured that VRAM gives about 163 GB per second but data in system RAM only 13 GB per second — about 12 times slower. The program just becomes slow and nobody knows why. This is called a spill. Even CUDA's own 'how much is free' function said 0 MB free while allocations kept succeeding, so programs cannot see it. SpillGuard detects it from outside."</div></div></div>
+
+<div class="step"><div class="n">STEP 30 — Open SpillGuard</div>
+<div class="row"><span class="lab click">CLICK</span><div>Desktop icon <span class="k">SpillGuard</span>. Maximize (yellow).</div></div>
+<div class="row"><span class="lab see">SEE</span><div>Header: "NVIDIA GeForce RTX 3050 6GB Laptop GPU · driver 581.83", buttons <span class="k">Simulated</span> <span class="k">Live</span> <span class="k">Replay</span>, and a green "● agent 127.0.0.1:8765". Green banner "No heuristic alert · …% of VRAM in use". Three gauges: <b>Dedicated VRAM</b> (with OS budget and 92 % marks), <b>Shared GPU memory</b> (cap = ½ RAM), <b>RAM commit</b>. A "Last … s" chart. "Per-process memory tiers". "Admission check (Banker's)". "Events". Then the evidence desk further down.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"This is live data from the Python agent running on this laptop. Once per second it reads Windows' own GPU performance counters — the same ones Task Manager uses — for every process: how much is in VRAM (blue) and how much is in shared system memory (red if it is a spill). The first gauge is VRAM with two marks: the budget Windows suggests and my 92 % alarm level. The second is shared GPU memory, whose limit is half of RAM. The third is RAM commit — if the whole computer runs out of RAM that is a different problem, which I label type C."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"Where do the numbers come from?" — <i>"Windows PDH counters 'GPU Process Memory — Dedicated and Shared Usage', DXGI for the physical VRAM size, NVIDIA's NVML as a cross-check, psutil for RAM, and Ollama's API for AI models. No admin rights needed."</i></div></div></div>
+
+<div class="step"><div class="n">STEP 31 — Will this AI model fit? (Banker's admission)</div>
+<div class="row"><span class="lab click">CLICK</span><div>In "Admission check (Banker's)": model <span class="k">qwen2.5:3b-instruct</span>, <span class="k">ctx 8192</span>, <span class="k">f16</span> → <span class="k">Will it fit?</span> (takes a few seconds).</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"weights 1.79 GB · KV 288 MB · buffers 346 MB · CUDA 235 MB = 2.64 GB" and a verdict (SAFE / UNSAFE with a reason).</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Before launching an AI model SpillGuard predicts its GPU memory: weights, plus the KV cache — the memory that stores past tokens, which grows with context length — plus buffers and the CUDA context. I calibrated this on this laptop; the average error was 46 MB, while Ollama's own estimate was off by about 900 MB. Then it runs Banker's safety check with VRAM and RAM as the resources."</div></div>
+<div class="row"><span class="lab tip">TIP</span><div>If it says "UNSAFE — needs … commit, … free", that is about <b>RAM</b>, not VRAM: say <i>"it refuses because this laptop's system RAM is nearly full right now — exactly the type C protection."</i> Try <span class="k">q4_0</span> or a smaller ctx to show the estimate shrink.</div></div></div>
+
+<!-- ============ PART 9 ============ -->
+<h1>Part 9 — Spill demonstration (replay of a real spill)</h1>
+<div class="box b">Why a replay? Causing a real spill on stage fills 6 GB of VRAM and a lot of RAM and could freeze the laptop. The replay plays a trace that was <b>recorded on this same laptop</b> during a real spill — exactly the same frames the live view would show.</div>
+<div class="step"><div class="n">STEP 32 — Start the replay</div>
+<div class="row"><span class="lab click">CLICK</span><div>Scroll to the top of SpillGuard. Click <span class="k">Replay</span>, then <span class="k">Watch the demo spill</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>A player bar: <span class="k">Pause</span>, a seek slider, a speed box (4×), and "W1 spill stress · RTX 3050 6 GB…". VRAM rises steadily as python.exe allocates memory.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"This is a recording of my stress test: a program allocates GPU memory in 256 MB blocks. Watch the blue VRAM bar and the chart climb toward the dashed line, the physical VRAM limit."</div></div>
+<div class="row"><span class="lab tip">TIP</span><div>At 4× the spill comes after about 50 seconds. To save time, set speed to <span class="k">16×</span> or drag the seek slider to about <b>60 %</b> of its length.</div></div></div>
+
+<div class="step"><div class="n">STEP 33 — The spill moment</div>
+<div class="row"><span class="lab see">SEE</span><div>The banner turns <b>red</b>: "Spill heuristic triggered: python.exe (960 MB, 14%)", and a line "Growth heuristic (correlation; cause unverified): python.exe grew by 3.31 GB in the 30 s before the alert." Dedicated VRAM 5.81 / 5.86 GB (red). Shared GPU memory jumps to ~1 GB. python.exe's bar gets a <b>red</b> segment "+960 MB". The bird Zephyr announces the spill.</div></div>
+<div class="row"><span class="lab click">CLICK</span><div><span class="k">Pause</span> right here so Ma'am can read it.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Here VRAM is at its physical limit and the program's shared memory grew by 960 MB — that part now lives in system RAM. My detector fires when three things hold for two seconds in a row: the GPU is at least 92 % full, the process's shared memory is more than 128 MB above its own normal baseline, and it is still rising. It also names the culprit — the process whose VRAM grew most in the 30 seconds before. Here python.exe caused its own spill. Against independent ground truth it caught 3 out of 3 spills, with zero false alarms, within about one second."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"Why a baseline?" — <i>"Browsers and the Windows compositor always keep some shared memory; comparing each process with its own minimum avoids false alarms."</i> &nbsp;"Why 92 % and not the budget?" — <i>"I measured that under pressure the driver fills VRAM to 5954 of 6002 MB, far beyond the 5234 MB budget, so physical capacity is the real limit."</i></div></div>
+<div class="row"><span class="lab click">CLICK</span><div>(Optional) Scroll to <b>Events</b> to show SPILL_START. Press Play to let it finish and show SPILL_END.</div></div></div>
+
+<!-- ============ PART 10 ============ -->
+<h1>Part 10 — Research results (evidence desk)</h1>
+<div class="step"><div class="n">STEP 34 — Set the research question (no click)</div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Detecting a spill is not enough — I wanted to prove how much it actually hurts a real application and what fixes it. So I ran controlled experiments with a real local AI model, Qwen 2.5 3B in Ollama. Each trial has three stages: baseline — the model alone; pressure — the same work with a second program, the co-tenant, holding GPU memory; and recovery — alone again. Same prompt, same 128 tokens, temperature zero, so the output must be identical. A trial counts as FAIL — the application failed to keep its speed — only if it becomes at least 2 times slower and recovers afterwards. Anything doubtful is INCONCLUSIVE, never hidden."</div></div></div>
+
+<div class="step"><div class="n">STEP 35 — Open the headline chart</div>
+<div class="row"><span class="lab click">CLICK</span><div>Scroll down inside SpillGuard to "SpillGuard Repro · evidence desk". The headline "Dose-response + intervention + remedies (all in one)" is already open. Scroll to the chart.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>Four boxes "1 Reproduce · 2 Witness · 3 Intervene · 4 Compare"; a chart of slowdown vs "planned overflow beyond physical VRAM (MiB)" with a "VRAM full" line and a "2× failure threshold" line; red dots at +256 and +512, black dots at −512 and 0; a square for the idle co-tenant.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"I varied how far the total memory demand goes past the 6 GB. At minus 512 MB — everything fits — it's only 1.16 times slower. Exactly at capacity, 1.21. But just 256 MB over capacity, decoding becomes 2.36 times slower — from 14 to 33 milliseconds per token. At 512 over it's the same, 2.33. So it is a cliff, not a slope: the moment you cross VRAM capacity, performance falls off."</div></div></div>
+
+<div class="step"><div class="n">STEP 36 — Every trial is shown</div>
+<div class="row"><span class="lab click">CLICK</span><div>Scroll to the table "Every trial (invalid ones included)".</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"Every trial is listed, with baseline, pressure and recovery times. All failures recovered fully when the pressure was removed. Even the inconclusive ones are kept — two idle trials were stopped by my safety guard because the laptop's RAM commit reached 90 %."</div></div></div>
+
+<div class="step"><div class="n">STEP 37 — Same counters, opposite outcome</div>
+<div class="row"><span class="lab click">CLICK</span><div>Point at the <b>idle</b> rows (square on the chart, 1.03×) and the paragraph "Can memory counters tell harmful from benign pressure?".</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"This is my most interesting finding. I repeated +256 MB with the co-tenant holding exactly the same memory but sitting idle. Windows' memory counters were identical in both cases — same VRAM, same shared memory — yet the active one caused a 2.4 times slowdown and the idle one only 1.03. So counters alone cannot tell harmful from harmless pressure. On these trials my own detector caught all 4 real slowdowns but also raised 3 alarms on harmless runs. The solution is an intervention: change one thing and measure."</div></div>
+<div class="row"><span class="lab ask">IF ASKED</span><div>"Why does activity matter?" — <i>"My working hypothesis is that an active co-tenant makes Windows keep moving pages back and forth between VRAM and RAM — churn — which the counters don't capture. It is not yet proven; it needs ETW/PIX residency tracing, which is future work."</i></div></div></div>
+
+<div class="step"><div class="n">STEP 38 — Which fix works?</div>
+<div class="row"><span class="lab click">CLICK</span><div>Scroll to "Which fix works, and which disrupts least? (+256 MiB witness)".</div></div>
+<div class="row"><span class="lab see">SEE</span><div>none 2.35× (reproduced again) · release whole co-tenant 1.02× · run it after the target 1.00× · release half 1.10× · release one eighth 1.19× · <b>keep every byte, stop touching it 1.01×</b>.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"First the failure was re-validated from scratch — it reproduced again, so it is repeatable: 6 out of 6 trials across two runs. Then each fix: freeing all memory, running the other program later, freeing half, or only one eighth — all work. The best one is the least disruptive: the co-tenant keeps all its memory, it just pauses its activity, and the AI model is back to 1.01. That is a practical remedy."</div></div></div>
+
+<div class="step"><div class="n">STEP 39 — (Optional) Open one real experiment and one real GPU trace</div>
+<div class="row"><span class="lab click">CLICK</span><div>Scroll up to the library list. Under "Dose-response runs" click <span class="k">+256 MiB over capacity — reproduced witness</span>.</div></div>
+<div class="row"><span class="lab see">SEE</span><div>"Slowdown reproduced · live measurement · Run complete", a "Matched block" selector and a table Baseline / Pressure / Recovery with times.</div></div>
+<div class="row"><span class="lab click">CLICK</span><div>Expand "Live GPU traces of the witness (replay)" → <span class="k">▶ +256 MiB trial 1 · pressure</span>. A green note says it was loaded into Replay. Scroll to the very top of SpillGuard and press Play.</div></div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"This is the actual GPU memory recording from that research trial: llama-server is the AI model and python is the co-tenant. Every run is saved with a SHA-256 hash of every file, so the data can't be changed afterwards without detection."</div></div></div>
+
+<!-- ============ PART 11 ============ -->
+<h1>Part 11 — Conclusion</h1>
+<div class="step"><div class="n">STEP 40 — Close</div>
+<div class="row"><span class="lab say">SAY</span><div class="sayt">"To summarise: AetherOS shows the classic OS mechanisms — scheduling on two cores, paging, deadlock detection and avoidance, and journaling — in a way you can see and test. SpillGuard applies the same memory-management idea to a real, modern problem: GPU memory silently spilling into system RAM. I built a live detector, used Banker's algorithm for real admission control, and proved with controlled experiments that crossing VRAM capacity by 256 MB makes a local AI model 2.4 times slower, that memory counters alone can't distinguish harmful pressure, and that pausing the other program fixes it while keeping its memory. Limitations: one laptop, one GPU, two trials per level, and the churn mechanism is still a hypothesis. Next I want to verify it with ETW tracing and test more GPUs. Thank you, Ma'am."</div></div></div>
+
+<!-- ============ TROUBLESHOOTING ============ -->
+<h1>If something goes wrong</h1>
+<table>
+  <tr><th style="width:35%">Problem</th><th>What to do</th></tr>
+  <tr><td>SpillGuard says "Waiting for the agent…" or shows only Simulated</td><td>You opened the page without the token. Close the black window, double-click <code>START_DEMO.bat</code> again and use the tab it opens. If time is short, use <b>Replay → Watch the demo spill</b> — it works without the agent.</td></tr>
+  <tr><td>A window opened "behind" another one</td><td>Close the maximized window with red, or minimize it with green. Menu logo → <b>Reset Windows Layout</b> tidies everything.</td></tr>
+  <tr><td>Clicking a menu item seems to do nothing</td><td>The window probably opened under a maximized window — close/minimize the top one.</td></tr>
+  <tr><td>Task Manager timelines are all grey</td><td>All processes finished (or the clock is paused). Dispatch new processes and/or press Resume Clock.</td></tr>
+  <tr><td>"Value must be less than or equal to 50"</td><td>Burst can be at most 50.</td></tr>
+  <tr><td>Memory Map doesn't fill to 32/32</td><td>Processes finished before you looked. Pause Clock, dispatch 9 with burst 50, Resume, open the Memory Map right away.</td></tr>
+  <tr><td>"Will it fit?" says UNSAFE because of commit</td><td>System RAM is nearly full. Explain it as the type C (host RAM) guard, or close apps and try again.</td></tr>
+  <tr><td>Red banner "RAM_PRESSURE" or events of type C</td><td>Same reason — RAM is nearly full. Close browsers/apps.</td></tr>
+  <tr><td>Want a fresh start</td><td>Press <span class="k">F5</span>: the page reloads and the simulated kernel restarts from tick 0.</td></tr>
+  <tr><td>Black START_DEMO window closed by mistake</td><td>Double-click <code>START_DEMO.bat</code> again.</td></tr>
+</table>
+
+<h2>Shortcut map — where everything is</h2>
+<table>
+  <tr><th>Thing</th><th>How to open</th></tr>
+  <tr><td>Task Manager (scheduler)</td><td>Desktop <b>Dash's Journal</b></td></tr>
+  <tr><td>Memory Map</td><td>Diagnostic → Virtual Memory Map</td></tr>
+  <tr><td>Deadlock Engine + Banker's</td><td>Diagnostic → Open Deadlock Engine (or Edit → Simulate Deadlock)</td></tr>
+  <tr><td>Kernel Test Suite</td><td>Diagnostic → Run Kernel Test Suite (or logo menu → Diagnostic Test Runner)</td></tr>
+  <tr><td>KernelQuest challenges</td><td>Diagnostic → KernelQuest Challenges (deadlock, starvation/MLFQ, "Who is the culprit?", "Will this model fit?")</td></tr>
+  <tr><td>Kernel event log</td><td>Logo menu → Kernel Audit Journal</td></tr>
+  <tr><td>Finder (file system, power cut, fsck)</td><td>Desktop <b>archive</b> (or dock Finder)</td></tr>
+  <tr><td>Terminal</td><td>Dock <b>&gt;_</b> (or File → Open Terminal CLI)</td></tr>
+  <tr><td>eBPF Studio</td><td>Desktop <b>eBPF Studio</b></td></tr>
+  <tr><td>SpillGuard</td><td>Desktop <b>SpillGuard</b> (or logo menu → SpillGuard)</td></tr>
+  <tr><td>Pause / step the CPU clock</td><td>Kernel → Pause Clock / Step Single Tick</td></tr>
+  <tr><td>Protection fault</td><td>Terminal <code>gpf</code> (shows the dump) — Edit → Trigger Ring 3 Fault does it silently</td></tr>
+</table>
+<p class="small">Full explanations of every term are in the companion document <b>AetherOS_SpillGuard_Complete_Guide.pdf</b> (sections 17–19: viva questions, glossary and numbers cheat-sheet).</p>
+</body>
+</html>

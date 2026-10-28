@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useKernelStore } from '../../stores/useKernelStore';
 import { useWindowStore, AppId } from '../../stores/useWindowStore';
 import { retroAudio } from '../../utils/audio';
+import { runSpillguardCommand } from '../../spillguard/terminal';
 
 export const TerminalApp: React.FC = () => {
   const { executeTerminalCommand, currentVfsPath, stats } = useKernelStore();
@@ -67,7 +68,7 @@ export const TerminalApp: React.FC = () => {
 
   const formatHelpOutput = () => {
     return (
-      <div className="space-y-3 font-mono text-xs select-text">
+      <div className="space-y-3 select-text">
         <div className="grid grid-cols-[100px_1fr] gap-y-1">
           <span className="text-[#5af78e] font-bold">pwd</span>
           <span className="text-slate-300">Print the current absolute path</span>
@@ -112,6 +113,8 @@ export const TerminalApp: React.FC = () => {
             <span className="text-slate-300">Show RAM allocation & paging faults</span>
             <span className="text-[#5af78e] font-bold">matrix</span>
             <span className="text-slate-300">Toggle digital matrix stream</span>
+            <span className="text-[#5af78e] font-bold">spillguard</span>
+            <span className="text-slate-300">Real GPU memory spill: status, why, events, fit, demo</span>
           </div>
         </div>
       </div>
@@ -124,6 +127,22 @@ export const TerminalApp: React.FC = () => {
     if (!cmd) return;
 
     retroAudio.playClickSound();
+
+    if (/^(spillguard|sg)(\s|$)/i.test(cmd)) {
+      const args = cmd.split(/\s+/).slice(1);
+      setInput('');
+      setHistory((prev) => [...prev, { cmd, output: '…' }]);
+      runSpillguardCommand(args).then((output) =>
+        setHistory((prev) => {
+          const next = [...prev];
+          for (let i = next.length - 1; i >= 0; i--) {
+            if (next[i].cmd === cmd && next[i].output === '…') { next[i] = { cmd, output }; break; }
+          }
+          return next;
+        })
+      );
+      return;
+    }
 
     if (cmd === 'clear' || cmd === 'cls') {
       setHistory([]);
@@ -153,7 +172,14 @@ export const TerminalApp: React.FC = () => {
         'settings': 'settings',
         'tasks': 'task_manager',
         'about': 'about',
-        'readme': 'about'
+        'readme': 'about',
+        'memory': 'memory_map',
+        'memmap': 'memory_map',
+        'deadlock': 'deadlock_lab',
+        'bpf': 'bpf_studio',
+        'quest': 'kernel_quest',
+        'monitor': 'kernel_monitor',
+        'spillguard': 'spillguard'
       };
 
       if (appMap[target]) {
@@ -287,7 +313,7 @@ export const TerminalApp: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full flex flex-col bg-[#111218] p-3 font-terminal text-sm text-emerald-400 select-text overflow-hidden relative min-h-0 min-w-0">
+    <div className="h-full w-full flex flex-col bg-[#222] p-3 font-terminal text-[18px] leading-tight text-[#5af78e] select-text overflow-hidden relative min-h-0 min-w-0">
       {/* Matrix Canvas Overlay */}
       {matrixActive && (
         <div className="absolute inset-0 z-20 bg-black/90 pointer-events-none">
@@ -296,7 +322,7 @@ export const TerminalApp: React.FC = () => {
       )}
 
       {/* Terminal History */}
-      <div ref={terminalScrollRef} className="flex-1 min-h-0 overflow-y-auto space-y-2 pr-1 relative z-10 font-mono text-xs overscroll-contain">
+      <div ref={terminalScrollRef} className="flex-1 min-h-0 overflow-y-auto rt-dark-scroll space-y-2 pr-1 relative z-10 overscroll-contain">
         {history.map((h, i) => (
           <div key={i} className="space-y-1">
             {h.cmd && (
@@ -306,7 +332,7 @@ export const TerminalApp: React.FC = () => {
               </div>
             )}
             {typeof h.output === 'string' ? (
-              <pre className="text-slate-300 whitespace-pre-wrap font-mono leading-relaxed">{h.output}</pre>
+              <pre className="text-[#e0e0e0] whitespace-pre-wrap font-terminal leading-tight">{h.output}</pre>
             ) : (
               h.output
             )}
@@ -316,13 +342,13 @@ export const TerminalApp: React.FC = () => {
       </div>
 
       {/* Terminal Input Bar */}
-      <form onSubmit={handleCommand} className="flex items-center gap-1.5 mt-2 pt-2 border-t border-slate-800 relative z-30 font-mono text-xs shrink-0">
-        <span className="text-indigo-400 whitespace-nowrap font-bold">{activeUser.toLowerCase().replace(/\s+/g, '_')}@aether:{currentVfsPath}$</span>
+      <form onSubmit={handleCommand} className="flex items-center gap-1.5 mt-2 pt-2 border-t border-white/15 relative z-30 shrink-0">
+        <span className="text-[#c792ea] whitespace-nowrap">{activeUser.toLowerCase().replace(/\s+/g, '_')}@aether:{currentVfsPath}$</span>
         <input 
           type="text" 
           value={input} 
           onChange={(e) => setInput(e.target.value)} 
-          className="flex-1 bg-transparent text-white outline-none font-mono"
+          className="rt-bare flex-1 min-w-0 bg-transparent text-white outline-none font-terminal text-[18px]"
           placeholder="type command (e.g. help, open music, ps, matrix)..."
           autoFocus
         />

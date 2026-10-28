@@ -1,0 +1,9 @@
+{
+ "overhead_mb": 234.71,
+ "buffer_slack_mb": 0,
+ "buffer_per_kctx_mb": 6.12,
+ "vision_buffer_mb": 535.39,
+ "n_ubatch": 512,
+ "source": "calibrated 2026-10-09 on NVIDIA GeForce RTX 3050 6GB Laptop GPU, linear+vision, n=9, LOO-MAE 46 MB",
+ "runtime_flash_attn": true
+}
